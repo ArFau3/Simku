@@ -20,9 +20,10 @@ class User extends Authenticatable implements LaratrustUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'nama_lengkap',
+        'no_hp',
     ];
 
     /**
@@ -41,7 +42,8 @@ class User extends Authenticatable implements LaratrustUser
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public $timestamps = true;
 }
