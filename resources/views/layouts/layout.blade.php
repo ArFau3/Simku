@@ -18,19 +18,22 @@
 </head>
     <body>
     @include('layouts.sidebar')
-       <div class="w-auto bg-slate-200 p-5 flex justify-between">
+      <div class="bg-white p-5 flex justify-between">
         <div>
         <img src="/assets/logo.png" alt="logo.png" class="float-left h-full w-20 mr-2">
         <div class="leading-4 float-left h-full">
-        <h3 class="leading-7 font-bold text-xl">KOPERASI SEKADAU CORP</h3>
-        <p>E-Koperasi Kalimantan Barat Terintegrasi</p>
+        <h3 class="leading-7 font-bold text-xl">SISTEM INFORMASI AKUNTANSI</h3>
+        <p>Koperasi Perkebunan Kabupaten Sekadau</p>
         <p>Sekadau No.9 20/003 Sekadau-KalBar</p>
-    </div>
-</div>
+        </div>    
+        </div>
     <img src="/assets/logo-sekadau.png" alt="logo-sekadau.png" class="float-right w-20 mr-2">
        </div>
- 
+ <div class="container float-right lg:w-5/6 py-1 border-2 border-slate-300 bg-slate-400">
+            <p class="float-right">Tapang Dadap - Jumat, 17 November 2023 11:28:30 WIB</p>
+          </div>
         <div class="container">
+          
             @yield('content')
         </div>
 
