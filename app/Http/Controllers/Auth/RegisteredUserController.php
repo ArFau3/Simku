@@ -42,6 +42,9 @@ class RegisteredUserController extends Controller
             'no_hp' => $request->no_hp,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+
+            // SEMENTARA
+            'foto' => strtolower(str_replace(' ', '',$request->username)).".jpg",
         ]);
 
         event(new Registered($user));

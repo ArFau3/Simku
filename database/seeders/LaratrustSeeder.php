@@ -63,11 +63,13 @@ class LaratrustSeeder extends Seeder
             if (Config::get('laratrust_seeder.create_users')) {
                 $this->command->info("Creating '{$key}' user");
                 // Create default user for each role
+                $digit_hp = 10;
                 $user = \App\Models\User::create([
                     'username' => ucwords(str_replace('_', ' ', $key)),
+                    'foto' => lcfirst(str_replace('_', ' ', $key)).".jpg",
                     'password' => bcrypt('password'),
-                    'nama_lengkap' => ucwords(str_replace('_', ' ', $key)),
-                    'no_hp' => ucwords(str_replace('_', ' ', $key)),
+                    'nama_lengkap' => ucwords(str_replace('_', ' ', $key)), 
+                    'no_hp' => "08".rand(pow(10, $digit_hp-1), pow(10, $digit_hp)-1),
                 ]);
                 $user->addRole($role);
             }
