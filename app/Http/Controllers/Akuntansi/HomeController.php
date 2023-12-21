@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Akuntansi;
 
-use App\Models\Rekening;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\VarietasSawit;
 
 class HomeController extends Controller
 {
@@ -18,6 +15,6 @@ class HomeController extends Controller
             'aktif' => 'rekening',
             'judul' => 'Daftar Rekening',
         ];
-        return view('home', $data);
+        return view('akuntansi.home', $data);
     }
 }

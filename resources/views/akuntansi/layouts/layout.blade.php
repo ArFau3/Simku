@@ -17,7 +17,7 @@
 </head>
 
 <body class="">
-    @include('layouts.sidebar')
+    @include('akuntansi.layouts.sidebar')
     <div class="lg:w-5/6 lg:float-right border my-1 min-h-screen">
         <div class="bg-white p-3 sm:p-5 flex justify-between">
             <div class="">

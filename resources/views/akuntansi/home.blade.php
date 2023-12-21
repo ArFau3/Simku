@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('akuntansi.layouts.layout')
 
 @section('content')
     <div>
