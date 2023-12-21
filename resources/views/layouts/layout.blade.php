@@ -18,7 +18,7 @@
 
 <body class="">
     @include('layouts.sidebar')
-    <div class="lg:w-5/6 lg:float-right grid border my-1 min-h-screen">
+    <div class="lg:w-5/6 lg:float-right border my-1 min-h-screen">
         <div class="bg-white p-3 sm:p-5 flex justify-between">
             <div class="">
                 <img src="/assets/logo.png" alt="logo.png"
