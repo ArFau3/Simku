@@ -2,7 +2,7 @@
 <div class="lg:float-left lg:fixed overflow-y-auto lg:w-1/6 bg-zinc-800 lg:translate-x-0 lg:inset-0">
     {{-- SECTION card profile --}}
     <div class="items-center justify-center mt-8">
-        <section class="flex lg:justify-between w-5/6 mx-auto bg-zinc-700 rounded-2xl px-3 py-4 shadow-lg">
+        <section class="flex w-5/6 mx-auto bg-zinc-700 rounded-2xl px-3 py-4 shadow-lg">
             <div class="flex-shrink-0 lg:w-3/6 float-left pr-3">
                 <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-lg "
                     alt="profile picture" srcset="">

@@ -22,6 +22,15 @@ class UserSeeder extends Seeder
             'no_hp' => '08198563768',
     ]);
     $arib->addRole(3);
+
+    $ridwan = User::create([
+        'username' => 'ridwan',
+        'password' => bcrypt('12345678'),
+        'nama_lengkap' => 'Ridwan Firdaus',
+        'foto' => "Arr.jpg",
+        'no_hp' => '08198563768',
+    ]);
+    $ridwan->addRole(4);
     // CREATE faker 20 user
     User::factory(20)->create();
     // attach rolenya
