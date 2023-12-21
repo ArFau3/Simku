@@ -10,8 +10,6 @@
 
             <div class="pr-3 text-white -ml-1">
                 <h3 class="text-2xl pb-0.5 lg:text-base font-bold ">
-                    <?php //($user->getRoles()) ? print ucwords($user->getRoles()[0]) : print 'User';
-                    ?>
                     {{ $user->getRoles() ? ucwords($user->getRoles()[0]) : 'User' }}
                 </h3>
                 <p class="text-xl lg:text-sm">{{ $user->nama_lengkap }}</p>
@@ -41,7 +39,7 @@
             href="/elements">
             <div class="w-full">
                 <button id="menuHeader1" onclick="showMenu1(true)"
-                    class="focus:outline-none text-left flex justify-between items-center w-full">
+                    class="{{ $title === 'Rekening' || $title === 'Transaksi' ? '!text-indigo-400' : '' }} focus:outline-none text-left flex justify-between items-center w-full ">
                     <div><svg class="w-6 h-6 float-left" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -49,13 +47,16 @@
                         </svg>
                         <p class="mx-3 text-sm leading-5 float-left uppercase">Pencatatan</p>
                     </div>
-                    <svg id="icon1" class="transform rotate-180 float-right" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="icon1"
+                        class="{{ $title === 'Rekening' || $title === 'Transaksi' ? '' : 'rotate-180' }} transform  float-right"
+                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-                <div id="menu1" class="hidden flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
+                <div id="menu1"
+                    class="{{ $title === 'Rekening' || $title === 'Transaksi' ? '' : 'hidden' }} flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
                     <button
                         class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Rekening' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -74,6 +75,7 @@
                         </svg>
                         <p class="text-base leading-4">Transaksi</p>
                     </button>
+                    <div class="mx-auto lg:w-5/6 mt-2 bg-gray-600 h-[1px]"></div>
                 </div>
             </div>
         </div>
@@ -105,7 +107,7 @@
 
             <div class="w-full">
                 <button id="menuHeader2" onclick="showMenu2(true)"
-                    class="focus:outline-none text-left flex justify-between items-center w-full  ">
+                    class="{{ $title === 'Jurnal Umum' || $title === 'Buku Besar' || $title === 'Laba Rugi' || $title === 'Arus Kas' || $title === 'Neraca' || $title === 'Penjualan TBS' ? '!text-indigo-400' : '' }} focus:outline-none text-left flex justify-between items-center w-full  ">
                     <div><svg class="w-6 h-6 float-left" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,13 +115,16 @@
                         </svg>
                         <p class="mx-3 text-sm leading-5 float-left uppercase">Laporan</p>
                     </div>
-                    <svg id="icon2" class="transform rotate-180 float-right" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="icon2"
+                        class="{{ $title === 'Jurnal Umum' || $title === 'Buku Besar' || $title === 'Laba Rugi' || $title === 'Arus Kas' || $title === 'Neraca' || $title === 'Penjualan TBS' ? '' : 'rotate-180' }} transform  float-right"
+                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 </button>
-                <div id="menu2" class="hidden flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
+                <div id="menu2"
+                    class="{{ $title === 'Jurnal Umum' || $title === 'Buku Besar' || $title === 'Laba Rugi' || $title === 'Arus Kas' || $title === 'Neraca' || $title === 'Penjualan TBS' ? '' : 'hidden' }}  flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
                     <button
                         class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Jurnal Umum' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -174,7 +179,7 @@
                         </svg>
                         <p class="text-base leading-4  ">Penjualan TBS</p>
                     </button>
-
+                    <div class="mx-auto lg:w-5/6 mt-2 bg-gray-600 h-[1px]"></div>
                 </div>
             </div>
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rekening;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,7 @@ class HomeController extends Controller
             "title" => "Dashboard",
             'user' => $request->user(),
             'aktif' => 'rekening',
-            'judul' => 'Daftar Rekening'
+            'judul' => 'Daftar Rekening',
         ];
         return view('home', $data);
     }

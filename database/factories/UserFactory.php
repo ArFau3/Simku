@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class UserFactory extends Factory
+class UserFactory extends Factory 
 {
     protected static ?string $password;
 
@@ -21,11 +21,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'username' => fake()->unique()->userName(),
+            'nama_lengkap' => fake()->name(),
+            'foto' => fake()->userName().".jpg",
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'no_hp' => fake()->phoneNumber(),
         ];
     }
 
