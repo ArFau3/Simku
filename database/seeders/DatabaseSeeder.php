@@ -21,14 +21,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // $this->call(LaratrustSeeder::class);
-        // $this->call(UserSeeder::class);
+        // UTAMA
+        $this->call(LaratrustSeeder::class);
+        $this->call(UserSeeder::class);
 
-            // BATAS ERROR
-
-        // $this->call(RekeningSeeder::class);
-        // $this->call(TransaksiSeeder::class);
-        // $this->call(TutupBukuSeeder::class);
+        // SEEDER AKUNTANSI
+        $this->call(RekeningSeeder::class);
+        $this->call(TransaksiSeeder::class);
+        $this->call(TutupBukuSeeder::class);
 
         // SEEDER SUPLIER
         $this->call(VarietasSawitSeeder::class);

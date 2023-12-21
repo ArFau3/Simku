@@ -20,25 +20,25 @@ class UserSeeder extends Seeder
             'nama_lengkap' => 'Arib Fauzan',
             'foto' => "Arr.jpg",
             'no_hp' => '08198563768',
-    ]);
-    $arib->addRole(3);
+        ]);
+        $arib->addRole(3);
 
-    $ridwan = User::create([
-        'username' => 'ridwan',
-        'password' => bcrypt('12345678'),
-        'nama_lengkap' => 'Ridwan Firdaus',
-        'foto' => "Arr.jpg",
-        'no_hp' => '08198563768',
-    ]);
-    $ridwan->addRole(4);
-    // CREATE faker 20 user
-    User::factory(20)->create();
-    // attach rolenya
-    $total = User::whereDoesntHaveRoles()->get();
-   
-    for($i=0;$total->count();$i++){
-        $user = User::whereDoesntHaveRoles()->get();
-            $user->random()->addRole(rand(1,4));
-    }
+        $ridwan = User::create([
+            'username' => 'ridwan',
+            'password' => bcrypt('12345678'),
+            'nama_lengkap' => 'Ridwan Firdaus',
+            'foto' => "Arr.jpg",
+            'no_hp' => '08198563768',
+        ]);
+        $ridwan->addRole(4);
+        // CREATE faker 20 user
+        User::factory(20)->create();
+        // attach rolenya
+        $total = User::whereDoesntHaveRoles()->get();
+    
+        for($i=0;$i < $total->count();$i++){
+            $user = User::whereDoesntHaveRoles()->get();
+                $user->random()->addRole(rand(1,4));
+        }
     }
 }

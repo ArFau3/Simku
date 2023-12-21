@@ -12,13 +12,11 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $modelsawit = VarietasSawit::all();
         $data = [
             "title" => "Dashboard",
             'user' => $request->user(),
             'aktif' => 'rekening',
             'judul' => 'Daftar Rekening',
-            'sawit' => $modelsawit
         ];
         return view('home', $data);
     }

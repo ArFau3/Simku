@@ -9,7 +9,7 @@
             </div>
 
             <div class="pr-3 text-white -ml-1">
-                <h3 class="text-2xl pb-0.5 lg:text-base font-bold ">
+                <h3 class="text-2xl pb-0.5 lg:text-base font-bold underline lg:no-underline">
                     {{ $user->getRoles() ? ucwords($user->getRoles()[0]) : 'User' }}
                 </h3>
                 <p class="text-xl lg:text-sm">{{ $user->nama_lengkap }}</p>
