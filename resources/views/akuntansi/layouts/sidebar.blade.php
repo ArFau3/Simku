@@ -23,8 +23,9 @@
     {{-- END SECTION line divider --}}
     {{-- SECTION Nav --}}
     <nav>
+        {{-- LINK Dashboard --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 {{ $title === 'Dashboard' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
-            href="/elements">
+            href="/dashboard">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -34,7 +35,8 @@
             </svg>
             <span class="mx-3">Dashboard</span>
         </a>
-
+        {{-- END LINK Dashboard --}}
+        {{-- LINK Pencatatan --}}
         <div class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             href="/elements">
             <div class="w-full">
@@ -57,15 +59,17 @@
                 </button>
                 <div id="menu1"
                     class="{{ $title === 'Rekening' || $title === 'Transaksi' ? '' : 'hidden' }} flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
-                    <button
-                        class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Rekening' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
-                        <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="text-base leading-4 ">Rekening</p>
-                    </button>
+                    <a href="/rekening"
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Rekening' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        <button class="flex justify-start items-center space-x-6 px-3 py-2">
+                            <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p class="text-base leading-4 ">Rekening</p>
+                        </button>
+                    </a>
                     <button
                         class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Transaksi' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -79,7 +83,8 @@
                 </div>
             </div>
         </div>
-
+        {{-- ENDLINK Pencatatan --}}
+        {{-- LINK Inventaris --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Inventaris' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
             href="/tables">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -89,7 +94,8 @@
             </svg>
             <span class="mx-3">Inventaris</span>
         </a>
-
+        {{-- END LINK Inventaris --}}
+        {{-- LINK Kas --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Kas' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
             href="/forms">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -100,11 +106,10 @@
 
             <span class="mx-3">Kas</span>
         </a>
-
+        {{-- END LINK Kas --}}
+        {{-- LINK Laporan --}}
         <div class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             href="/elements">
-
-
             <div class="w-full">
                 <button id="menuHeader2" onclick="showMenu2(true)"
                     class="{{ $title === 'Jurnal Umum' || $title === 'Buku Besar' || $title === 'Laba Rugi' || $title === 'Arus Kas' || $title === 'Neraca' || $title === 'Penjualan TBS' ? '!text-indigo-400' : '' }} focus:outline-none text-left flex justify-between items-center w-full  ">
@@ -182,9 +187,9 @@
                     <div class="mx-auto lg:w-5/6 mt-2 bg-gray-600 h-[1px]"></div>
                 </div>
             </div>
-
-
         </div>
+        {{-- END LINK Laporan --}}
+        {{-- LINK Grafik --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Grafik' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
             href="/forms">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -193,34 +198,39 @@
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
 
+
             <span class="mx-3">Grafik</span>
-            <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Aktivitas' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
-                href="/forms">
+        </a>
+        {{-- END LINK Grafik --}}
+        {{-- LINK Aktivitas --}}
+        <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Aktivitas' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
+            href="/forms">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+
+            <span class="mx-3">Aktivitas</span>
+        </a>
+        {{-- END LINK Aktivitas --}}
+        {{-- LINK Logout --}}
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                href="" onclick="event.preventDefault();
+                    this.closest('form').submit();">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
 
-                <span class="mx-3">Aktivitas</span>
+                <span class="mx-3">Keluar</span>
             </a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-                    href=""
-                    onclick="event.preventDefault();
-                    this.closest('form').submit();">
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-
-                    <span class="mx-3">Keluar</span>
-                </a>
-            </form>
-        </a>
+        </form>
+        {{-- END LINK Logout --}}
     </nav>
-    {{-- SECTION Nav --}}
+    {{-- END SECTION Nav --}}
 </div>
 {{-- END SECTION SIDEBAR --}}

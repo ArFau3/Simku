@@ -17,7 +17,7 @@ class RekeningFactory extends Factory
      */
     public function definition(): array
     {
-        $nomor_rekening1 = fake()->randomDigitNotNull();
+        $nomor_rekening1 = fake()->numberBetween(1,5);
         $nomor_rekening2 = fake()->randomDigitNotNull();
         $nomor_rekening3 = fake()->randomDigitNotNull();
         $induk = Rekening::whereNull('rekening_induk')->get();

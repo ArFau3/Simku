@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} | Simku</title>
     @vite('resources/css/app.css')
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     {{-- <link rel="stylesheet" href="assets/css/mains.css" />
@@ -19,6 +19,7 @@
 <body class="">
     @include('akuntansi.layouts.sidebar')
     <div class="lg:w-5/6 lg:float-right border my-1 min-h-screen">
+        {{-- SECTION Header --}}
         <div class="bg-white p-3 sm:p-5 flex justify-between">
             <div class="">
                 <img src="/assets/logo.png" alt="logo.png"
@@ -34,25 +35,32 @@
             <img src="/assets/logo-sekadau.png" alt="logo-sekadau.png"
                 class="object-contain float-right h-5/6 sm:h-full w-20 mr-2">
         </div>
+        {{-- END SECTION Header --}}
+        {{-- SECTION Time --}}
         <div class="container min-w-full py-1 border-2 border-slate-300 bg-zinc-300">
             <p class="text-end text-sm pr-3">Tapang Dadap -
                 <?php date_default_timezone_set('Asia/Jakarta'); ?>
                 {{ strftime('%A, %d %B %Y %H:%M', time()) }} WIB
             </p>
         </div>
+        {{-- END SECTION Time --}}
+        {{-- SECTION Body --}}
         <div class="min-h-screen">
             <div class="pt-3 px-2">
                 <div class="rounded-lg bg-zinc-200 px-4 py-6">
                     <h1 class="text-2xl font-bold mb-4">{{ $judul }}</h1>
-                    <div class="bg-zinc-50 p-2 rounded">
+                    <div class="bg-zinc-50 p-3 rounded">
                         @yield('content')
                     </div>
                 </div>
             </div>
         </div>
+        {{-- END SECTION Body --}}
+        {{-- SECTION Footer --}}
         <div class="container min-w-full -mt-2 self-end py-1 border border-slate-400 bg-zinc-300">
             <p class="text-center text-sm">Copyright &copy; Koperasi Sekadau 2023</p>
         </div>
+        {{-- END SECTION Footer --}}
     </div>
 </body>
 

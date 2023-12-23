@@ -12,8 +12,7 @@ class HomeController extends Controller
         $data = [
             "title" => "Dashboard",
             'user' => $request->user(),
-            'aktif' => 'rekening',
-            'judul' => 'Daftar Rekening',
+            'judul' => 'Dashboard',
         ];
         return view('akuntansi.home', $data);
     }
