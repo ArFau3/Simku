@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Akuntansi\HomeController;
 use App\Http\Controllers\Akuntansi\RekeningController;
+use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,14 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::controller(RekeningController::class)->group(function(){
         Route::get('/rekening', 'index');
+        Route::get('/rekening/tambah', 'tambah');
+    });
+
+    Route::controller(TransaksiInventarisController::class)->group(function(){
+        Route::get('/transaksi', 'indexTransaksi');
+        Route::get('/transaksi/tambah', 'tambah');
+
+        Route::get('/inventaris', 'indexInventaris');
     });
 });
 

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
         // SEEDER AKUNTANSI
         $this->call(RekeningSeeder::class);
-        $this->call(TransaksiSeeder::class);
+        $this->call(TransaksiInventarisSeeder::class);
         $this->call(TutupBukuSeeder::class);
 
         // SEEDER SUPLIER

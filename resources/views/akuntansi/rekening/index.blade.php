@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex justify-between">
-        <a href="">
+        <a href="rekening/tambah">
             <button class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased">Tambah
                 Rekening</button>
         </a>

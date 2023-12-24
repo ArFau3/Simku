@@ -40,7 +40,7 @@
         <div class="container min-w-full py-1 border-2 border-slate-300 bg-zinc-300">
             <p class="text-end text-sm pr-3">Tapang Dadap -
                 <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                {{ strftime('%A, %d %B %Y %H:%M', time()) }} WIB
+                {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y h:m:s') }} WIB
             </p>
         </div>
         {{-- END SECTION Time --}}

@@ -18,4 +18,15 @@ class RekeningController extends Controller
         ];
         return view('akuntansi.rekening.index', $data);
     }
+
+    public function tambah(Request $request)
+    {
+        $data = [
+            "title" => "Rekening",
+            'user' => $request->user(),
+            'judul' => 'Tambah Rekening',
+            'rekening' => Rekening::all()->sortBy('nomor'),
+        ];
+        return view('akuntansi.rekening.update', $data);
+    }
 }
