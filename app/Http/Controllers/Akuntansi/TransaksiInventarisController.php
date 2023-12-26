@@ -15,7 +15,7 @@ class TransaksiInventarisController extends Controller
             "title" => "Transaksi",
             'user' => $request->user(),
             'judul' => 'Daftar Transaksi',
-            'transaksi' => TransaksiInventaris::all()->sortBy('tanggal'),
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->get(),
         ];
         return view('akuntansi.transaksi_inventaris.index', $data);
     }
@@ -26,7 +26,7 @@ class TransaksiInventarisController extends Controller
             "title" => "Inventaris",
             'user' => $request->user(),
             'judul' => 'Daftar Inventaris',
-            'transaksi' => TransaksiInventaris::all()->sortBy('tanggal'),
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->get(),
         ];
         return view('akuntansi.transaksi_inventaris.index', $data);
     }

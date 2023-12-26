@@ -2,6 +2,7 @@
 
 @section('content')
     <section class="w-full p-8 mt-6 lg:mt-0 rounded shadow">
+        {{-- SECTION Form Input --}}
         <form>
             <div class="md:flex mb-6">
                 <div class="md:w-1/6">
@@ -86,7 +87,8 @@
                 </div>
             </div>
         </form>
-
+        {{-- END SECTION Form Input --}}
+        {{-- SECTION Tombol Aksi --}}
         <a href="/transaksi/tambah">
             <button
                 class="bg-amber-400 opacity-85 p-2 mr-3 mt-5 font-medium text-sm lg:text-base antialiased">Simpan</button>
@@ -94,5 +96,6 @@
         <a href="/transaksi">
             <button class="bg-amber-400 opacity-85 p-2 mt-5 font-medium text-sm lg:text-base antialiased">Batal</button>
         </a>
+        {{-- SECTION Tombol Aksi --}}
     </section>
 @endsection

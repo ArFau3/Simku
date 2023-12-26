@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        {{-- ENDLINK Pencatatan --}}
+        {{-- END LINK Pencatatan --}}
         {{-- LINK Inventaris --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Inventaris' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
             href="/inventaris">

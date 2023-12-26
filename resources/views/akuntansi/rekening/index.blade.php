@@ -1,6 +1,7 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
+    {{-- SECTION tombol akses sebelum tabel --}}
     <div class="flex justify-between">
         <a href="rekening/tambah">
             <button class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased">Tambah
@@ -15,12 +16,14 @@
             </button>
         </div>
     </div>
+    {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
-
+    {{-- SECTION Tabel Data --}}
     <div class="flex flex-col mt-1">
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
             <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                 <table class="min-w-full">
+                    {{-- SECTION Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
                             <th
@@ -34,7 +37,8 @@
                                 Aksi</th>
                         </tr>
                     </thead>
-
+                    {{-- END SECTION Header Tabel --}}
+                    {{-- SECTION Body Tabel --}}
                     <tbody class="bg-white">
                         @foreach ($rekening as $rekening)
                             <tr>
@@ -53,8 +57,10 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    {{-- SECTION Body Tabel --}}
                 </table>
             </div>
         </div>
     </div>
+    {{-- END SECTION Tabel Data --}}
 @endsection
