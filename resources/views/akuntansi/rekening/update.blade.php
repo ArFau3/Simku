@@ -1,7 +1,7 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
-    <section class="w-full p-8 mt-6 lg:mt-0 rounded shadow">
+    <section class="w-full p-8 mt-6 lg:mt-0 rounded border shadow">
         {{-- SECTION Form Input --}}
         <form>
             <div class="md:flex mb-6">

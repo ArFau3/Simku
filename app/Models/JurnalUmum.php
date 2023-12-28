@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class TutupBuku extends Model
+class JurnalUmum extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'awal',
-        'akhir',
+        'tutup_buku_id',
+        'total',
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
 
-    public function jurnal_umum(): HasOne
+    public function tutup_buku(): HasOne
     {
-        return $this->hasOne(JurnalUmum::class);
+        return $this->hasOne(TutupBuku::class);
     }
 }

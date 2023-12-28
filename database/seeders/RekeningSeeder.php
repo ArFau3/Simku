@@ -31,6 +31,6 @@ class RekeningSeeder extends Seeder
             'nomor' => '5',
         ],
     ]);
-        Rekening::factory(15)->create();
+        Rekening::factory(20)->create();
     }
 }

@@ -33,7 +33,7 @@ class TutupBukuSeeder extends Seeder
             ],
             [
                 'awal' => '2023-12-01',
-                'akhir' => '2023-12-12',
+                'akhir' => null,
             ],
         ]);
     }

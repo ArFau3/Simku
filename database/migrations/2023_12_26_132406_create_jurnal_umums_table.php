@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tutup_bukus', function (Blueprint $table) {
+        Schema::create('jurnal_umums', function (Blueprint $table) {
             $table->id();
-            $table->date('awal');
-            $table->date('akhir')->nullable();
+            $table->foreignId('tutup_buku_id');
+            $table->decimal('total',10,2);
+            $table->timestamps();
+
+            $table->foreign('tutup_buku_id')->references('id')->on('tutup_bukus')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tutup_bukus');
+        Schema::dropIfExists('jurnal_umums');
     }
 };

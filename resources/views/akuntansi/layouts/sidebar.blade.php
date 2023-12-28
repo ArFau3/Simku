@@ -132,33 +132,39 @@
                 </button>
                 <div id="menu2"
                     class="{{ $title === 'Jurnal Umum' || $title === 'Buku Besar' || $title === 'Laba Rugi' || $title === 'Arus Kas' || $title === 'Neraca' || $title === 'Penjualan TBS' ? '' : 'hidden' }}  flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
-                    <button
-                        class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Jurnal Umum' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
-                        <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="text-base leading-4">Jurnal Umum</p>
-                    </button>
-                    <button
-                        class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Buku Besar' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="text-base leading-4  ">Buku Besar</p>
-                    </button>
-                    <button
-                        class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Laba Rugi' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
-                        <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="text-base leading-4  ">Laba Rugi</p>
-                    </button>
+                    <a href="/jurnal-umum"
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Jurnal Umum' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        <button class="flex justify-start items-center space-x-6 px-3 py-2">
+                            <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p class="text-base leading-4">Jurnal Umum</p>
+                        </button>
+                    </a>
+                    <a href="/buku-besar"
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Buku Besar' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        <button class="flex justify-start items-center space-x-6 px-3 py-2">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p class="text-base leading-4 ">Buku Besar</p>
+                        </button>
+                    </a>
+                    <a href="/laba-rugi"
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Laba Rugi' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        <button class="flex justify-start items-center space-x-6 px-3 py-2">
+                            <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p class="text-base leading-4  ">Laba Rugi</p>
+                        </button>
+                    </a>
                     <button
                         class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Neraca' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
