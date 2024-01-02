@@ -13,7 +13,7 @@ class BukuBesarController extends Controller
         $data = [
             "title" => "Buku Besar",
             'user' => $request->user(),
-            'rekening' => Rekening::all(),
+            'rekening' => Rekening::orderBy('nomor')->get(),
             'judul' => 'Buku Besar',
             'transaksi' => TransaksiInventaris::orderBy('tanggal')->get(),
         ];

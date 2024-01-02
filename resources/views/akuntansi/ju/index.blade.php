@@ -138,7 +138,7 @@
                         </tr>
                         {{-- END Baris Total Debit = Kredit --}}
                     </tbody>
-                    {{-- SECTION Body Tabel --}}
+                    {{-- END SECTION Body Tabel --}}
                 </table>
             </div>
         </div>

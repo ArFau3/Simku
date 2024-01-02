@@ -13,9 +13,8 @@ class LabaRugiController extends Controller
         $data = [
             "title" => "Laba Rugi",
             'user' => $request->user(),
-            'rekening' => Rekening::where('nomor', 'like',  4 . '%')
-                                    ->orWhere('nomor', 'like',  5 . '%')
-                                    ->get(),
+            'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->get(),
+            'beban' => Rekening::where('nomor', 'like',  5 . '%')->get(),
             'judul' => 'Laba Rugi',
             'transaksi' => TransaksiInventaris::orderBy('tanggal')->get(),
         ];

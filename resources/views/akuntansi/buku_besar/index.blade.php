@@ -34,10 +34,12 @@
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
-    {{-- SECTION Tabel Data --}}
+    {{-- SECTION Tabels --}}
     @foreach ($rekening as $rekening)
         <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-4 tracking-wide text-left text-gray-500 uppercase">
-            {{ $rekening->nama }}</p>
+            {{ $rekening->nama }}
+        </p>
+        {{-- SECTION Tabel Data --}}
         <div class="flex flex-col mt-1 mb-10">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
                 <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
@@ -76,7 +78,7 @@
                                     </td>
 
                                     {{-- END Kolom Tanggal --}}
-                                    {{-- Baris 1/Debit --}}
+                                    {{-- Baris Debit --}}
                                     <td
                                         class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nomor }}
@@ -95,7 +97,7 @@
                                             -
                                         </div>
                                     </td>
-                                    {{-- END Baris 1/Debit --}}
+                                    {{-- END Baris Debit --}}
                                 </tr>
                             @endforeach
                             @foreach ($transaksi->where('kredit', $rekening->id) as $kredit)
@@ -108,7 +110,7 @@
                                     </td>
 
                                     {{-- END Kolom Tanggal --}}
-                                    {{-- Baris 1/kredit --}}
+                                    {{-- Baris kredit --}}
                                     <td
                                         class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nomor }}
@@ -127,15 +129,16 @@
                                             {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
-                                    {{-- END Baris 1/Debit --}}
+                                    {{-- END Baris Kredit --}}
                                 </tr>
                             @endforeach
                         </tbody>
-                        {{-- SECTION Body Tabel --}}
+                        {{-- END SECTION Body Tabel --}}
                     </table>
                 </div>
             </div>
         </div>
+        {{-- END SECTION Tabel Data --}}
     @endforeach
-    {{-- END SECTION Tabel Data --}}
+    {{-- END SECTION Tabels --}}
 @endsection

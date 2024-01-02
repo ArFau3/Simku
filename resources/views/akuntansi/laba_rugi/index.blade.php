@@ -1,3 +1,5 @@
+<?php $total_pendapatan = collect([]);
+$total_beban = collect([]); ?>
 @extends('akuntansi.layouts.layout')
 
 @section('content')
@@ -34,53 +36,211 @@
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
-    {{-- SECTION Tabel Data --}}
-    <div class="flex flex-col mt-1">
+    {{-- SECTION Tabel Pendapatan --}}
+    <div class="flex flex-col mt-1 mb-0">
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
             <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                 <table class="min-w-full">
                     {{-- SECTION Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Nomor Rekening
+                            <th colspan="3"
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wide text-left text-gray-500 uppercase border-b border-gray-200">
+                                Pendapatan Penjualan
                             </th>
-                            <th
-                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Nama Rekening</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Debit</th>
                         </tr>
                     </thead>
                     {{-- END SECTION Header Tabel --}}
                     {{-- SECTION Body Tabel --}}
                     <tbody class="bg-white">
-                        @foreach ($transaksi as $transaksi)
-                            <tr>
-                                {{-- Baris 1/Debit --}}
-                                <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi->rekeningDebit->nomor }}
-                                </td>
-                                <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi->rekeningDebit->nama }}
-                                </td>
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">
-                                        {{ Number::currency($transaksi->nominal, 'IDR', 'id') }}
+                        @foreach ($pendapatan as $pendapatan)
+                            @foreach ($transaksi->where('debit', $pendapatan->id) as $debit)
+                                <tr>
+                                    {{-- Baris Debit --}}
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $debit->rekeningDebit->nomor }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $debit->rekeningDebit->nama }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                            DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
+                                        </div>
+                                    </td>
+                                    {{-- END Baris Debit --}}
+                                </tr>
+                            @endforeach
+                            @foreach ($transaksi->where('kredit', $pendapatan->id) as $kredit)
+                                <tr>
+                                    {{-- Baris Kredit --}}
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $kredit->rekeningKredit->nomor }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $kredit->rekeningKredit->nama }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                            KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
+                                        </div>
+                                    </td>
+                                    {{-- END Baris Kredit --}}
+                                </tr>
+                            @endforeach
+                            {{-- Baris Total per Rekening --}}
+                            <tr class="border-gray-400">
+                                <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                        Total {{ $pendapatan->nama }}
                                     </div>
                                 </td>
-                                {{-- END Baris 1/Debit --}}
+                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                        {{-- {{ dd($transaksi->where('kredit', $pendapatan->id)->sum('nominal')) }} --}}
+                                        <?php $total_pendapatan_awal = $transaksi->where('kredit', $pendapatan->id)->sum('nominal') - $transaksi->where('debit', $pendapatan->id)->sum('nominal');
+                                        $total_pendapatan->push($total_pendapatan_awal); ?>
+                                        {{ Number::currency($total_pendapatan_awal, 'IDR', 'id') }}
+                                    </div>
+                                </td>
                             </tr>
+                            {{-- END Baris Total per Rekening --}}
                         @endforeach
+                        {{-- Baris Total Pendaptan --}}
+                        <tr class="border-gray-400">
+                            <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                    Total Pendapatan Penjualan
+                                </div>
+                            </td>
+                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                    {{ Number::currency($total_pendapatan->sum(), 'IDR', 'id') }}
+                                </div>
+                            </td>
+                        </tr>
+                        {{-- END Baris Total Pendaptan --}}
                     </tbody>
-                    {{-- SECTION Body Tabel --}}
+                    {{-- END SECTION Body Tabel --}}
                 </table>
             </div>
         </div>
     </div>
-    {{-- END SECTION Tabel Data --}}
+    {{-- END SECTION Tabel Pendapatan --}}
+    {{-- SECTION Tabel Beban --}}
+    <div class="flex flex-col mt-0">
+        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
+            <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
+                <table class="min-w-full">
+                    {{-- SECTION Header Tabel --}}
+                    <thead class="bg-zinc-200">
+                        <tr>
+                            <th colspan="3"
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                Beban
+                            </th>
+                        </tr>
+                    </thead>
+                    {{-- END SECTION Header Tabel --}}
+                    {{-- SECTION Body Tabel --}}
+                    <tbody class="bg-white">
+                        @foreach ($beban as $beban)
+                            @foreach ($transaksi->where('debit', $beban->id) as $debit)
+                                <tr>
+                                    {{-- Baris Debit --}}
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $debit->rekeningDebit->nomor }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $debit->rekeningDebit->nama }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                            DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
+                                        </div>
+                                    </td>
+                                    {{-- END Baris Debit --}}
+                                </tr>
+                            @endforeach
+                            @foreach ($transaksi->where('kredit', $beban->id) as $kredit)
+                                <tr>
+                                    {{-- Baris Kredit --}}
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $kredit->rekeningKredit->nomor }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $kredit->rekeningKredit->nama }}
+                                    </td>
+                                    <td
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                            KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
+                                        </div>
+                                    </td>
+                                    {{-- END Baris Kredit --}}
+                                </tr>
+                            @endforeach
+                            {{-- Baris Total per Rekening --}}
+                            <tr class="border-gray-400">
+                                <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                        Total {{ $beban->nama }}
+                                    </div>
+                                </td>
+                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                        <?php $total_beban_awal = $transaksi->where('debit', $beban->id)->sum('nominal') - $transaksi->where('kredit', $beban->id)->sum('nominal');
+                                        $total_beban->push($total_beban_awal); ?>
+                                        {{ Number::currency($total_beban_awal, 'IDR', 'id') }}
+                                    </div>
+                                </td>
+                            </tr>
+                            {{-- END Baris Total per Rekening --}}
+                        @endforeach
+                        {{-- Baris Total Beban --}}
+                        <tr class="border-gray-400">
+                            <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                    Total Beban
+                                </div>
+                            </td>
+                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                    {{ Number::currency($total_beban->sum(), 'IDR', 'id') }}
+                                </div>
+                            </td>
+                        </tr>
+                        {{-- END Baris Total Beban --}}
+                        {{-- Baris Total Laba Rugi --}}
+                        <tr class="border-gray-400">
+                            <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                    Laba Rugi
+                                </div>
+                            </td>
+                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                    {{ Number::currency($total_pendapatan->sum() - $total_beban->sum(), 'IDR', 'id') }}
+                                </div>
+                            </td>
+                        </tr>
+                        {{-- END Baris Total Laba Rugi --}}
+                    </tbody>
+                    {{-- END SECTION Body Tabel --}}
+                </table>
+            </div>
+        </div>
+    </div>
+    {{-- END SECTION Tabel Beban --}}
 @endsection
