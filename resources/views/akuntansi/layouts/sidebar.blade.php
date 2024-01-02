@@ -165,15 +165,17 @@
                             <p class="text-base leading-4  ">Laba Rugi</p>
                         </button>
                     </a>
-                    <button
-                        class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Neraca' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="text-base leading-4  ">Neraca</p>
-                    </button>
+                    <a href="/neraca"
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Neraca' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        <button class="flex justify-start items-center space-x-6 px-3 py-2">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <p class="text-base leading-4 ">Neraca</p>
+                        </button>
+                    </a>
                     <button
                         class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full {{ $title === 'Arus Kas' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -206,13 +208,12 @@
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
 
-
             <span class="mx-3">Grafik</span>
         </a>
         {{-- END LINK Grafik --}}
         {{-- LINK Aktivitas --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Aktivitas' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
-            href="/forms">
+            href="/aktivitas">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Akuntansi\AktivitasController;
 use App\Http\Controllers\Akuntansi\BukuBesarController;
 use App\Http\Controllers\Akuntansi\HomeController;
 use App\Http\Controllers\Akuntansi\JurnalUmumController;
 use App\Http\Controllers\Akuntansi\LabaRugiController;
+use App\Http\Controllers\Akuntansi\NeracaController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
 use App\Http\Controllers\ProfileController;
@@ -57,6 +59,14 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::controller(LabaRugiController::class)->group(function(){
         Route::get('/laba-rugi', 'index');
+    });
+
+    Route::controller(NeracaController::class)->group(function(){
+        Route::get('/neraca', 'index');
+    });
+
+    Route::controller(AktivitasController::class)->group(function(){
+        Route::get('/aktivitas', 'index');
     });
 });
 

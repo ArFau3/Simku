@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransaksiInventarisSeeder::class);
         $this->call(TutupBukuSeeder::class);
         $this->call(JurnalUmumSeeder::class);
+        $this->call(AktivitasSeeder::class);
 
         // SEEDER SUPLIER
         $this->call(VarietasSawitSeeder::class);
