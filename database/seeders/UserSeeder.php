@@ -30,7 +30,25 @@ class UserSeeder extends Seeder
             'foto' => "Arr.jpg",
             'no_hp' => '08198563768',
         ]);
-        $ridwan->addRole(4);
+        $ridwan->addRole(2);
+
+        $maya = User::create([
+            'username' => 'Mayy',
+            'password' => bcrypt('12345678'),
+            'nama_lengkap' => 'May May',
+            'foto' => "mayy.jpg",
+            'no_hp' => '08198563768',
+        ]);
+        $maya->addRole(4);
+
+        $untan = User::create([
+            'username' => 'Untan',
+            'password' => bcrypt('12345678'),
+            'nama_lengkap' => 'Sistem Informasi Untan',
+            'foto' => "untan.jpg",
+            'no_hp' => '08198563768',
+        ]);
+        $untan->addRole(1);
         // CREATE faker 20 user
         User::factory(20)->create();
         // attach rolenya

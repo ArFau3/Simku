@@ -28,23 +28,17 @@ Route::get('/', function () {
 
 // Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth', 'verified')->group(function () {
+// SISTEM AKUNTANSI
+    // USER: Akuntan & Pengurus
+Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-
-    Route::controller(ProfileController::class)->group(function(){
-        Route::get('/profile', 'edit')->name('profile.edit');
-        Route::patch('/profile', 'update')->name('profile.update');
-        Route::delete('/profile', 'destroy')->name('profile.destroy');
-    });
 
     Route::controller(RekeningController::class)->group(function(){
         Route::get('/rekening', 'index');
-        Route::get('/rekening/tambah', 'tambah');
     });
 
     Route::controller(TransaksiInventarisController::class)->group(function(){
         Route::get('/transaksi', 'indexTransaksi');
-        Route::get('/transaksi/tambah', 'tambah');
 
         Route::get('/inventaris', 'indexInventaris');
     });
@@ -69,5 +63,26 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/aktivitas', 'index');
     });
 });
+
+    // USER: Akuntan
+Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
+    Route::controller(RekeningController::class)->group(function(){
+        Route::get('/rekening/tambah', 'tambah');
+    });
+
+    Route::controller(TransaksiInventarisController::class)->group(function(){
+        Route::get('/transaksi/tambah', 'tambah');
+    });
+});
+
+// SEMENTARA
+Route::middleware('auth', 'verified')->group(function () {
+    Route::controller(ProfileController::class)->group(function(){
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
+});
+// END SEMENTARA
 
 require __DIR__.'/auth.php';
