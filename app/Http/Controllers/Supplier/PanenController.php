@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Supplier;
 
 use App\Http\Controllers\Controller;
 
-class PetaniController extends Controller
+class PanenController extends Controller
 {
     public function index()
     {
-        return view('supplier.pages.petani.petani');
+        return view('supplier.pages.panen.panen');
     }
 }
