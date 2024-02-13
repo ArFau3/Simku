@@ -32,7 +32,7 @@
                                     Kosong ?
                                 </span>
                                 <span class="block text-indigo-500 mt-3">
-                                    Ya Benar. Masih kosong nih.
+                                    Ya Benar. Masih kosong nih edit 2.
                                 </span>
                             </h2>
                         </div>
