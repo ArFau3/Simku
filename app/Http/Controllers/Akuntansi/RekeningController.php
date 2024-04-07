@@ -19,6 +19,21 @@ class RekeningController extends Controller
         return view('akuntansi.rekening.index', $data);
     }
 
+    public function edit(Rekening $id, Request $request){
+        $data = [
+            "title" => "Rekening",
+            'user' => $request->user(),
+            'judul' => 'Daftar Rekening',
+            'rekenings' => Rekening::all()->sortBy('nomor'),
+            'rekening' => $id,
+        ];
+        return view('akuntansi.rekening.update', $data);
+    }
+
+    public function update(Request $request){
+        dd($request->induk);
+    }
+
     public function tambah(Request $request)
     {
         $data = [
@@ -27,6 +42,10 @@ class RekeningController extends Controller
             'judul' => 'Tambah Rekening',
             'rekening' => Rekening::all()->sortBy('nomor'),
         ];
-        return view('akuntansi.rekening.update', $data);
+        return view('akuntansi.rekening.create', $data);
+    }
+
+    public function store(Request $request){
+        dd($request);
     }
 }

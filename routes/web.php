@@ -77,7 +77,10 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
 // USER: Akuntan
 Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
     Route::controller(RekeningController::class)->group(function () {
+        Route::get('rekening/{id}', 'edit');
+        Route::post('/rekening/update', 'update');
         Route::get('/rekening/tambah', 'tambah');
+        Route::post('/rekening/tambah/simpan', 'store');
     });
 
     Route::controller(TransaksiInventarisController::class)->group(function () {
@@ -107,7 +110,7 @@ Route::middleware(['auth', 'verified', 'role:petugas|pengurus'])->group(function
     Route::get('/angkutan', [AngkutanController::class, 'index']);// Halaman Angkutan
     Route::get('/varietas', [VarietasController::class, 'index']);// Halaman Jenis Varietas
     Route::get('/pupuk', [PupukController::class, 'index']);// Halaman Jenis Pupuk
-    Route::get('/transaksi', [TransaksiController::class, 'index']);// Halaman Data Transaksi
+    // Route::get('/transaksi', [TransaksiController::class, 'index']);// Halaman Data Transaksi
     Route::get('/suratjalan', [SuratJalanController::class, 'index']);// Halaman Data Surat Jalan
     Route::get('/suratkonfirmasi', [SuratKonfirmasiController::class, 'index']);// Halaman Surat Konfirmasi Perusahaan
 });

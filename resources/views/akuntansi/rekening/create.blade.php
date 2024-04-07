@@ -1,10 +1,9 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
-    {{-- {{ dd($rekening->rekening_induk) }} --}}
     <section class="w-full p-8 mt-6 lg:mt-0 rounded border shadow">
         {{-- SECTION Form Input --}}
-        <form method="POST" action="/rekening/update">
+        <form method="POST" action="/rekening/tambah/simpan">
             @csrf
             <div class="md:flex mb-6">
                 <div class="md:w-1/6 self-center">
@@ -14,11 +13,9 @@
                 </div>
                 <div class="md:w-5/6">
                     <select name="induk" class="form-select block w-full focus:bg-white" id="my-select">
-                        @foreach ($rekenings as $rekenings)
-                            <option value="{{ $rekenings->nama }}"
-                            @if ($rekening->rekening_induk) @if ($rekenings->nomor == $rekening->rekening_induk) selected @endif @else
-                                disabled hidden @endif>
-                                {{ $rekenings->nomor . ' | ' . $rekenings->nama }}
+                        @foreach ($rekening as $rekening)
+                            <option value="{{ $rekening->nama }}">
+                                {{ $rekening->nomor . ' | ' . $rekening->nama }}
                             </option>
                         @endforeach
                     </select>
@@ -31,10 +28,11 @@
                         Nomor Rekening
                     </label>
                 </div>
+                <?php $nomor = 0; ?>
                 <div class="md:w-5/6">
                     <input disabled class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
-                        value="{{ $rekening->nomor }}">
-                    <input name="nomor" type="hidden" value="{{ $rekening->nomor }}">
+                        value="{{ $nomor }}">
+                    <input name="nomor" type="hidden" value="{{ $nomor }}">
                 </div>
             </div>
 
@@ -46,7 +44,7 @@
                 </div>
                 <div class="md:w-5/6">
                     <input name="nama" class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
-                        value="{{ $rekening->nama }}">
+                        value="">
                 </div>
             </div>
 
