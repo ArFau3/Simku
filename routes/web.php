@@ -77,8 +77,8 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
 // USER: Akuntan
 Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
     Route::controller(RekeningController::class)->group(function () {
-        Route::get('rekening/{id}', 'edit');
-        Route::post('/rekening/update', 'update');
+        Route::get('/rekening/{id}', 'edit');
+        Route::post('/rekening/update/{id}', 'update');
         Route::get('/rekening/tambah', 'tambah');
         Route::post('/rekening/tambah/simpan', 'store');
     });

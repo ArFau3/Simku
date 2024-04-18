@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Akuntansi;
 use App\Http\Controllers\Controller;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RekeningController extends Controller
 {
+
     public function index(Request $request)
     {
         $data = [
@@ -30,12 +33,38 @@ class RekeningController extends Controller
         return view('akuntansi.rekening.update', $data);
     }
 
-    public function update(Request $request){
-        dd($request->induk);
+    public function update(Rekening $id, Request $request){
+        // Rule Validation
+        $validator = Validator::make($request->all(), [
+            'nama' => [
+                'required',
+                Rule::unique('rekenings','nama')->ignore($request->id),
+                'max:100',
+            ],
+            'induk' => 'required',
+            'nomor' => 'required',
+        ]);
+
+        // Validating input
+        $validated = $validator->validated();
+
+        // Merubah kolom induk menjadi int
+        $induk = (int)$validated['induk'];
+
+        // Update database
+        $id->nama = $validated['nama'];
+        $id->nomor = $validated['nomor'];
+        $id->rekening_induk = $induk;
+
+        $id->save();
+
+        // redirect to /rekening
+        return redirect('/rekening');
     }
 
     public function tambah(Request $request)
     {
+        dd('ada');
         $data = [
             "title" => "Rekening",
             'user' => $request->user(),
