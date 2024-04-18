@@ -1,6 +1,7 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
+    {{-- {{ dd($rekening) }} --}}
     {{-- SECTION tombol akses sebelum tabel --}}
     <div class="flex justify-between">
         <a href="rekening/tambah">
@@ -53,7 +54,13 @@
                                 <td
                                     class="px-4 sm:px-6 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
                                     <a href="/rekening/{{ $rekening->id }}"
-                                        class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                        class="text-indigo-600 hover:text-indigo-900 pr-1.5 sm:border-black sm:border-r">Edit</a>
+                                    <form action="/rekening/hapus/{{ $rekening->id }}" method="POST" class="inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900"
+                                            onclick="return confirm('Apakah Anda yakin ingin Menghapus Rekening {{ $rekening->nama }}')">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -17,7 +17,7 @@ class RekeningController extends Controller
             "title" => "Rekening",
             'user' => $request->user(),
             'judul' => 'Daftar Rekening',
-            'rekening' => Rekening::all()->sortBy('nomor'),
+            'rekening' => Rekening::orderBy('nomor')->get(),
         ];
         return view('akuntansi.rekening.index', $data);
     }
@@ -27,7 +27,7 @@ class RekeningController extends Controller
             "title" => "Rekening",
             'user' => $request->user(),
             'judul' => 'Daftar Rekening',
-            'rekenings' => Rekening::all()->sortBy('nomor'),
+            'rekenings' => Rekening::orderBy('nomor')->get(),
             'rekening' => $id,
         ];
         return view('akuntansi.rekening.update', $data);
@@ -64,17 +64,48 @@ class RekeningController extends Controller
 
     public function tambah(Request $request)
     {
-        dd('ada');
         $data = [
             "title" => "Rekening",
             'user' => $request->user(),
             'judul' => 'Tambah Rekening',
-            'rekening' => Rekening::all()->sortBy('nomor'),
+            'rekening' => Rekening::orderBy('nomor')->get(),
+            'last' =>Rekening::all()->last(),
         ];
         return view('akuntansi.rekening.create', $data);
     }
 
     public function store(Request $request){
-        dd($request);
+        // Rule Validation
+        $validator = Validator::make($request->all(), [
+            'nama' => [
+                'required',
+                Rule::unique('rekenings','nama'),
+                'max:100',
+            ],
+            'induk' => 'required',
+            'nomor' => 'required',
+        ]);
+
+        // Validating input
+        $validated = $validator->validated();
+
+        // Merubah kolom induk menjadi int
+        $induk = (int)$validated['induk'];
+
+        // Update database
+        $data = new Rekening;
+        $data->nama = $validated['nama'];
+        $data->nomor = $validated['nomor'];
+        $data->rekening_induk = $induk;
+
+        $data->save();
+
+        // redirect to /rekening
+        return redirect('/rekening');
+    }
+
+    public function delete(Rekening $id){
+        Rekening::destroy($id->id);
+        return redirect('/rekening');
     }
 }
