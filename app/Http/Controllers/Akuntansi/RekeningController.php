@@ -17,12 +17,15 @@ class RekeningController extends Controller
             "title" => "Rekening",
             'user' => $request->user(),
             'judul' => 'Daftar Rekening',
-            'rekening' => Rekening::orderBy('nomor')->get(),
+            'rekening' => Rekening::orderBy('nomor')->cari($request['cari'])->get(),
         ];
         return view('akuntansi.rekening.index', $data);
     }
 
-    public function edit(Rekening $id, Request $request){
+
+    public function edit(Rekening $id, Request $request)
+    {
+        if($id['edit'] == 1){
         $data = [
             "title" => "Rekening",
             'user' => $request->user(),
@@ -30,7 +33,10 @@ class RekeningController extends Controller
             'rekenings' => Rekening::orderBy('nomor')->get(),
             'rekening' => $id,
         ];
-        return view('akuntansi.rekening.update', $data);
+            return view('akuntansi.rekening.update', $data);
+        }else{
+            return redirect('/rekening');
+        }
     }
 
     public function update(Rekening $id, Request $request){

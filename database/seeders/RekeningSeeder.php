@@ -16,18 +16,23 @@ class RekeningSeeder extends Seeder
         Rekening::insert([
         [
             'nama' => 'Aset Tetap',
+            'edit' => false,
             'nomor' => '1',
         ],[
             'nama' => 'Kewajiban',
+            'edit' => false,
             'nomor' => '2',
         ],[
             'nama' => 'Modal',
+            'edit' => false,
             'nomor' => '3',
         ],[
-                'nama' => 'Pendapatan',
+            'nama' => 'Pendapatan',
+            'edit' => false,
             'nomor' => '4',
         ],[
-                'nama' => 'Beban',
+            'nama' => 'Beban',
+            'edit' => false,
             'nomor' => '5',
         ],
     ]);

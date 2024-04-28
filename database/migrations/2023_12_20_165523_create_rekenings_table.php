@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100)->unique();
             $table->string('nomor', 20)->unique();
+            $table->boolean('edit');
             $table->foreignId('rekening_induk', 20)->nullable();
 
             $table->foreign('rekening_induk')->references('id')->on('rekenings')

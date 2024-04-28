@@ -24,6 +24,7 @@ class RekeningFactory extends Factory
         return [
             'nama' => fake()->unique()->word(),
             'nomor' => $nomor_rekening1.'.'.$nomor_rekening2.'.'.$nomor_rekening3,
+            'edit' => true,
             'rekening_induk' => $induk->random()->id,
         ];
     }

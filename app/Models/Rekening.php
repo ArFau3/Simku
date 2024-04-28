@@ -12,10 +12,19 @@ class Rekening extends Model
     protected $fillable = [
         'nama',
         'nomor',
+        'edit',
         'rekening_induk',
     ];
 
     public $timestamps = false;
+
+    public function scopeCari($query, $data){
+        $query->when($data ?? false, function($query, $data)
+        {
+            return $query->where('nama', 'like', "%".$data.'%')
+                        ->orWhere('nomor', 'like', "%".$data.'%');
+        });
+    }
 
     public function transaksi(): HasMany
     {
