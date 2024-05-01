@@ -85,7 +85,10 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
     });
 
     Route::controller(TransaksiInventarisController::class)->group(function () {
+        Route::get('/transaksi/{id}', 'edit')->whereNumber('id');
+        Route::post('/transaksi/update/{id}', 'update')->whereNumber('id');
         Route::get('/transaksi/tambah', 'tambah');
+        Route::post('/transaksi/tambah/simpan', 'store');
     });
 });
 

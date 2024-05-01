@@ -19,6 +19,14 @@ class TransaksiInventaris extends Model
 
     public $timestamps = true;
 
+    public function scopeCari($query, $data){
+        $query->when($data ?? false, function($query, $data)
+        {
+            return $query->where('keterangan', 'like', "%".$data."%");
+                        // ->orWhere('nomor', 'like', "%".$data.'%');
+        });
+    }
+
     public function rekeningDebit(): BelongsTo
     {   
         return $this->belongsTo(Rekening::class, 'debit');

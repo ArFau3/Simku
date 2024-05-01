@@ -39,8 +39,7 @@
         {{-- SECTION Time --}}
         <div class="container min-w-full py-1 border-2 border-slate-300 bg-zinc-300">
             <p class="text-end text-sm pr-3">Tapang Dadap -
-                <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y h:m:s') }} WIB
+                {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y h:m') }} WIB
             </p>
         </div>
         {{-- END SECTION Time --}}

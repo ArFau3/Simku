@@ -1,10 +1,9 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
-    {{ dump($transaksi) }}
     <section class="w-full p-8 mt-6 lg:mt-0 border rounded shadow">
         {{-- SECTION Form Input --}}
-        <form action="update/{{ $transaksi->id }}" method="POST">
+        <form action="tambah/simpan" method="POST">
             @csrf
             <div class="md:flex md:justify-between">
                 <div class="md:w-6/12">
@@ -16,8 +15,7 @@
                             </label>
                         </div>
                         <div class="md:w-4/6 md:float-right">
-                            <input id="date" name="tanggal" type="date"
-                                class="form-input block w-full focus:bg-white" value="{{ $transaksi->tanggal }}"
+                            <input id="date" type="date" class="form-input block w-full focus:bg-white"
                                 id="my-textfield">
                         </div>
                     </div>
@@ -29,7 +27,7 @@
                             </label>
                         </div>
                         <div class="md:w-4/6 md:float-right">
-                            <select name="jenis" class="form-select block w-full focus:bg-white" id="my-select">
+                            <select name="" class="form-select block w-full focus:bg-white" id="my-select">
                                 <option value="">Pendapatan</option>
                                 <option value="">Pengeluaran</option>
                                 <option value="">Peralatan</option>
@@ -44,10 +42,9 @@
                             </label>
                         </div>
                         <div class="md:w-4/6">
-                            <select name="debit" class="form-select block w-full focus:bg-white" id="my-select">
+                            <select name="" class="form-select block w-full focus:bg-white" id="my-select">
                                 @foreach ($rekening as $rekening_debit)
-                                    <option value="{{ $rekening_debit->id }}"
-                                        @if ($rekening_debit->id == $transaksi->debit) selected @endif>
+                                    <option value="{{ $rekening_debit->nama }}">
                                         {{ $rekening_debit->nomor . ' | ' . $rekening_debit->nama }}
                                     </option>
                                 @endforeach
@@ -62,10 +59,9 @@
                             </label>
                         </div>
                         <div class="md:w-4/6">
-                            <select name="kredit" class="form-select block w-full focus:bg-white" id="select">
+                            <select name="" class="form-select block w-full focus:bg-white" id="select">
                                 @foreach ($rekening as $rekening_kredit)
-                                    <option value="{{ $rekening_kredit->id }}"
-                                        @if ($rekening_kredit->id == $transaksi->kredit) selected @endif>
+                                    <option value="{{ $rekening_kredit->nama }}">
                                         {{ $rekening_kredit->nomor . ' | ' . $rekening_kredit->nama }}
                                     </option>
                                 @endforeach
@@ -81,7 +77,7 @@
                             </label>
                         </div>
                         <div class="md:w-4/6">
-                            <textarea class="form-textarea block w-full focus:bg-white" id="my-textarea" name="keterangan" rows="6">{{ $transaksi->keterangan }}</textarea>
+                            <textarea class="form-textarea block w-full focus:bg-white" id="my-textarea" rows="6"></textarea>
                         </div>
                     </div>
 
@@ -95,13 +91,12 @@
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                 <span class="text-black-500 sm:text-sm">Rp.</span>
                             </div>
-                            <input class="form-input block w-full focus:bg-white pl-9" id="my-textfield" name="nominal"
-                                type="number" value="{{ $transaksi->nominal }}">
+                            <input class="form-input block w-full focus:bg-white pl-9" name="nominal" id="my-textfield"
+                                type="number">
                         </div>
                     </div>
                 </div>
             </div>
-
             {{-- SECTION Tombol Aksi --}}
             <button class="bg-amber-400 opacity-85 p-2 mr-3 mt-5 font-medium text-sm lg:text-base antialiased"
                 type="submit">Simpan</button>
@@ -111,5 +106,6 @@
             {{-- SECTION Tombol Aksi --}}
         </form>
         {{-- END SECTION Form Input --}}
+
     </section>
 @endsection

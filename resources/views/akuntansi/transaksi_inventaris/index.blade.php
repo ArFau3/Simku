@@ -35,19 +35,29 @@
                     </a>
                 </div>
             </form>
-
+        </div>
+        <div class="sm:flex">
             <a href="transaksi/download">
                 <button
                     class="bg-amber-400 opacity-80 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
             </a>
-        </div>
-        <div class="flex rounded w-32 sm:w-60 justify-between border px-3 my-1 antialiased">
-            <input type="text"
-                class="border-0 bg-zinc-50 w-20 sm:w-48 font-medium text-sm lg:text-base focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
-                name="cari" id="cari" placeholder="Cari">
-            <button>
-                <i class="self-center fa fa-search text-gray-400"></i>
-            </button>
+            <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
+                <form action="" class="flex justify-between">
+                    <input type="text"
+                        class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-base focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
+                        name="cari" id="cari" placeholder="Keterangan/Jenis Transaksi"
+                        value="{{ request('cari') }}">
+                    <button>
+                        <i class="self-center fa fa-search text-gray-400" type="submit"></i>
+                    </button>
+                </form>
+            </div>
+            @if (request('cari'))
+                <a href="{{ strtolower($title) }}" class="my-1">
+                    <button
+                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                </a>
+            @endif
         </div>
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
@@ -115,7 +125,14 @@
                                 </td>
                                 <td
                                     class="px-4 sm:px-6 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="transaksi/{{ $transaksi[$i]->id }}"
+                                        class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <form action="/rekening/hapus/{{ $transaksi[$i]->id }}" method="POST" class="inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900"
+                                            onclick="return confirm('Anda akan Menghapus Transaksi {{ $transaksi[$i]->keterangan }} yang terjadi di tanggal {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->isoFormat('D MMMM Y') }}')">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endfor
