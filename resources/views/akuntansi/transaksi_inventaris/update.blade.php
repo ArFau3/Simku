@@ -1,7 +1,7 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
-    {{ dump($transaksi) }}
+    {{-- {{ dump($transaksi) }} --}}
     <section class="w-full p-8 mt-6 lg:mt-0 border rounded shadow">
         {{-- SECTION Form Input --}}
         <form action="update/{{ $transaksi->id }}" method="POST">
@@ -30,9 +30,11 @@
                         </div>
                         <div class="md:w-4/6 md:float-right">
                             <select name="jenis" class="form-select block w-full focus:bg-white" id="my-select">
-                                <option value="">Pendapatan</option>
-                                <option value="">Pengeluaran</option>
-                                <option value="">Peralatan</option>
+                                @foreach ($jenis as $jenis)
+                                    <option value="{{ $jenis->id }}" @if ($jenis->id == $transaksi->jenis) selected @endif>
+                                        {{ $jenis->jenis }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -92,11 +94,9 @@
                             </label>
                         </div>
                         <div class="md:w-4/6 relative">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                <span class="text-black-500 sm:text-sm">Rp.</span>
-                            </div>
-                            <input class="form-input block w-full focus:bg-white pl-9" id="my-textfield" name="nominal"
-                                type="number" value="{{ $transaksi->nominal }}">
+                            <input class="form-input block w-full focus:bg-white" id="my-textfield" name="nominal"
+                                type="text" data-type="currency"
+                                value="{{ Number::currency($transaksi->nominal, 'IDR', 'id') }}">
                         </div>
                     </div>
                 </div>

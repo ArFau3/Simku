@@ -15,8 +15,8 @@
                             </label>
                         </div>
                         <div class="md:w-4/6 md:float-right">
-                            <input id="date" type="date" class="form-input block w-full focus:bg-white"
-                                id="my-textfield">
+                            <input id="date" name="tanggal" type="date"
+                                class="form-input block w-full focus:bg-white" id="my-textfield">
                         </div>
                     </div>
 
@@ -27,10 +27,12 @@
                             </label>
                         </div>
                         <div class="md:w-4/6 md:float-right">
-                            <select name="" class="form-select block w-full focus:bg-white" id="my-select">
-                                <option value="">Pendapatan</option>
-                                <option value="">Pengeluaran</option>
-                                <option value="">Peralatan</option>
+                            <select name="jenis" class="form-select block w-full focus:bg-white" id="my-select">
+                                @foreach ($jenis as $jenis)
+                                    <option value="{{ $jenis->id }}">
+                                        {{ $jenis->jenis }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -42,9 +44,9 @@
                             </label>
                         </div>
                         <div class="md:w-4/6">
-                            <select name="" class="form-select block w-full focus:bg-white" id="my-select">
+                            <select name="debit" class="form-select block w-full focus:bg-white" id="my-select">
                                 @foreach ($rekening as $rekening_debit)
-                                    <option value="{{ $rekening_debit->nama }}">
+                                    <option value="{{ $rekening_debit->id }}">
                                         {{ $rekening_debit->nomor . ' | ' . $rekening_debit->nama }}
                                     </option>
                                 @endforeach
@@ -59,9 +61,9 @@
                             </label>
                         </div>
                         <div class="md:w-4/6">
-                            <select name="" class="form-select block w-full focus:bg-white" id="select">
+                            <select name="kredit" class="form-select block w-full focus:bg-white" id="select">
                                 @foreach ($rekening as $rekening_kredit)
-                                    <option value="{{ $rekening_kredit->nama }}">
+                                    <option value="{{ $rekening_kredit->id }}">
                                         {{ $rekening_kredit->nomor . ' | ' . $rekening_kredit->nama }}
                                     </option>
                                 @endforeach
@@ -77,7 +79,8 @@
                             </label>
                         </div>
                         <div class="md:w-4/6">
-                            <textarea class="form-textarea block w-full focus:bg-white" id="my-textarea" rows="6"></textarea>
+                            <textarea class="form-textarea block w-full focus:bg-white" id="my-textarea" name="keterangan" rows="6"
+                                placeholder="Keterangan Transaksi"></textarea>
                         </div>
                     </div>
 
@@ -88,20 +91,20 @@
                             </label>
                         </div>
                         <div class="md:w-4/6 relative">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                <span class="text-black-500 sm:text-sm">Rp.</span>
-                            </div>
-                            <input class="form-input block w-full focus:bg-white pl-9" name="nominal" id="my-textfield"
-                                type="number">
+                            <input class="form-input block w-full focus:bg-white" id="my-textfield" name="nominal"
+                                type="text" data-type="currency" value="" placeholder="Rp. 0,00">
                         </div>
                     </div>
                 </div>
             </div>
+
             {{-- SECTION Tombol Aksi --}}
-            <button class="bg-amber-400 opacity-85 p-2 mr-3 mt-5 font-medium text-sm lg:text-base antialiased"
-                type="submit">Simpan</button>
+            <button type="submit"
+                class="bg-amber-400 opacity-85 p-2 mr-3 mt-5 font-medium text-sm lg:text-base antialiased">Simpan
+            </button>
             <a href="/transaksi">
-                <button class="bg-amber-400 opacity-85 p-2 mt-5 font-medium text-sm lg:text-base antialiased">Batal</button>
+                <button type="button"
+                    class="bg-amber-400 opacity-85 p-2 mt-5 font-medium text-sm lg:text-base antialiased">Batal</button>
             </a>
             {{-- SECTION Tombol Aksi --}}
         </form>

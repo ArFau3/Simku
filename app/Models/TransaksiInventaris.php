@@ -12,6 +12,7 @@ class TransaksiInventaris extends Model
     protected $fillable = [
         'debit',
         'kredit',
+        'jenis',
         'tanggal',
         'keterangan',
         'nominal',
@@ -35,5 +36,9 @@ class TransaksiInventaris extends Model
     public function rekeningKredit(): BelongsTo
     {   
         return $this->belongsTo(Rekening::class, 'kredit');
+    }
+
+    public function jenisTransaksi(): BelongsTo{
+        return $this->belongsTo(Jenis::class, 'jenis');
     }
 }

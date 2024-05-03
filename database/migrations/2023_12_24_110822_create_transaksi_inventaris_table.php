@@ -15,15 +15,19 @@ return new class extends Migration
             $table->id();
             $table->foreignId('debit');
             $table->foreignId('kredit');
+            $table->foreignId('jenis');
             $table->date('tanggal');
             $table->string('keterangan');
-            $table->decimal('nominal', 10, 2);
+            $table->decimal('nominal', 16, 2);
             $table->timestamps();
 
             $table->foreign('debit')->references('id')->on('rekenings')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('kredit')->references('id')->on('rekenings')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('jenis')->references('id')->on('JENIS')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }

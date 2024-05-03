@@ -21,6 +21,7 @@ class TransaksiInventarisFactory extends Factory
         return [
             'debit' => $transaksi->random()->id,
             'kredit' => $transaksi->random()->id,
+            'jenis' => fake()->numberBetween(1, 8),
             'tanggal' => fake()->date(),
             'keterangan' => fake()->sentence(11),
             'nominal' => fake()->numberBetween(1000, 5000000),

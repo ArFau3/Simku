@@ -98,7 +98,7 @@ class RekeningController extends Controller
         // Merubah kolom induk menjadi int
         $induk = (int)$validated['induk'];
 
-        // Update database
+        // Insert New data
         $data = new Rekening;
         $data->nama = $validated['nama'];
         $data->nomor = $validated['nomor'];

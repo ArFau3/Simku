@@ -112,7 +112,7 @@
                                 </td>
                                 <td
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->format('d/m/Y') }}
+                                    {{ $transaksi[$i]->jenisTransaksi->jenis }}
                                 </td>
                                 <td
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
@@ -127,11 +127,11 @@
                                     class="px-4 sm:px-6 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
                                     <a href="transaksi/{{ $transaksi[$i]->id }}"
                                         class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="/rekening/hapus/{{ $transaksi[$i]->id }}" method="POST" class="inline">
+                                    <form action="/transaksi/hapus/{{ $transaksi[$i]->id }}" method="POST" class="inline">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="text-indigo-600 hover:text-indigo-900"
-                                            onclick="return confirm('Anda akan Menghapus Transaksi {{ $transaksi[$i]->keterangan }} yang terjadi di tanggal {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->isoFormat('D MMMM Y') }}')">Hapus</button>
+                                            onclick="return confirm('Anda akan Menghapus Transaksi &quot;{{ $transaksi[$i]->keterangan }}&quot; yang terjadi di tanggal {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->isoFormat('D MMMM Y') }}')">Hapus</button>
                                     </form>
                                 </td>
                             </tr>

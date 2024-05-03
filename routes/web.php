@@ -89,6 +89,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         Route::post('/transaksi/update/{id}', 'update')->whereNumber('id');
         Route::get('/transaksi/tambah', 'tambah');
         Route::post('/transaksi/tambah/simpan', 'store');
+        Route::delete('/transaksi/hapus/{id}', 'delete')->whereNumber('id');
     });
 });
 
