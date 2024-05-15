@@ -66,6 +66,7 @@
 
 </html>
 <script type="text/javascript">
+    // DROPDOWN SIDEBAR
     let menu1 = document.getElementById("menu1");
     const showMenu1 = (flag) => {
         if (flag) {
@@ -85,8 +86,6 @@
     };
 
     //CURRENCY FORMATTER
-    // Jquery Dependency
-
     $("input[data-type='currency']").on({
         keyup: function() {
             formatCurrency($(this));
@@ -170,4 +169,120 @@
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
     }
+
+    //NOMOR REKENING MAKER
+    @if ($title == 'Rekening')
+        var induks = {!! $rekening_json->toJson() !!}
+        $('#rekening_induk').change(function() {
+            formatRekening($(this));
+        });
+
+        function Bersihkan(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "")
+        }
+
+        function formatRekening(input) {
+            // get input value from rekening_induk field
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") {
+                return;
+            }
+
+            // Ambil data dengan awalan sesuai input 
+            // ambil nomor induk berdasarkan id induk dari form rekening_induk
+            var id_to_induk = 0
+            induks.forEach(i => {
+                if (i['rekening_id'] == input_val) {
+                    id_to_induk = i['nomor']
+                }
+            });
+            // rangkai aturan untuk match()
+            // output === string, jadi perlu diconvert lagi ke executable js code
+            var filter = "/^" + id_to_induk + ".*/"
+            // tempat simpan
+            var nomor_induk = []
+            // looping untuk cek data satu persatu
+            // hanya ambil dengan bagian akhir e.g. 4 == [4, 4.5, 4.16.5] 
+            // ==! [1.4, 1.16.4] 
+            console.log(id_to_induk);
+            induks.forEach(i => {
+                if (i['nomor'].match(eval(filter))) {
+                    var anak_pertama = i['nomor'].indexOf(id_to_induk) + id_to_induk.length + 1;
+                    nomor_induk.push(i['nomor'].substring(anak_pertama))
+                }
+            });
+            console.log(nomor_induk);
+
+            // potong bagian belakang/cucu nya
+            var anak = []
+            nomor_induk.forEach(j => {
+                if (j !== '') {
+                    var anak_kedua = j.indexOf(".");
+                    anak.push(parseInt(j.substring(0, anak_kedua)))
+                }
+            })
+            console.log(anak);
+
+            // ambil nilai terendah pertama dari 1 - n
+            var nomor_anak
+            for (let n = 1; n < 100; n++) {
+                if (anak[0] !== n) {
+                    nomor_anak = n
+                    break
+                }
+            }
+            console.log(nomor_anak);
+            // Ambil nilai kosong pertama
+            // <========================BATAS===================>
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position 
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(".") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = bersihkan(left_side);
+
+                // validate right side
+                right_side = bersihkan(right_side);
+
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+
+                // join number by .
+                input_val = "Rp " + left_side + "," + right_side;
+
+            } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = bersihkan(input_val);
+                input_val = "Rp " + input_val;
+            }
+
+            // send updated string to input form field nomor_rekening
+            $("input[data-type='nomor_rekening']").val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+    @endif
 </script>

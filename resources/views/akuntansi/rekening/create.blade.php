@@ -21,12 +21,12 @@
             {{-- Rekening Induk --}}
             <div class="md:flex mb-6">
                 <div class="md:w-1/6 self-center">
-                    <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
+                    <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="rekening_induk">
                         Rekening Induk
                     </label>
                 </div>
                 <div class="md:w-5/6">
-                    <select name="induk" class="form-select block w-full focus:bg-white" id="my-select">
+                    <select name="induk" class="form-select block w-full focus:bg-white" id="rekening_induk">
                         @foreach ($rekening as $rekening)
                             <option value="{{ $rekening->id }}">
                                 {{ $rekening->nomor . ' | ' . $rekening->nama }}
@@ -45,7 +45,7 @@
                 </div>
                 <div class="md:w-5/6">
                     <input disabled class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
-                        value="{{ $last->id * 2 }}">
+                        data-type="nomor_rekening" value="{{ $last->id * 2 }}">
                     <input name="nomor" type="hidden" value="{{ $last->id * 2 }}">
                 </div>
             </div>

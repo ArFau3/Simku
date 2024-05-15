@@ -18,6 +18,7 @@ class RekeningController extends Controller
             'user' => $request->user(),
             'judul' => 'Daftar Rekening',
             'rekening' => Rekening::orderBy('nomor')->cari($request['cari'])->get(),
+            'rekening_json' => Rekening::all(),
         ];
         return view('akuntansi.rekening.index', $data);
     }
@@ -76,6 +77,7 @@ class RekeningController extends Controller
             'judul' => 'Tambah Rekening',
             'rekening' => Rekening::orderBy('nomor')->get(),
             'last' =>Rekening::all()->last(),
+            'rekening_json' => Rekening::select('id as rekening_id','nomor')->orderBy('nomor')->get(),
         ];
         return view('akuntansi.rekening.create', $data);
     }
