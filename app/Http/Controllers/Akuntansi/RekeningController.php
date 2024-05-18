@@ -104,6 +104,7 @@ class RekeningController extends Controller
         $data = new Rekening;
         $data->nama = $validated['nama'];
         $data->nomor = $validated['nomor'];
+        $data->edit = true;
         $data->rekening_induk = $induk;
 
         $data->save();

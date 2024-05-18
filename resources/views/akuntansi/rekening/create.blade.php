@@ -45,8 +45,8 @@
                 </div>
                 <div class="md:w-5/6">
                     <input disabled class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
-                        data-type="nomor_rekening" value="{{ $last->id * 2 }}">
-                    <input name="nomor" type="hidden" value="{{ $last->id * 2 }}">
+                        data-type="nomor_rekening">
+                    <input name="nomor" data-type="nomor_rekening" type="hidden">
                 </div>
             </div>
             {{-- END Nomor Rekening --}}
@@ -58,8 +58,7 @@
                     </label>
                 </div>
                 <div class="md:w-5/6">
-                    <input name="nama" class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
-                        value="">
+                    <input name="nama" class="form-input block w-full focus:bg-white" id="my-textfield" type="text">
                 </div>
             </div>
             {{-- END Nama Rekening --}}
