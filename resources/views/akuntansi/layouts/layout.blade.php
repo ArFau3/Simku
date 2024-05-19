@@ -66,6 +66,11 @@
 
 </html>
 <script type="text/javascript">
+    @if ($title == 'Transaksi' || $title == 'Inventaris')
+        @if (!request('akhir'))
+            document.getElementById('akhir').valueAsDate = new Date();
+        @endif
+    @endif
     // DROPDOWN SIDEBAR
     let menu1 = document.getElementById("menu1");
     const showMenu1 = (flag) => {

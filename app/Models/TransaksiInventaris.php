@@ -24,11 +24,18 @@ class TransaksiInventaris extends Model
         $query->when($data ?? false, function($query, $data)
         {
             return $query->where('keterangan', 'like', "%".$data."%");
-                        // ->orWhere('nomor', 'like', "%".$data.'%');
+                        // ->orWhere('jenis', 'like', "%".$data.'%');
         });
     }
 
-    
+    public function scopeFilter($query, $awal, $akhir){
+        $query->when(isset($awal) ? [$awal,$akhir] : false, function($query, $rentang){
+            return $query->where([
+                ['tanggal', '>=', $rentang[0]],
+                ['tanggal', '<=', $rentang[1]],
+            ]);
+        });
+    }
 
     public function rekeningDebit(): BelongsTo
     {   

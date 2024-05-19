@@ -15,8 +15,8 @@
             {{-- END SECTION Tambah Transaksi if halaman transaksi --}}
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
 
-                <input id="date" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
-                    id="my-textfield">
+                <input id="awal" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
+                    id="my-textfield" name="awal" value="{{ request('awal') }}">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                     class="w-12 h-7 md:h-12 mx-auto">
@@ -25,16 +25,20 @@
                         clip-rule="evenodd"></path>
                 </svg>
 
-                <input id="date" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
-                    id="my-textfield">
+                <input id="akhir" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
+                    id="my-textfield" name="akhir" value="{{ request('akhir') }}">
 
                 <div>
-                    <a href="transaksi/cari">
-                        <button
-                            class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased">Oke</button>
-                    </a>
+                    <button class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased"
+                        type="submit">Oke</button>
                 </div>
             </form>
+            @if (request('awal'))
+                <a href="{{ strtolower($title) }}" class="my-1">
+                    <button
+                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                </a>
+            @endif
         </div>
         <div class="sm:flex">
             <a href="transaksi/download">

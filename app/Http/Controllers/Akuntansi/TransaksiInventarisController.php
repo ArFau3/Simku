@@ -18,8 +18,11 @@ class TransaksiInventarisController extends Controller
             "title" => "Transaksi",
             'user' => $request->user(),
             'judul' => 'Daftar Transaksi',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->get(),
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+                                                                                                    $request['akhir']
+                                                                                            )->get(),
         ];
+        // dd($data['transaksi']->where('tanggal', '<', $request['awal']));
         return view('akuntansi.transaksi_inventaris.index', $data);
     }
 
