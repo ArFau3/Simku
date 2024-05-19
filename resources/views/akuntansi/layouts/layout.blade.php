@@ -231,10 +231,8 @@
                 return a - b;
             });
 
-
             // Buat unique
             anak = [...new Set(anak)];
-
 
             // ambil nilai terendah kosong pertama dari 1 - n
             var nomor_anak

@@ -8,6 +8,8 @@ use App\Http\Controllers\Akuntansi\LabaRugiController;
 use App\Http\Controllers\Akuntansi\NeracaController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Supplier\AngkutanController;
 use App\Http\Controllers\Supplier\BerandaController;
@@ -35,8 +37,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+// JIKA PAKAI GATEWAY
+// Gateway to filter user
+Route::get('/gateway', [GatewayController::class, 'index'])->middleware(['auth', 'verified']);
+// JIKA PAKAI BEDA SUMBER LOGIN
+Route::get('akuntansi', [AuthenticatedSessionController::class, 'akuntansi'])->name('akuntansi');
+Route::post('akuntansi', [AuthenticatedSessionController::class, 'dashboard']);
+Route::get('supplier', [AuthenticatedSessionController::class, 'supplier'])->name('supplier');
+Route::post('supplier', [AuthenticatedSessionController::class, 'beranda']);
 
 // SISTEM AKUNTANSI
 // USER: Akuntan & Pengurus

@@ -28,6 +28,8 @@ class TransaksiInventaris extends Model
         });
     }
 
+    
+
     public function rekeningDebit(): BelongsTo
     {   
         return $this->belongsTo(Rekening::class, 'debit');

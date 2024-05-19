@@ -17,8 +17,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/gateway';
 
+    // SEMENTARA JIKA PAKAI BEDA SISTEM LOGIN
+    public const AKUNTANSI = '/dashboard';
+    public const SUPPLIER = '/beranda';
+    // END SEMENTARA
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      */

@@ -28,7 +28,6 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -45,4 +44,40 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    // SEMENTARA, JIKA PAKAI BEDA SUMBER LOGIN
+    // UNTUK SISTEM AKUNTANSI
+    public function akuntansi(): View
+    {
+        return view('auth.sementara.loginAkuntansi');
+    }
+
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function dashboard(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+        return redirect()->intended(RouteServiceProvider::AKUNTANSI);
+    }
+
+    // UNTUK SISTEM SUPPLIER
+    public function supplier(): View
+    {
+        return view('auth.sementara.loginSupplier');
+    }
+
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function beranda(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+        return redirect()->intended(RouteServiceProvider::SUPPLIER);
+    }
+    // END SEMENTARA
 }
