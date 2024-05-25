@@ -2,6 +2,7 @@
 
 @section('content')
     {{-- SECTION tombol akses sebelum tabel --}}
+    {{-- {{ dd(request) }} --}}
     <div class="md:flex justify-between">
         <div class="md:flex">
             {{-- SECTION Tambah Transaksi if halaman transaksi --}}
@@ -85,10 +86,13 @@
                                 @if ($title === 'Transaksi')
                                     Jenis Transaksi
                                 @endif
-                                @if ($title === 'Inventaris')
+                                @if ($title === 'Aset Tetap')
                                     Nama Rekening
                                 @endif
                             </th>
+                            <th
+                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                Debit - Kredit</th>
                             <th
                                 class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
                                 Keterangan</th>
@@ -116,7 +120,18 @@
                                 </td>
                                 <td
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi[$i]->jenisTransaksi->jenis }}
+                                    @if ($title === 'Transaksi')
+                                        {{ $transaksi[$i]->jenisTransaksi->jenis }}
+                                    @endif
+                                    @if ($title === 'Aset Tetap')
+                                        @if (true)
+                                            Nama Rekening
+                                        @endif
+                                    @endif
+                                </td>
+                                <td
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                    {{ $transaksi[$i]->rekeningDebit->nama }} - {{ $transaksi[$i]->rekeningKredit->nama }}
                                 </td>
                                 <td
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">

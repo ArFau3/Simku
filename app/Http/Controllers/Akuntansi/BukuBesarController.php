@@ -15,7 +15,9 @@ class BukuBesarController extends Controller
             'user' => $request->user(),
             'rekening' => Rekening::orderBy('nomor')->get(),
             'judul' => 'Buku Besar',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->get(),
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+                                                                                                    $request['akhir']
+                                                                                            )->get(),
         ];
         return view('akuntansi.buku_besar.index', $data);
     }

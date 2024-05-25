@@ -66,11 +66,9 @@
 
 </html>
 <script type="text/javascript">
-    @if ($title == 'Transaksi' || $title == 'Inventaris')
-        @if (!request('akhir'))
-            document.getElementById('akhir').valueAsDate = new Date();
-        @endif
-    @endif
+    if (document.getElementById('akhir')) {
+        document.getElementById('akhir').valueAsDate = new Date();
+    }
     // DROPDOWN SIDEBAR
     let menu1 = document.getElementById("menu1");
     const showMenu1 = (flag) => {
@@ -185,7 +183,7 @@
         function formatRekening(input) {
             // get input value from rekening_induk field
             var input_id = input.val();
-
+            console.log("id: " + input_id);
             // don't validate empty input
             if (input_id === "") {
                 return;
@@ -199,7 +197,7 @@
                     nomor_induk = i['nomor']
                 }
             });
-
+            console.log("nomor induk: " + nomor_induk);
             // rangkai aturan untuk match()
             // output === string, jadi perlu diconvert lagi ke executable js code
             var filter = "/^" + nomor_induk + ".*/"
@@ -215,7 +213,7 @@
                     anak_induk.push(i['nomor'].substring(anak_pertama))
                 }
             });
-
+            console.log("anak induk: " + anak_induk);
             // potong bagian belakang/cucu nya
             var anak = []
             anak_induk.forEach(j => {
@@ -230,15 +228,15 @@
                     }
                 }
             })
-
+            console.log("anak: " + anak);
             // sort var anak
             anak.sort(function(a, b) {
                 return a - b;
             });
-
+            console.log("anak sort: " + anak);
             // Buat unique
             anak = [...new Set(anak)];
-
+            console.log("anak unique: " + anak);
             // ambil nilai terendah kosong pertama dari 1 - n
             var nomor_anak
             for (let n = 1; n < 100; n++) {
@@ -248,10 +246,10 @@
                     break
                 }
             }
-
+            console.log("nomor anak: " + nomor_anak);
             // Gabung nomor induk dan anak
             var nomor_rekening = nomor_induk + "." + nomor_anak
-
+            console.log("nomor induk: " + nomor_rekening);
             // kirim ke form di kolom nomor rekening
             $("input[data-type='nomor_rekening']").val(nomor_rekening);
         }

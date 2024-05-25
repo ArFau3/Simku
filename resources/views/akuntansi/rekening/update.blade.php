@@ -28,7 +28,7 @@
                     </label>
                 </div>
                 <div class="md:w-5/6">
-                    <select name="induk" class="form-select block w-full focus:bg-white" id="my-select">
+                    <select name="induk" class="form-select block w-full focus:bg-white" id="rekening_induk">
                         @foreach ($rekenings as $rekenings)
                             <option value="{{ $rekenings->id }}"
                             @if ($rekening->rekening_induk) @if ($rekenings->id == $rekening->rekening_induk) selected @endif @else
@@ -49,8 +49,8 @@
                 </div>
                 <div class="md:w-5/6">
                     <input disabled class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
-                        value="{{ $rekening->nomor }}">
-                    <input name="nomor" type="hidden" value="{{ $rekening->nomor }}">
+                        value="{{ $rekening->nomor }}" data-type="nomor_rekening">
+                    <input name="nomor" data-type="nomor_rekening" type="hidden" value="{{ $rekening->nomor }}">
                 </div>
             </div>
             {{-- END Nomor Rekening --}}

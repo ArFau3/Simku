@@ -33,6 +33,7 @@ class RekeningController extends Controller
             'judul' => 'Daftar Rekening',
             'rekenings' => Rekening::orderBy('nomor')->get(),
             'rekening' => $id,
+            'rekening_json' => Rekening::select('id as rekening_id','nomor')->orderBy('nomor')->get(),
         ];
             return view('akuntansi.rekening.update', $data);
         }else{

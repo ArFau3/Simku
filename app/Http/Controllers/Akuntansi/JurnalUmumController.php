@@ -17,7 +17,9 @@ class JurnalUmumController extends Controller
             "title" => "Jurnal Umum",
             'user' => $request->user(),
             'judul' => 'Jurnal Umum',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->get(),
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+                                                                                                    $request['akhir']
+                                                                                            )->get(),
             'ju' => $periode->whereNull('akhir'),
         ];
         return view('akuntansi.ju.index', $data);

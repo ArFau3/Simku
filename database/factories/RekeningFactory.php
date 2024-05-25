@@ -18,8 +18,8 @@ class RekeningFactory extends Factory
     public function definition(): array
     {
         $nomor_rekening1 = fake()->numberBetween(1,5);
-        $nomor_rekening2 = fake()->randomNumber(2, false);
-        $nomor_rekening3 = fake()->randomNumber(2, false);
+        $nomor_rekening2 = fake()->numberBetween(1, 20);
+        $nomor_rekening3 = fake()->numberBetween(1, 20);
         $induk = Rekening::whereNull('rekening_induk')->get();
         return [
             'nama' => fake()->unique()->word(),

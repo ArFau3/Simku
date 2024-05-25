@@ -7,6 +7,7 @@ use App\Models\Jenis;
 use App\Models\Rekening;
 use App\Models\TransaksiInventaris;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -29,10 +30,13 @@ class TransaksiInventarisController extends Controller
     public function indexInventaris(Request $request)
     {
         $data = [
-            "title" => "Inventaris",
+            "title" => "Aset Tetap",
             'user' => $request->user(),
-            'judul' => 'Daftar Inventaris',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->get(),
+            'judul' => 'Daftar Aset Tetap',
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
+                                                                                                                    $request['akhir']
+                                                                                                            )->get(),
+            
         ];
         return view('akuntansi.transaksi_inventaris.index', $data);
     }
