@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class BukuBesarController extends Controller
 {
     public function index(Request $request){
+        $trans = TransaksiInventaris::orderBy('tanggal')->get();
         $data = [
             "title" => "Buku Besar",
             'user' => $request->user(),
@@ -18,7 +19,19 @@ class BukuBesarController extends Controller
             'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->get(),
+
+            // ===================================================
+            // 'debit' => $trans->except('kredit'),
+            // 'kredit' => $trans->except('debit'),
+            // 'transaksi' => ,
+            // ===================================================
         ];
         return view('akuntansi.buku_besar.index', $data);
+
+        // $users = DB::table('users')
+        //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
+        //     ->join('orders', 'users.id', '=', 'orders.user_id')
+        //     ->select('users.*', 'contacts.phone', 'orders.price')
+        //     ->get();
     }
 }
