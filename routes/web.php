@@ -8,7 +8,6 @@ use App\Http\Controllers\Akuntansi\LabaRugiController;
 use App\Http\Controllers\Akuntansi\NeracaController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Supplier\AngkutanController;
@@ -40,15 +39,16 @@ Route::get('/', function () {
 // JIKA PAKAI GATEWAY
 // Gateway to filter user
 Route::get('/gateway', [GatewayController::class, 'index'])->middleware(['auth', 'verified']);
-// JIKA PAKAI BEDA SUMBER LOGIN
-Route::get('akuntansi', [AuthenticatedSessionController::class, 'akuntansi'])->name('akuntansi');
-Route::post('akuntansi', [AuthenticatedSessionController::class, 'dashboard']);
-Route::get('supplier', [AuthenticatedSessionController::class, 'supplier'])->name('supplier');
-Route::post('supplier', [AuthenticatedSessionController::class, 'beranda']);
 
 // SISTEM AKUNTANSI
 // USER: Akuntan & Pengurus
 Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function () {
+    Route::controller(App\Http\Controllers\Akuntansi\ProfileController::class)->group(function () {
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
+
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     Route::controller(RekeningController::class)->group(function () {
@@ -104,9 +104,9 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
 // SEMENTARA
 Route::middleware('auth', 'verified')->group(function () {
     Route::controller(ProfileController::class)->group(function () {
-        Route::get('/profile', 'edit')->name('profile.edit');
-        Route::patch('/profile', 'update')->name('profile.update');
-        Route::delete('/profile', 'destroy')->name('profile.destroy');
+        Route::get('/profil', 'edit')->name('profile.edit');
+        Route::patch('/profil', 'update')->name('profile.update');
+        Route::delete('/profil', 'destroy')->name('profile.destroy');
     });
 });
 // END SEMENTARA

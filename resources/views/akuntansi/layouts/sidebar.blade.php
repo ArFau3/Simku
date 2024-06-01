@@ -1,21 +1,23 @@
 {{-- SECTION SIDEBAR --}}
 <div class="lg:float-left lg:fixed overflow-y-auto lg:w-1/6 bg-zinc-800 lg:translate-x-0 lg:inset-0">
     {{-- SECTION card profile --}}
-    <div class="items-center justify-center mt-8">
-        <section class="flex w-5/6 mx-auto bg-zinc-700 rounded-2xl px-3 py-4 shadow-lg">
-            <div class="flex-shrink-0 lg:w-3/6 float-left pr-3">
-                <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-lg "
-                    alt="profile picture" srcset="">
-            </div>
+    <a href="/profile">
+        <div class="items-center justify-center mt-8">
+            <section class="flex w-5/6 mx-auto bg-zinc-700 rounded-2xl px-3 py-4 shadow-lg">
+                <div class="flex-shrink-0 lg:w-3/6 float-left pr-3">
+                    <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-lg "
+                        alt="profile picture" srcset="">
+                </div>
 
-            <div class="pr-3 text-white -ml-1">
-                <h3 class="text-2xl pb-0.5 lg:text-base font-bold underline lg:no-underline">
-                    {{ $user->getRoles() ? ucwords($user->getRoles()[0]) : 'User' }}
-                </h3>
-                <p class="text-xl lg:text-sm">{{ $user->nama_lengkap }}</p>
-            </div>
-        </section>
-    </div>
+                <div class="pr-3 text-white -ml-1">
+                    <h3 class="text-2xl pb-0.5 lg:text-base font-bold underline lg:no-underline">
+                        {{ $user->getRoles() ? ucwords($user->getRoles()[0]) : 'User' }}
+                    </h3>
+                    <p class="text-xl lg:text-sm">{{ $user->nama_lengkap }}</p>
+                </div>
+            </section>
+        </div>
+    </a>
     {{-- END SECTION card profile --}}
     {{-- SECTION line divider --}}
     <p class="px-5 pt-6 text-gray-600">Menu</p>

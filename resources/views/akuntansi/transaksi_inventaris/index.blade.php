@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- SECTION tombol akses sebelum tabel --}}
-    {{-- {{ dd(request) }} --}}
+    {{-- {{ dd($transaksi) }} --}}
     <div class="md:flex justify-between">
         <div class="md:flex">
             {{-- SECTION Tambah Transaksi if halaman transaksi --}}

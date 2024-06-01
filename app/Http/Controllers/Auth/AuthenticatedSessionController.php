@@ -49,11 +49,14 @@ class AuthenticatedSessionController extends Controller
     // UNTUK SISTEM AKUNTANSI
     public function akuntansi(): View
     {
-        return view('auth.sementara.loginAkuntansi');
+        $data = [
+            'title' => "Login Akuntansi",
+        ];
+        return view('auth.akuntansi.loginAkuntansi', $data);
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Handle request ke dashboard akuntansi.
      */
     public function dashboard(LoginRequest $request): RedirectResponse
     {

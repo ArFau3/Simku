@@ -27,9 +27,9 @@
                     class="object-contain float-left sm:h-full max-h-20 sm:w-20 flex-shrink-0 mr-2">
                 <div class="leading-4 float-left pt-3">
                     <h3 class="sm:leading-7 font-bold sm:text-xl">SISTEM INFORMASI AKUNTANSI</h3>
-                    <div class="text-xs sm:text-base">
-                        <p>Koperasi Perkebunan Kabupaten Sekadau</p>
-                        <p>Sekadau No.9 20/003 Sekadau-KalBar</p>
+                    <div class="text-xs sm:text-base sm:leading-4">
+                        <p>Koperasi Unit Desa (KUD) Tapang Dadap</p>
+                        <p>Nomor : 0003967//BH/M.KUKM.2/IV/2017</p>
                     </div>
                 </div>
             </div>
@@ -38,9 +38,10 @@
         </div>
         {{-- END SECTION Header --}}
         {{-- SECTION Time --}}
-        <div class="container min-w-full py-1 border-2 border-slate-300 bg-zinc-300">
-            <p class="text-end text-sm pr-3">Tapang Dadap -
-                {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y h:m') }} WIB
+        <div class="container min-w-full py-1 border-2 text-sm border-slate-300 bg-zinc-300 pr-3 flex justify-end">
+            <p>Tapang Dadap -
+                {{ \Carbon\Carbon::now()->isoFormat('dddd, ') }}
+            <div class="px-1 text-sm" id="clock"></div> WIB
             </p>
         </div>
         {{-- END SECTION Time --}}
@@ -66,9 +67,54 @@
 
 </html>
 <script type="text/javascript">
+    // Jam Digital
+    // Calling showTime function at every second
+    setInterval(showTime, 1000);
+
+    // Defining showTime funcion
+    function showTime() {
+        // Getting current time and date
+        let time = new Date();
+        let hour = time.getHours();
+        let min = time.getMinutes();
+        let sec = time.getSeconds();
+        am_pm = "AM";
+
+        // Setting time for 12 Hrs format
+        if (hour >= 12) {
+            if (hour > 12) hour -= 12;
+            am_pm = "PM";
+        } else if (hour == 0) {
+            hr = 12;
+            am_pm = "AM";
+        }
+
+        hour =
+            hour < 10 ? "0" + hour : hour;
+        min = min < 10 ? "0" + min : min;
+        sec = sec < 10 ? "0" + sec : sec;
+
+        let currentTime =
+            hour +
+            ":" +
+            min +
+            ":" +
+            sec +
+            am_pm;
+
+        // Displaying the time
+        document.getElementById(
+            "clock"
+        ).innerHTML = currentTime;
+    }
+
+    showTime();
+    // END Jam Digital
+    // Atur field tanggal akhir filter tanggal
     if (document.getElementById('akhir')) {
         document.getElementById('akhir').valueAsDate = new Date();
     }
+    // END Atur field tanggal akhir filter tanggal
     // DROPDOWN SIDEBAR
     let menu1 = document.getElementById("menu1");
     const showMenu1 = (flag) => {
@@ -87,7 +133,7 @@
             menu2.classList.toggle("hidden");
         }
     };
-
+    // END DROPDOWN SIDEBAR
     //CURRENCY FORMATTER
     $("input[data-type='currency']").on({
         keyup: function() {
@@ -172,7 +218,7 @@
         caret_pos = updated_len - original_len + caret_pos;
         input[0].setSelectionRange(caret_pos, caret_pos);
     }
-
+    //END CURRENCY FORMATTER
     //NOMOR REKENING MAKER
     @if ($title == 'Rekening')
         var induks = {!! $rekening_json->toJson() !!}
@@ -254,4 +300,5 @@
             $("input[data-type='nomor_rekening']").val(nomor_rekening);
         }
     @endif
+    //END NOMOR REKENING MAKER
 </script>

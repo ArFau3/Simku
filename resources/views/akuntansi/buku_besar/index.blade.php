@@ -156,5 +156,6 @@
             {{-- END SECTION Tabel Data --}}
         @endif
     @endforeach
+    {{ $rekening->links() }}
     {{-- END SECTION Tabels --}}
 @endsection

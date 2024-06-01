@@ -10,11 +10,10 @@ use Illuminate\Http\Request;
 class BukuBesarController extends Controller
 {
     public function index(Request $request){
-        $trans = TransaksiInventaris::orderBy('tanggal')->get();
         $data = [
             "title" => "Buku Besar",
             'user' => $request->user(),
-            'rekening' => Rekening::orderBy('nomor')->get(),
+            'rekening' => Rekening::orderBy('nomor')->paginate(10),
             'judul' => 'Buku Besar',
             'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
@@ -26,6 +25,7 @@ class BukuBesarController extends Controller
             // 'transaksi' => ,
             // ===================================================
         ];
+        // $data['transaksi']->paginate(5);
         return view('akuntansi.buku_besar.index', $data);
 
         // $users = DB::table('users')
