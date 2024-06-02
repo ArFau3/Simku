@@ -63,6 +63,11 @@
                             type="password" class="mt-1 block w-full" autocomplete="new-password" />
                         <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
                     </div>
+                    <a href="/">
+                        <button type="button"
+                            class="bg-amber-400 opacity-85 p-2 mt-2 rounded-sm font-medium text-sm lg:text-base antialiased inline-block w-11/12">
+                            Ubah Password</button>
+                    </a>
                 </div>
                 {{-- END Password --}}
             </section>
@@ -81,17 +86,17 @@
                 <div class="mb-5">
                     <x-input-label for="jabatan" :value="__('Jabatan: ')" />
                     <x-text-input id="jabatan" disabled name="jabatan" type="text" class="mt-1 block w-full"
-                        value="{{ $user->jabatan }}" />{{-- ->nama --}}
+                        value="{{ $user->getRoles() ? ucwords($user->getRoles()[0]) : 'User' }}" />{{-- ->nama --}}
                     <x-input-error class="mt-2" :messages="$errors->get('jabatan')" />
                 </div>
                 {{-- END Jabatan --}}
             </section>
             {{-- END Data Koperasi --}}
         </div>
-        <div class="flex">
+        <div class="flex text-zinc-50">
             {{-- Tombol Save --}}
             <div class="flex items-center gap-4 pr-3">
-                <Button class="bg-blue-600 py-2 px-3 font-medium rounded-sm text-zinc-50" type="submit">Simpan</Button>
+                <Button class="bg-blue-600 py-2 px-3 font-medium rounded-sm" type="submit">Simpan</Button>
 
                 @if (session('status') === 'profile-updated')
                     <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
@@ -101,7 +106,7 @@
             {{-- END Tombol Save --}}
             {{-- Tombol Kembali --}}
             <a href="/dashboard">
-                <Button type="button" class="bg-zinc-500 py-2 px-3 font-medium rounded-sm text-zinc-50">Kembali</Button>
+                <Button type="button" class="bg-zinc-500 py-2 px-3 font-medium rounded-sm">Kembali</Button>
             </a>
             {{-- END Tombol Kembali --}}
         </div>

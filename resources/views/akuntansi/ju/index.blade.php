@@ -20,7 +20,7 @@
                     id="my-textfield" name="akhir" value="{{ request('akhir') }}">
 
                 <div>
-                    <button class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased"
+                    <button class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased"
                         type="submit">Oke</button>
                 </div>
             </form>
@@ -31,9 +31,9 @@
                 </a>
             @endif
         </div>
-        <a href="transaksi/download">
+        <a href="jurnal-umum/download">
             <button
-                class="bg-amber-400 opacity-80 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
         </a>
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}

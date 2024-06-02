@@ -5,7 +5,7 @@
     {{-- SECTION tombol akses sebelum tabel --}}
     <div class="flex justify-between">
         <a href="rekening/tambah">
-            <button class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased">Tambah
+            <button class="bg-amber-400 opacity-85 p-2 mt-1 rounded-sm font-medium text-sm lg:text-base antialiased">Tambah
                 Rekening</button>
         </a>
         <div class="flex">
@@ -39,13 +39,13 @@
                     <thead class="bg-zinc-200">
                         <tr>
                             <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Nomor Rekening</th>
                             <th
-                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                class="px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Nama Rekening</th>
                             <th
-                                class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                class="w-16 sm:w-32 px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Aksi</th>
                         </tr>
                     </thead>
@@ -55,11 +55,11 @@
                         @foreach ($rekening as $rekening)
                             <tr>
                                 <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                     {{ $rekening->nomor }}</td>
 
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">{{ $rekening->nama }}</div>
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">{{ $rekening->nama }}</div>
                                 </td>
                                 <td
                                     class="px-4 sm:px-6 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">

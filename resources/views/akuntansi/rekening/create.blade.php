@@ -21,7 +21,7 @@
             {{-- Rekening Induk --}}
             <div class="md:flex mb-6">
                 <div class="md:w-1/6 self-center">
-                    <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="rekening_induk">
+                    <label class="block text-gray-800 font-bold md:text-left mb-3 md:mb-0 pr-4" for="rekening_induk">
                         Rekening Induk
                     </label>
                 </div>
@@ -39,7 +39,7 @@
             {{-- Nomor Rekening --}}
             <div class="md:flex mb-6">
                 <div class="md:w-1/6 self-center">
-                    <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
+                    <label class="block text-gray-800 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
                         Nomor Rekening
                     </label>
                 </div>
@@ -53,7 +53,7 @@
             {{-- Nama Rekening --}}
             <div class="md:flex mb-6">
                 <div class="md:w-1/6 self-center">
-                    <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
+                    <label class="block text-gray-800 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
                         Nama Rekening
                     </label>
                 </div>
@@ -64,11 +64,11 @@
             {{-- END Nama Rekening --}}
             {{-- SECTION Tombol Aksi --}}
             <button type="submit"
-                class="bg-amber-400 opacity-85 p-2 mr-3 mt-5 font-medium text-sm lg:text-base antialiased">Simpan
+                class="bg-blue-600 text-zinc-50 opacity-85 px-3 py-2 mr-3 mt-5 rounded-sm font-medium text-sm lg:text-base antialiased">Simpan
             </button>
             <a href="/rekening">
                 <button type="button"
-                    class="bg-amber-400 opacity-85 p-2 mt-5 font-medium text-sm lg:text-base antialiased">Batal</button>
+                    class="bg-zinc-500 text-zinc-50 opacity-85 px-3 py-2 mt-5 rounded-sm font-medium text-sm lg:text-base antialiased">Batal</button>
             </a>
             {{-- SECTION Tombol Aksi --}}
         </form>

@@ -39,7 +39,7 @@
         {{-- END SECTION Header --}}
         {{-- SECTION Time --}}
         <div class="container min-w-full py-1 border-2 text-sm border-slate-300 bg-zinc-300 pr-3 flex justify-end">
-            <p>Tapang Dadap -
+            <p>Sistem Akuntansi -
                 {{ \Carbon\Carbon::now()->isoFormat('dddd, ') }}
             <div class="px-1 text-sm" id="clock"></div> WIB
             </p>
@@ -78,16 +78,6 @@
         let hour = time.getHours();
         let min = time.getMinutes();
         let sec = time.getSeconds();
-        am_pm = "AM";
-
-        // Setting time for 12 Hrs format
-        if (hour >= 12) {
-            if (hour > 12) hour -= 12;
-            am_pm = "PM";
-        } else if (hour == 0) {
-            hr = 12;
-            am_pm = "AM";
-        }
 
         hour =
             hour < 10 ? "0" + hour : hour;
@@ -99,8 +89,7 @@
             ":" +
             min +
             ":" +
-            sec +
-            am_pm;
+            sec;
 
         // Displaying the time
         document.getElementById(

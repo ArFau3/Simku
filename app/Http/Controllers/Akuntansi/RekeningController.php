@@ -30,7 +30,7 @@ class RekeningController extends Controller
         $data = [
             "title" => "Rekening",
             'user' => $request->user(),
-            'judul' => 'Daftar Rekening',
+            'judul' => 'Edit Rekening',
             'rekenings' => Rekening::orderBy('nomor')->get(),
             'rekening' => $id,
             'rekening_json' => Rekening::select('id as rekening_id','nomor')->orderBy('nomor')->get(),

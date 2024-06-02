@@ -25,14 +25,14 @@ $total_modal = collect([]); ?>
                 <div>
                     <a href="transaksi/cari">
                         <button
-                            class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased">Oke</button>
+                            class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased">Oke</button>
                     </a>
                 </div>
             </form>
         </div>
-        <a href="transaksi/download">
+        <a href="neraca/download">
             <button
-                class="bg-amber-400 opacity-80 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
         </a>
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
@@ -46,8 +46,8 @@ $total_modal = collect([]); ?>
                     <thead class="bg-zinc-200">
                         <tr>
                             <th colspan="3"
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wide text-left text-gray-500 uppercase border-b border-gray-200">
-                                Aset
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wide text-left text-gray-800 uppercase border-b border-gray-200">
+                                Aktiva
                             </th>
                         </tr>
                     </thead>
@@ -57,8 +57,8 @@ $total_modal = collect([]); ?>
                         @foreach ($aset as $aset)
                             <tr>
                                 <td colspan="3"
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         {{ $aset->nama }}
                                     </div>
                                 </td>
@@ -67,16 +67,16 @@ $total_modal = collect([]); ?>
                                 <tr>
                                     {{-- Baris Debit --}}
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nomor }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nama }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800 font-medium">
                                             DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
@@ -87,16 +87,16 @@ $total_modal = collect([]); ?>
                                 <tr>
                                     {{-- Baris Kredit --}}
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nomor }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nama }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800 font-medium">
                                             KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
@@ -106,12 +106,12 @@ $total_modal = collect([]); ?>
                             {{-- Baris Total per Rekening --}}
                             <tr class="border-gray-400">
                                 <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         Total {{ $aset->nama }}
                                     </div>
                                 </td>
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         {{-- {{ dd($transaksi->where('kredit', $aset->id)->sum('nominal')) }} --}}
                                         <?php $total_aset_awal = $transaksi->where('debit', $aset->id)->sum('nominal') - $transaksi->where('kredit', $aset->id)->sum('nominal');
                                         $total_aset->push($total_aset_awal); ?>
@@ -122,8 +122,8 @@ $total_modal = collect([]); ?>
                             {{-- END Baris Total per Rekening --}}
                             <tr>
                                 <td colspan="3"
-                                    class="font-medium px-4 sm:px-6 py-2 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="invisible text-sm leading-5 text-gray-500 font-bold">
+                                    class="font-medium px-4 sm:px-6 py-2 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="invisible text-sm leading-5 text-gray-800 font-bold">
                                         / Baris kosong \
                                     </div>
                                 </td>
@@ -132,12 +132,12 @@ $total_modal = collect([]); ?>
                         {{-- Baris Total Aset --}}
                         <tr class="border-gray-400">
                             <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                <div class="text-base leading-5 text-gray-800 font-bold">
                                     Total Aset
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                <div class="text-base underline leading-5 text-gray-800 font-bold">
                                     {{ Number::currency($total_aset->sum(), 'IDR', 'id') }}
                                 </div>
                             </td>
@@ -151,8 +151,8 @@ $total_modal = collect([]); ?>
                     <thead class="bg-zinc-200">
                         <tr>
                             <th colspan="3"
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Kewajiban dan Ekuitas
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wide text-left text-gray-800 uppercase border-b border-gray-200">
+                                Pasiva
                             </th>
                         </tr>
                     </thead>
@@ -162,8 +162,8 @@ $total_modal = collect([]); ?>
                         @foreach ($kewajiban as $kewajiban)
                             <tr>
                                 <td colspan="3"
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         {{ $kewajiban->nama }}
                                     </div>
                                 </td>
@@ -172,16 +172,16 @@ $total_modal = collect([]); ?>
                                 <tr>
                                     {{-- Baris Debit --}}
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nomor }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nama }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800 font-medium">
                                             DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
@@ -192,16 +192,16 @@ $total_modal = collect([]); ?>
                                 <tr>
                                     {{-- Baris Kredit --}}
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nomor }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nama }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800 font-medium">
                                             KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
@@ -211,12 +211,12 @@ $total_modal = collect([]); ?>
                             {{-- Baris Total per Rekening --}}
                             <tr class="border-gray-400">
                                 <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         Total {{ $kewajiban->nama }}
                                     </div>
                                 </td>
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         <?php $total_kewajiban_awal = $transaksi->where('kredit', $kewajiban->id)->sum('nominal') - $transaksi->where('debit', $kewajiban->id)->sum('nominal');
                                         $total_kewajiban->push($total_kewajiban_awal); ?>
                                         {{ Number::currency($total_kewajiban_awal, 'IDR', 'id') }}
@@ -226,8 +226,8 @@ $total_modal = collect([]); ?>
                             {{-- END Baris Total per Rekening --}}
                             <tr>
                                 <td colspan="3"
-                                    class="font-medium px-4 sm:px-6 py-2 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="invisible text-sm leading-5 text-gray-500 font-bold">
+                                    class="font-medium px-4 sm:px-6 py-2 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="invisible text-sm leading-5 text-gray-800 font-bold">
                                         / Baris kosong \
                                     </div>
                                 </td>
@@ -236,12 +236,12 @@ $total_modal = collect([]); ?>
                         {{-- Baris Total kewajiban --}}
                         <tr class="border-gray-400">
                             <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                <div class="text-base leading-5 text-gray-800 font-bold">
                                     Total Kewajiban
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                <div class="text-base underline leading-5 text-gray-800 font-bold">
                                     {{ Number::currency($total_kewajiban->sum(), 'IDR', 'id') }}
                                 </div>
                             </td>
@@ -252,8 +252,8 @@ $total_modal = collect([]); ?>
                         @foreach ($modal as $modal)
                             <tr>
                                 <td colspan="3"
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         {{ $modal->nama }}
                                     </div>
                                 </td>
@@ -262,16 +262,16 @@ $total_modal = collect([]); ?>
                                 <tr>
                                     {{-- Baris Debit --}}
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nomor }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $debit->rekeningDebit->nama }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800 font-medium">
                                             DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
@@ -282,16 +282,16 @@ $total_modal = collect([]); ?>
                                 <tr>
                                     {{-- Baris Kredit --}}
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nomor }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                         {{ $kredit->rekeningKredit->nama }}
                                     </td>
                                     <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500 font-medium">
+                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800 font-medium">
                                             KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
                                         </div>
                                     </td>
@@ -301,12 +301,12 @@ $total_modal = collect([]); ?>
                             {{-- Baris Total per Rekening --}}
                             <tr class="border-gray-400">
                                 <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         Total {{ $modal->nama }}
                                     </div>
                                 </td>
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-bold">
+                                    <div class="text-sm leading-5 text-gray-800 font-bold">
                                         <?php $total_modal_awal = $transaksi->where('kredit', $modal->id)->sum('nominal') - $transaksi->where('debit', $modal->id)->sum('nominal');
                                         $total_modal->push($total_modal_awal); ?>
                                         {{ Number::currency($total_modal_awal, 'IDR', 'id') }}
@@ -316,8 +316,8 @@ $total_modal = collect([]); ?>
                             {{-- END Baris Total per Rekening --}}
                             <tr>
                                 <td colspan="3"
-                                    class="font-medium px-4 sm:px-6 py-2 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="invisible text-sm leading-5 text-gray-500 font-bold">
+                                    class="font-medium px-4 sm:px-6 py-2 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="invisible text-sm leading-5 text-gray-800 font-bold">
                                         / Baris kosong \
                                     </div>
                                 </td>
@@ -326,12 +326,12 @@ $total_modal = collect([]); ?>
                         {{-- Baris Total Ekuitas --}}
                         <tr class="border-gray-400">
                             <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                <div class="text-base leading-5 text-gray-800 font-bold">
                                     Total Ekuitas
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                <div class="text-base underline leading-5 text-gray-800 font-bold">
                                     {{ Number::currency($total_modal->sum(), 'IDR', 'id') }}
                                 </div>
                             </td>
@@ -341,12 +341,12 @@ $total_modal = collect([]); ?>
                         {{-- Baris Total Kewajiban & Ekuitas --}}
                         <tr class="border-gray-400">
                             <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base leading-5 text-gray-500 font-bold">
+                                <div class="text-base leading-5 text-gray-800 font-bold">
                                     Kewajiban & Ekuitas
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                <div class="text-base underline leading-5 text-gray-800 font-bold">
                                     {{ Number::currency($total_kewajiban->sum() + $total_modal->sum(), 'IDR', 'id') }}
                                 </div>
                             </td>

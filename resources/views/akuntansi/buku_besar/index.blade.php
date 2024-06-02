@@ -7,8 +7,9 @@
         <div class="md:flex">
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
 
-                <input id="awal" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
-                    id="my-textfield" name="awal" value="{{ request('awal') }}">
+                <input id="awal" type="date"
+                    class="h-10 md:mx-1 rounded-sm mt-1 form-input block w-full focus:bg-white" id="my-textfield"
+                    name="awal" value="{{ request('awal') }}">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                     class="w-12 h-7 md:h-12 mx-auto">
@@ -17,11 +18,12 @@
                         clip-rule="evenodd"></path>
                 </svg>
 
-                <input id="akhir" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
-                    id="my-textfield" name="akhir" value="{{ request('akhir') }}">
+                <input id="akhir" type="date"
+                    class="h-10 mt-1 rounded-sm md:mx-1 form-input block w-full focus:bg-white" id="my-textfield"
+                    name="akhir" value="{{ request('akhir') }}">
 
                 <div>
-                    <button class="bg-amber-400 opacity-80 p-2 mt-1 font-medium text-sm lg:text-base antialiased"
+                    <button class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased"
                         type="submit">Oke</button>
                 </div>
             </form>
@@ -33,9 +35,9 @@
             @endif
         </div>
         <div class="sm:flex">
-            <a href="transaksi/download">
+            <a href="buku-besar/download">
                 <button
-                    class="bg-amber-400 opacity-80 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                    class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
             </a>
             <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
                 <form action="" class="flex justify-between">
@@ -65,9 +67,10 @@
             $transaksi->where('debit', $rekenings->id)->isNotEmpty() ||
                 $transaksi->where('kredit', $rekenings->id)->isNotEmpty())
             {{-- ========================================= --}}
-            <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-4 tracking-wide text-left text-gray-500 uppercase">
-                {{ $rekenings->nama }}
+            <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-4 tracking-wide text-left text-gray-800 uppercase">
+                {{ $rekenings->nomor . ' | ' . $rekenings->nama }}
             </p>
+            <hr class="border-zinc-800">
             {{-- SECTION Tabel Data --}}
             <div class="flex flex-col mt-1 mb-10">
                 <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
@@ -77,21 +80,24 @@
                             <thead class="bg-zinc-200">
                                 <tr>
                                     <th
-                                        class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                        class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                         Tanggal</th>
                                     <th
-                                        class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                        Nomor Rekening
+                                        class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                        Jenis Transaksi
                                     </th>
                                     <th
-                                        class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                        Nama Rekening</th>
+                                        class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                        Keterangan</th>
                                     <th
-                                        class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                        class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                         Debit</th>
                                     <th
-                                        class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                        class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                         Kredit</th>
+                                    <th
+                                        class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                        Saldo</th>
                                 </tr>
                             </thead>
                             {{-- END SECTION Header Tabel --}}
@@ -103,30 +109,26 @@
                                             {{-- Kolom Tanggal --}}
 
                                             <td
-                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                                 {{ \Carbon\Carbon::parse($transaksis->tanggal)->format('d/m/Y') }}
                                             </td>
 
                                             {{-- END Kolom Tanggal --}}
-                                            {{-- Baris Debit --}}
+                                            {{-- Kolom Jenis Transaksi --}}
                                             <td
-                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                                @if ($transaksis->debit == $rekenings->id)
-                                                    {{ $transaksis->rekeningDebit->nomor }}
-                                                @elseif($transaksis->kredit == $rekenings->id)
-                                                    {{ $transaksis->rekeningKredit->nomor }}
-                                                @endif
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                {{ $transaksis->jenisTransaksi->jenis }}
                                             </td>
+                                            {{-- END Kolom Jenis Transaksi --}}
+                                            {{-- Kolom Keterangan --}}
                                             <td
-                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                                @if ($transaksis->debit == $rekenings->id)
-                                                    {{ $transaksis->rekeningDebit->nama }}
-                                                @elseif($transaksis->kredit == $rekenings->id)
-                                                    {{ $transaksis->rekeningKredit->nama }}
-                                                @endif
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                {{ $transaksis->keterangan }}
                                             </td>
+                                            {{-- END Kolom Keterangan --}}
+                                            {{-- Kolom Debit --}}
                                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                                <div class="text-sm leading-5 text-gray-500 font-medium">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
                                                     @if ($transaksis->debit == $rekenings->id)
                                                         {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
                                                     @else
@@ -134,8 +136,10 @@
                                                     @endif
                                                 </div>
                                             </td>
+                                            {{-- END Kolom Debit --}}
+                                            {{-- Kolom Kredit --}}
                                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                                <div class="text-sm leading-5 text-gray-500 font-medium">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
                                                     @if ($transaksis->kredit == $rekenings->id)
                                                         {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
                                                     @else
@@ -143,7 +147,14 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            {{-- END Baris Debit --}}
+                                            {{-- END Kolom Kredit --}}
+                                            {{-- Kolom Saldo --}}
+                                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                </div>
+                                            </td>
+                                            {{-- END Kolom Saldo --}}
                                         </tr>
                                     @endif
                                 @endforeach
