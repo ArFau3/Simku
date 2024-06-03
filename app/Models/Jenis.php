@@ -15,6 +15,7 @@ class Jenis extends Model
     ];
 
     public $timestamps = false;
+    protected $table = 'JENIS';
 
     public function transaksi(): HasMany
     {

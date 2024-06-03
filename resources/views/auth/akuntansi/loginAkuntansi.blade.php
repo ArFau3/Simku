@@ -9,7 +9,7 @@
             Pengelolaan Keuangan yang Lebih Baik"</p>
     </div>
     <div class="w-full lg:w-2/6 p-5">
-        <form method="POST" action="{{ route('akuntansi') }}">
+        <form method="POST" action="/akuntansi">
             @csrf
 
             <!-- nama -->

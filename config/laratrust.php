@@ -220,7 +220,7 @@ return [
              * If the message content is empty it won't be added to the redirection.
              */
             'redirect' => [
-                'url' => '/',
+                'url' => '/gateway',
                 'message' => [
                     'key' => 'error',
                     'content' => '',

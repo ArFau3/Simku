@@ -226,7 +226,7 @@
         </a>
         {{-- END LINK Aktivitas --}}
         {{-- LINK Logout --}}
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="/logout">
             @csrf
             <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
                 href="" onclick="event.preventDefault();
