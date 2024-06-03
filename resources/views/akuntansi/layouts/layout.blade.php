@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} | Simku</title>
     @vite('resources/css/app.css')
+    <link href="/build/assets/app-4d939515.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -19,7 +20,7 @@
 
 <body>
     @include('akuntansi.layouts.sidebar')
-    <div class="lg:w-5/6 lg:float-right border my-1 min-h-screen">
+    <div class="lg:w-5/6 px-3 lg:float-right border my-1 min-h-screen">
         {{-- SECTION Header --}}
         <div class="bg-white p-3 sm:p-5 flex justify-between">
             <div class="">
