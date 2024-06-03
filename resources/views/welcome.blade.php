@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
-    {{-- SEMENTARA --}}@vite('resources/css/app.css')
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
