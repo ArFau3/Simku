@@ -34,6 +34,7 @@ class TransaksiInventaris extends Model
         $query->when($data ?? false, function($query, $data)
         {
             return $query->where('keterangan', 'like', "%".$data."%");
+                        // TODO: search by jenis (from another table)
                         // ->orWhere('jenis', 'like', "%".$data.'%');
         });
     }

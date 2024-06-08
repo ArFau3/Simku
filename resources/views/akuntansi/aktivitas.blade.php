@@ -70,10 +70,10 @@
                             <tr>
                                 <td colspan="2"
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ \Carbon\Carbon::parse($aktivitas->updated_at)->format('d/m/Y h:m:s') }} WIB
+                                    {{ \Carbon\Carbon::parse($aktivitas->created_at)->isoFormat('DD/MM/YYYY H:m') }} WIB
                                 </td>
                                 <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">{{ $aktivitas->deskripsi }}
+                                    <div class="text-sm leading-5 text-gray-500 font-medium">{!! ucfirst($aktivitas->deskripsi) !!}
                                     </div>
                                 </td>
                             </tr>

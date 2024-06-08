@@ -10,10 +10,8 @@ class Aktivitas extends Model
     use HasFactory;
     protected $fillable = [
         'deskripsi',
-
-
-// SEMENTARA
         'updated_at',
+        // QOL: field delete:bool for soft deleting
     ];
 
     public $timestamps = true;

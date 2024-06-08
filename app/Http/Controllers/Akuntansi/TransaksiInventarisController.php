@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aktivitas;
 use App\Models\Jenis;
 use App\Models\Rekening;
 use App\Models\TransaksiInventaris;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Number;
 use Illuminate\Validation\Rule;
 
 class TransaksiInventarisController extends Controller
@@ -81,6 +83,14 @@ class TransaksiInventarisController extends Controller
         $debit = (int)$validated['debit'];
         $kredit = (int)$validated['kredit'];
 
+        // Insert data aktivitas
+        $aktivitas = new Aktivitas();
+        // FIXME: rubah kolom keterangan menjadi debit-kredit
+        $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>merubah</b> transaksi <b>".$id->keterangan."</b> dari Tanggal <b>".$id->tanggal."</b>";
+        $aktivitas->deskripsi = ucfirst($rincian);
+        $aktivitas->save();
+
+        // TODO: clickable to rincian pembanding data lama => baru
         // Update database
         $id->debit = $debit;
         $id->kredit = $kredit;
@@ -88,7 +98,7 @@ class TransaksiInventarisController extends Controller
         $id->tanggal = $validated['tanggal'];
         $id->keterangan = $validated['keterangan'];
         $id->nominal = $nominal;
-
+        
         $id->save();
 
         // redirect to /transaksi
@@ -135,6 +145,13 @@ class TransaksiInventarisController extends Controller
         $debit = (int)$validated['debit'];
         $kredit = (int)$validated['kredit'];
 
+        // Insert data aktivitas
+        $aktivitas = new Aktivitas();
+        // FIXME: rubah kolom keterangan menjadi debit-kredit
+        $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>menambahkan</b> transaksi <b>".$validated['keterangan']." ".Number::currency($nominal, 'IDR', 'id')."</b>";
+        $aktivitas->deskripsi = ucfirst($rincian);
+        $aktivitas->save();
+
         // Insert New data
         $data = new TransaksiInventaris();
         $data->debit = $debit;
@@ -150,7 +167,15 @@ class TransaksiInventarisController extends Controller
         return redirect('/transaksi');
     }
 
-    public function delete(TransaksiInventaris $id){
+    public function delete(TransaksiInventaris $id, Request $request){
+        // TODO: hanya boleh hapus rekening saat tidak ada data transaksi rekening tersebut
+
+        // Insert data aktivitas
+        $aktivitas = new Aktivitas();
+        $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>menghapus</b> transaksi <b>".$id->keterangan."</b> dari tanggal <b>".$id->tanggal."</b>";
+        $aktivitas->deskripsi = $rincian;
+        $aktivitas->save();
+
         TransaksiInventaris::destroy($id->id);
         return redirect('/transaksi');
     }

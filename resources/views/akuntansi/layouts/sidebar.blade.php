@@ -1,4 +1,5 @@
 {{-- SECTION SIDEBAR --}}
+{{-- FIXME: add icon --}}
 <div class="lg:float-left lg:fixed overflow-y-auto lg:w-1/6 bg-zinc-800 lg:translate-x-0 lg:inset-0">
     {{-- SECTION card profile --}}
     <a href="/profile">

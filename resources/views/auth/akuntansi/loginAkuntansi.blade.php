@@ -12,7 +12,8 @@
         <form method="POST" action="/akuntansi">
             @csrf
 
-            <!-- nama -->
+            <!-- no. hp -->
+            {{-- FIXME: harusnya hanya no hp --}}
             <div>
                 <x-text-input id="username" class="block p-2 mt-1 w-full rounded-none text-zinc-800 font-medium"
                     placeholder="Masukkan Nomor Telepon" type="username" name="username" :value="old('username')" required autofocus
@@ -29,6 +30,7 @@
             </div>
 
             <!-- Lupa Password -->
+            {{-- TODO: sistem blm ada --}}
             <div class="block mt-4">
                 @if (Route::has('password.request'))
                     <div class="flex">

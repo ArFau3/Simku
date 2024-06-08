@@ -48,10 +48,10 @@
         {{-- END SECTION Time --}}
         {{-- SECTION Body --}}
         <div class="min-h-screen">
-            <div class="pt-3 px-2">
-                <div class="rounded-lg bg-zinc-200 px-4 py-6">
-                    <h1 class="text-2xl font-bold mb-4">{{ $judul }}</h1>
-                    <div class="bg-zinc-50 p-3 rounded">
+            <div class="pt-3 md:px-2">
+                <div class="rounded-lg bg-zinc-200 md:px-4 py-6">
+                    <h1 class="text-2xl font-bold mb-4 mx-2 md:mx-0">{{ $judul }}</h1>
+                    <div class="bg-zinc-50 md:p-3 rounded">
                         @yield('content')
                     </div>
                 </div>

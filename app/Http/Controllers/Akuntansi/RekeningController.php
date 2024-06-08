@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aktivitas;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -59,6 +60,13 @@ class RekeningController extends Controller
         // Merubah kolom induk menjadi int
         $induk = (int)$validated['induk'];
 
+        // Insert data aktivitas
+        // QOL: edit rekening hanya menampilkan data nomor+nama lama -> baru, tidak ada penjelas mana data yg berubah 
+        $aktivitas = new Aktivitas();
+        $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>merubah</b> rekening <b>".$id->nomor." ".$id->nama. "</b> menjadi <b>".$validated['nomor']." ".$validated['nama']."</b>";
+        $aktivitas->deskripsi = $rincian;
+        $aktivitas->save();
+
         // Update database
         $id->nama = $validated['nama'];
         $id->nomor = $validated['nomor'];
@@ -110,11 +118,25 @@ class RekeningController extends Controller
 
         $data->save();
 
+        // Insert data aktivitas
+        $aktivitas = new Aktivitas();
+        $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>menambahkan</b> rekening <b>".$validated['nama']."</b> dengan nomor <b>".$validated['nomor']."</b>";
+        $aktivitas->deskripsi = $rincian;
+        $aktivitas->save();
+
         // redirect to /rekening
         return redirect('/rekening');
     }
 
-    public function delete(Rekening $id){
+    public function delete(Rekening $id, Request $request){
+        // TODO: hanya boleh hapus rekening saat tidak ada data transaksi rekening tersebut
+
+        // Insert data aktivitas
+        $aktivitas = new Aktivitas();
+        $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>menghapus</b> rekening <b>".$id->nomor." ".$id->nama."</b>";
+        $aktivitas->deskripsi = $rincian;
+        $aktivitas->save();
+
         Rekening::destroy($id->id);
         return redirect('/rekening');
     }

@@ -25,6 +25,7 @@ class User extends Authenticatable implements LaratrustUser
         'foto',
         'nama_lengkap',
         'no_hp',
+        // TODO: field alamat, relation with table koperasi
     ];
 
     /**

@@ -36,8 +36,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-// JIKA PAKAI GATEWAY
-// Gateway to filter user
+
+// HACK: redirect user with !== roles access
 Route::get('/gateway', [GatewayController::class, 'index'])->middleware(['auth', 'verified']);
 
 // SISTEM AKUNTANSI
@@ -89,6 +89,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         Route::post('/rekening/update/{id}', 'update')->whereNumber('id');
         Route::get('/rekening/tambah', 'tambah');
         Route::post('/rekening/tambah/simpan', 'store');
+        // QOL: soft deleting
         Route::delete('/rekening/hapus/{id}', 'delete')->whereNumber('id');
     });
 
@@ -97,11 +98,12 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         Route::post('/transaksi/update/{id}', 'update')->whereNumber('id');
         Route::get('/transaksi/tambah', 'tambah');
         Route::post('/transaksi/tambah/simpan', 'store');
+        // QOL: soft deleting
         Route::delete('/transaksi/hapus/{id}', 'delete')->whereNumber('id');
     });
 });
 
-// SEMENTARA
+// HACK: sementara for dev
 Route::middleware('auth', 'verified')->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profil', 'edit')->name('profile.edit');
@@ -123,6 +125,7 @@ Route::middleware(['auth', 'verified', 'role:petugas|pengurus'])->group(function
     Route::get('/angkutan', [AngkutanController::class, 'index']);// Halaman Angkutan
     Route::get('/varietas', [VarietasController::class, 'index']);// Halaman Jenis Varietas
     Route::get('/pupuk', [PupukController::class, 'index']);// Halaman Jenis Pupuk
+    // HACK: route bentrok
     // Route::get('/transaksi', [TransaksiController::class, 'index']);// Halaman Data Transaksi
     Route::get('/suratjalan', [SuratJalanController::class, 'index']);// Halaman Data Surat Jalan
     Route::get('/suratkonfirmasi', [SuratKonfirmasiController::class, 'index']);// Halaman Surat Konfirmasi Perusahaan

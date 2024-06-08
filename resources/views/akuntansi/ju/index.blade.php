@@ -123,6 +123,7 @@
                             </tr>
                         @endforeach
                         {{-- Baris Total Debit = Kredit --}}
+                        {{-- FIXME: pakai table transaksi saja --}}
                         <tr class="border-2 border-gray-400">
                             <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-base text-center leading-5 text-gray-500 font-bold">
