@@ -33,9 +33,16 @@ class TransaksiInventaris extends Model
     public function scopeCari($query, $data){
         $query->when($data ?? false, function($query, $data)
         {
-            return $query->where('keterangan', 'like', "%".$data."%");
-                        // TODO: search by jenis (from another table)
-                        // ->orWhere('jenis', 'like', "%".$data.'%');
+            return $query->where('keterangan', 'like', "%".$data."%")
+                        ->orWhereHas('jenisTransaksi', function($q) use ($data) {
+                            $q->where('jenis', 'like', $data.'%');
+                        } )
+                        ->orWhereHas('rekeningDebit', function($q) use ($data) {
+                            $q->where('nama', 'like', $data.'%');
+                        } )
+                        ->orWhereHas('rekeningKredit', function($q) use ($data) {
+                            $q->where('nama', 'like', $data.'%');
+                        } );
         });
     }
 

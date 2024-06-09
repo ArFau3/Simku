@@ -16,10 +16,15 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('nama_lengkap');
-            $table->string('foto');
+            $table->string('alamat')->nullable();
+            $table->string('foto')->nullable();
             $table->string('no_hp');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreignId('koperasi_id', 20);
+
+            $table->foreign('koperasi_id')->references('id')->on('koperasis')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -6,6 +6,7 @@ namespace App\Models;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -25,7 +26,8 @@ class User extends Authenticatable implements LaratrustUser
         'foto',
         'nama_lengkap',
         'no_hp',
-        // TODO: field alamat, relation with table koperasi
+        'alamat',
+        'koperasi_id'
     ];
 
     /**
@@ -48,4 +50,8 @@ class User extends Authenticatable implements LaratrustUser
     ];
 
     public $timestamps = true;
+    public function koperasi(): BelongsTo
+    {
+        return $this->belongsTo(Koperasi::class);
+    }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->decimal('nominal', 16, 2);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('debit')->references('id')->on('rekenings')
                 ->onUpdate('cascade')->onDelete('cascade');

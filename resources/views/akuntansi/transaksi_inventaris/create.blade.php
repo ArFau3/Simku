@@ -83,7 +83,6 @@
                                 placeholder="Keterangan Transaksi"></textarea>
                         </div>
                     </div>
-
                     <div class="md:flex mb-6">
                         <div class="md:w-2/6 my-auto">
                             <label class=" block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">

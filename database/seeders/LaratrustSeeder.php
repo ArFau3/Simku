@@ -70,6 +70,7 @@ class LaratrustSeeder extends Seeder
                     'password' => bcrypt('password'),
                     'nama_lengkap' => ucwords(str_replace('_', ' ', $key)), 
                     'no_hp' => "08".rand(pow(10, $digit_hp-1), pow(10, $digit_hp)-1),
+                    'koperasi_id' => 1,
                 ]);
                 $user->addRole($role);
             }

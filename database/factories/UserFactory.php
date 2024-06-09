@@ -26,6 +26,8 @@ class UserFactory extends Factory
             'foto' => fake()->userName().".jpg",
             'password' => static::$password ??= Hash::make('password'),
             'no_hp' => fake()->phoneNumber(),
+            'alamat' => fake()->address(),
+            'koperasi_id' => fake()->numberBetween(1,3)
         ];
     }
 

@@ -69,8 +69,8 @@
             <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
                 <form action="" class="flex justify-between">
                     <input type="text"
-                        class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-base focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
-                        name="cari" id="cari" placeholder="Keterangan/Jenis Transaksi"
+                        class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-sm focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
+                        name="cari" id="cari" placeholder="Keterangan/Jenis/Rekening Transaksi"
                         value="{{ request('cari') }}">
                     <button>
                         <i class="self-center fa fa-search text-gray-400" type="submit"></i>

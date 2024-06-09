@@ -51,31 +51,45 @@
                     {{-- SECTION Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Tanggal</th>
-                            <th></th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Aktivitas Terbaru
-                            </th>
-                            <th></th>
-                            <th></th>
+                            <th colspan="2"
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                Nomor Rekening</th>
+                            <th colspan="5"
+                                class="px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                Nama Rekening</th>
+                            <th colspan="1"
+                                class="w-16 sm:w-32 px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                Aksi</th>
                         </tr>
                     </thead>
                     {{-- END SECTION Header Tabel --}}
                     {{-- SECTION Body Tabel --}}
                     <tbody class="bg-white">
-                        @foreach ($aktivitas as $aktivitas)
+                        @foreach ($aktivitas as $aktivitases)
                             <tr>
                                 <td colspan="2"
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ \Carbon\Carbon::parse($aktivitas->created_at)->isoFormat('DD/MM/YYYY H:m') }} WIB
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                    {{ \Carbon\Carbon::parse($aktivitases->created_at)->isoFormat('DD/MM/YYYY HH:mm') }} WIB
                                 </td>
-                                <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">{!! ucfirst($aktivitas->deskripsi) !!}
+                                <td colspan="5" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">{!! ucfirst($aktivitases->deskripsi) !!}
                                     </div>
                                 </td>
+
+                                <td colspan="1" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
+                                        @if ($aktivitases->old_rekening)
+                                            <a href="/aktivitas-rekening/{{ $aktivitases->id }}"
+                                                class="text-indigo-600 hover:text-indigo-900 pr-1.5 ">Cek
+                                                Perubahan</a>
+                                        @elseif($aktivitases->old_transaksi)
+                                            <a href="/aktivitas-transaksi/{{ $aktivitases->id }}"
+                                                class="text-indigo-600 hover:text-indigo-900 pr-1.5 ">Cek
+                                                Perubahan</a>
+                                        @endif
+                                    </div>
+                                </td>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -85,4 +99,7 @@
         </div>
     </div>
     {{-- END SECTION Tabel Data --}}
+    <div class="pt-3 grid justify-items-end">
+        {{ $aktivitas->links() }}
+    </div>
 @endsection

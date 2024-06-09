@@ -112,7 +112,6 @@ $total_modal = collect([]); ?>
                                 </td>
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-800 font-bold">
-                                        {{-- {{ dd($transaksi->where('kredit', $aset->id)->sum('nominal')) }} --}}
                                         <?php $total_aset_awal = $transaksi->where('debit', $aset->id)->sum('nominal') - $transaksi->where('kredit', $aset->id)->sum('nominal');
                                         $total_aset->push($total_aset_awal); ?>
                                         {{ Number::currency($total_aset_awal, 'IDR', 'id') }}

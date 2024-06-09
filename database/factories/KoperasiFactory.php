@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Aktivitas>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Koperasi>
  */
-class AktivitasFactory extends Factory
+class KoperasiFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class AktivitasFactory extends Factory
     public function definition(): array
     {
         return [
-            'deskripsi' => fake()->paragraph(),
-            'created_at' => fake()->date(),
+            'nama' => fake()->company(),
         ];
     }
 }

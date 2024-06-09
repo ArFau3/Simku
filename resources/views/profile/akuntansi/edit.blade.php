@@ -78,7 +78,7 @@
                 <div class="mb-5">
                     <x-input-label for="koperasi" :value="__('Koperasi: ')" />
                     <x-text-input id="koperasi" disabled name="koperasi" type="text" class="mt-1 block w-full"
-                        value="{{ $user->koperasi }}" />{{-- ->nama --}}
+                        value="{{ $user->koperasi->nama }}" />
                     <x-input-error class="mt-2" :messages="$errors->get('koperasi')" />
                 </div>
                 {{-- END Nama Koperasi --}}

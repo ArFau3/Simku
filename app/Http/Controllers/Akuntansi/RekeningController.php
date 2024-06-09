@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
+use App\Models\OldRekening;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -60,11 +61,23 @@ class RekeningController extends Controller
         // Merubah kolom induk menjadi int
         $induk = (int)$validated['induk'];
 
-        // Insert data aktivitas
-        // QOL: edit rekening hanya menampilkan data nomor+nama lama -> baru, tidak ada penjelas mana data yg berubah 
+        // Siapkan data history
+        // QOL: saat di rincian aktivitas, ada 1-click button to rollback data
+        // replicate data to oldRekening
+        $replicated_data = OldRekening::create([
+            'nama' => $id->nama,
+            'nomor' => $id->nomor,
+            'rekening_induk' => $id->rekeningInduk->nama,
+        ]);
+
+        // insert data aktivitas
         $aktivitas = new Aktivitas();
         $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap." <b>merubah</b> rekening <b>".$id->nomor." ".$id->nama. "</b> menjadi <b>".$validated['nomor']." ".$validated['nama']."</b>";
-        $aktivitas->deskripsi = $rincian;
+        $aktivitas->deskripsi = ucfirst($rincian);
+        // reference
+        $aktivitas->old_rekening = $replicated_data->id;
+        $aktivitas->current_rekening = $id->id;
+        // save aktivitas
         $aktivitas->save();
 
         // Update database
@@ -129,7 +142,12 @@ class RekeningController extends Controller
     }
 
     public function delete(Rekening $id, Request $request){
-        // TODO: hanya boleh hapus rekening saat tidak ada data transaksi rekening tersebut
+        // cek apakah ada data transaksi
+        if (($id->transaksiDebit()->exists()||$id->transaksiKredit()->exists())) {
+            // jika ada lgsg return
+            // TODO: with flashed confirm
+            return back();
+        }
 
         // Insert data aktivitas
         $aktivitas = new Aktivitas();

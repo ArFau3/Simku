@@ -22,16 +22,7 @@ use App\Http\Controllers\Supplier\TransaksiController;
 use App\Http\Controllers\Supplier\VarietasController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// TODO: Async programming & caching data
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,6 +70,8 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
 
     Route::controller(AktivitasController::class)->group(function () {
         Route::get('/aktivitas', 'index');
+        Route::get('/aktivitas-rekening/{id}', 'historyRekening')->whereNumber('id');
+        Route::get('/aktivitas-transaksi/{id}', 'historyTransaksi')->whereNumber('id');
     });
 });
 
@@ -125,7 +118,7 @@ Route::middleware(['auth', 'verified', 'role:petugas|pengurus'])->group(function
     Route::get('/angkutan', [AngkutanController::class, 'index']);// Halaman Angkutan
     Route::get('/varietas', [VarietasController::class, 'index']);// Halaman Jenis Varietas
     Route::get('/pupuk', [PupukController::class, 'index']);// Halaman Jenis Pupuk
-    // HACK: route bentrok
+    // FIXME: route bentrok
     // Route::get('/transaksi', [TransaksiController::class, 'index']);// Halaman Data Transaksi
     Route::get('/suratjalan', [SuratJalanController::class, 'index']);// Halaman Data Surat Jalan
     Route::get('/suratkonfirmasi', [SuratKonfirmasiController::class, 'index']);// Halaman Surat Konfirmasi Perusahaan

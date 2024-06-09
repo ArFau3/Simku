@@ -29,12 +29,15 @@
                 <div class="leading-4 float-left pt-3">
                     <h3 class="sm:leading-7 font-bold sm:text-xl">SISTEM INFORMASI AKUNTANSI</h3>
                     <div class="text-xs sm:text-base sm:leading-4">
-                        <p>Koperasi Unit Desa (KUD) Tapang Dadap</p>
+                        {{-- <p>Koperasi Unit Desa (KUD) Tapang Dadap</p> --}}
+                        <p>{{ $user->koperasi->nama }}</p>
+                        {{-- TODO: perlu nomor koperasi di tabel! yg lain ? --}}
                         <p>Nomor : 0003967//BH/M.KUKM.2/IV/2017</p>
                     </div>
                 </div>
             </div>
-            <img src="/assets/logo-sekadau.png" alt="logo-sekadau.png"
+            {{-- TODO: di user ketua siapkan file upload --}}
+            <img src="/assets/{{ $user->koperasi->logo }}" alt="logo-sekadau.png"
                 class="object-contain float-right h-5/6 sm:h-full w-20 mr-2">
         </div>
         {{-- END SECTION Header --}}
@@ -202,7 +205,7 @@
 
         // send updated string to input
         input.val(input_val);
-
+        console.log("input: " + input.val());
         // put caret back in the right position
         var updated_len = input_val.length;
         caret_pos = updated_len - original_len + caret_pos;
@@ -215,10 +218,19 @@
         $('#rekening_induk').change(function() {
             formatRekening($(this));
         });
+        $("#rekening_induk").ready(function() {
+            formatRekening($(this));
+        });
 
         function formatRekening(input) {
-            // get input value from rekening_induk field
-            var input_id = input.val();
+            // cek if input empty
+            if (input.val() == "") {
+                // assign id 1(Aset)
+                var input_id = 1;
+            } else {
+                // get input value from rekening_induk field
+                var input_id = input.val();
+            }
             console.log("id: " + input_id);
             // don't validate empty input
             if (input_id === "") {

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // UTAMA
+        $this->call(KoperasiSeeder::class);
         $this->call(LaratrustSeeder::class);
         $this->call(UserSeeder::class);
 

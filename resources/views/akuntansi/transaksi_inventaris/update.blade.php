@@ -96,7 +96,7 @@
                         <div class="md:w-4/6 relative">
                             <input class="form-input block w-full focus:bg-white" id="my-textfield" name="nominal"
                                 type="text" data-type="currency"
-                                value="{{ Number::currency($transaksi->nominal, 'IDR', 'id') }}">
+                                value="{{ str_replace(',00', '', Number::currency($transaksi->nominal, 'IDR', 'id')) }}">
                         </div>
                     </div>
                 </div>

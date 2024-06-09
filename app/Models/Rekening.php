@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Rekening extends Model
@@ -26,8 +27,15 @@ class Rekening extends Model
         });
     }
 
-    public function transaksi(): HasMany
+    public function rekeningInduk(): BelongsTo
     {
-        return $this->hasMany(TransaksiInventaris::class);
+        return $this->belongsTo(Rekening::class, "rekening_induk");
+    }
+
+    public function transaksiDebit(): HasMany{
+        return $this->hasMany(TransaksiInventaris::class, 'debit');
+    }
+    public function transaksiKredit(): HasMany{
+        return $this->hasMany(TransaksiInventaris::class, 'kredit');
     }
 }

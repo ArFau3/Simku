@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Faker\Provider\ar_EG\Address;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +21,8 @@ class UserSeeder extends Seeder
             'nama_lengkap' => 'Arib Fauzan',
             'foto' => "Arr.jpg",
             'no_hp' => '08198563768',
+            'alamat' => fake()->address(),
+            'koperasi_id' => 1,
         ]);
         $arib->addRole(3);
 
@@ -29,6 +32,8 @@ class UserSeeder extends Seeder
             'nama_lengkap' => 'Ridwan Firdaus',
             'foto' => "Arr.jpg",
             'no_hp' => '08198563768',
+            'alamat' => fake()->address(),
+            'koperasi_id' => 1,
         ]);
         $ridwan->addRole(2);
 
@@ -38,6 +43,8 @@ class UserSeeder extends Seeder
             'nama_lengkap' => 'May May',
             'foto' => "mayy.jpg",
             'no_hp' => '08198563768',
+            'alamat' => fake()->address(),
+            'koperasi_id' => 1,
         ]);
         $maya->addRole(4);
 
@@ -47,6 +54,8 @@ class UserSeeder extends Seeder
             'nama_lengkap' => 'Sistem Informasi Untan',
             'foto' => "untan.jpg",
             'no_hp' => '08198563768',
+            'alamat' => fake()->address(),
+            'koperasi_id' => 1,
         ]);
         $untan->addRole(1);
         // CREATE faker 20 user

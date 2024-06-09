@@ -123,7 +123,7 @@
                             </tr>
                         @endforeach
                         {{-- Baris Total Debit = Kredit --}}
-                        {{-- FIXME: pakai table transaksi saja --}}
+                        <?php $total = $transaksi->sum('nominal'); ?>
                         <tr class="border-2 border-gray-400">
                             <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-base text-center leading-5 text-gray-500 font-bold">
@@ -132,12 +132,12 @@
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-base underline leading-5 text-gray-500 font-bold">
-                                    {{ Number::currency($ju->first()->jurnal_umum->total, 'IDR', 'id') }}
+                                    {{ Number::currency($total, 'IDR', 'id') }}
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-base underline leading-5 text-gray-500 font-bold">
-                                    {{ Number::currency($ju->first()->jurnal_umum->total, 'IDR', 'id') }}
+                                    {{ Number::currency($total, 'IDR', 'id') }}
                                 </div>
                             </td>
                         </tr>
