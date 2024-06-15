@@ -25,6 +25,7 @@
                         Rekening Induk
                     </label>
                 </div>
+                {{-- FIXME: perbaiki dropdown --}}
                 <div class="md:w-5/6">
                     <select name="induk" class="form-select block w-full focus:bg-white" id="rekening_induk">
                         @foreach ($rekening as $rekening)

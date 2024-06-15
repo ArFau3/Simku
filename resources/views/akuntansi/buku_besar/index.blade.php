@@ -67,6 +67,8 @@
             @continue
         @endif
         {{-- ========================================= --}}
+        <?php $saldo_debit = 0;
+        $saldo_kredit = 0; ?>
         <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-4 tracking-wide text-left text-gray-800 uppercase">
             {{ $rekenings->nomor . ' | ' . $rekenings->nama }}
         </p>
@@ -131,6 +133,7 @@
                                             <div class="text-sm leading-5 text-gray-800 font-medium">
                                                 @if ($transaksis->debit == $rekenings->id)
                                                     {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                    <?php $saldo_debit += $transaksis->nominal; ?>
                                                 @else
                                                     -
                                                 @endif
@@ -142,6 +145,7 @@
                                             <div class="text-sm leading-5 text-gray-800 font-medium">
                                                 @if ($transaksis->kredit == $rekenings->id)
                                                     {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                    <?php $saldo_kredit += $transaksis->nominal; ?>
                                                 @else
                                                     -
                                                 @endif
@@ -149,15 +153,48 @@
                                         </td>
                                         {{-- END Kolom Kredit --}}
                                         {{-- Kolom Saldo --}}
-                                        <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                        {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
+                                        <td class="px-4 sm:px-1 py-3 whitespace-no-wrap border-b border-gray-200">
                                             <div class="text-sm leading-5 text-gray-800 font-medium">
-                                                {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                <?php $saldo = $saldo_debit - $saldo_kredit; ?>
+                                                @if ($saldo >= 0)
+                                                    {{ Number::currency($saldo, 'IDR', 'id') }}
+                                                @else
+                                                    ({{ Number::currency($saldo * -1, 'IDR', 'id') }})
+                                                @endif
                                             </div>
                                         </td>
                                         {{-- END Kolom Saldo --}}
                                     </tr>
                                 @endif
                             @endforeach
+                            {{-- Kolom Total --}}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
+                                        {{ Number::currency($saldo_debit, 'IDR', 'id') }}
+                                    </div>
+                                </td>
+                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
+                                        {{ Number::currency($saldo_kredit, 'IDR', 'id') }}
+                                    </div>
+                                </td>
+                                <td class="px-4 sm:px-1 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
+                                        <?php $saldo = $saldo_debit - $saldo_kredit; ?>
+                                        @if ($saldo >= 0)
+                                            {{ Number::currency($saldo, 'IDR', 'id') }}
+                                        @else
+                                            ({{ Number::currency($saldo * -1, 'IDR', 'id') }})
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                            {{-- END Kolom Saldo --}}
                         </tbody>
                         {{-- END SECTION Body Tabel --}}
                     </table>

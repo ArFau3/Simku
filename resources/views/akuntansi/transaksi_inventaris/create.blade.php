@@ -60,6 +60,7 @@
                                 Rekening Kredit
                             </label>
                         </div>
+                        {{-- FIXME: perbaiki dropdown --}}
                         <div class="md:w-4/6">
                             <select name="kredit" class="form-select block w-full focus:bg-white" id="select">
                                 @foreach ($rekening as $rekening_kredit)

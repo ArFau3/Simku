@@ -103,12 +103,7 @@
                                 Tanggal</th>
                             <th
                                 class="w-20 sm:w-24 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                @if ($title === 'Transaksi')
-                                    Jenis Transaksi
-                                @endif
-                                @if ($title === 'Aset Tetap')
-                                    Nama Rekening
-                                @endif
+                                Jenis Transaksi
                             </th>
                             <th
                                 class="w-32 sm:w-36 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
@@ -140,14 +135,7 @@
                                 </td>
                                 <td
                                     class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    @if ($title === 'Transaksi')
-                                        {{ $transaksi[$i]->jenisTransaksi->jenis }}
-                                    @endif
-                                    @if ($title === 'Aset Tetap')
-                                        @if (true)
-                                            Nama Rekening
-                                        @endif
-                                    @endif
+                                    {{ $transaksi[$i]->jenisTransaksi->jenis }}
                                 </td>
                                 <td
                                     class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">

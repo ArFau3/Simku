@@ -82,7 +82,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         Route::post('/rekening/update/{id}', 'update')->whereNumber('id');
         Route::get('/rekening/tambah', 'tambah');
         Route::post('/rekening/tambah/simpan', 'store');
-        // QOL: soft deleting
+        // QOL: soft deleting with rollback
         Route::delete('/rekening/hapus/{id}', 'delete')->whereNumber('id');
     });
 
@@ -91,7 +91,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         Route::post('/transaksi/update/{id}', 'update')->whereNumber('id');
         Route::get('/transaksi/tambah', 'tambah');
         Route::post('/transaksi/tambah/simpan', 'store');
-        // QOL: soft deleting
+        // QOL: soft deleting with rollback
         Route::delete('/transaksi/hapus/{id}', 'delete')->whereNumber('id');
     });
 });

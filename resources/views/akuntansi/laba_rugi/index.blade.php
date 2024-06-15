@@ -63,6 +63,7 @@ $total_beban = collect([]); ?>
                                 </td>
                             </tr>
                             @foreach ($transaksi->where('debit', $pendapatan->id) as $debit)
+                                {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
                                 <tr>
                                     {{-- Baris Debit --}}
                                     <td

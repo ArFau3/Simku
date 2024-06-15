@@ -23,7 +23,7 @@ class AktivitasController extends Controller
         $data = [
             "title" => "Aktivitas",
             'user' => $request->user(),
-            'judul' => 'History Rekening',
+            'judul' => 'Riwayat Rekening',
             'old_rekening' => $id->oldRekening,
             'current_rekening' => $id->currentRekening,
         ];
@@ -34,7 +34,7 @@ class AktivitasController extends Controller
         $data = [
             "title" => "Aktivitas",
             'user' => $request->user(),
-            'judul' => 'History Transaksi',
+            'judul' => 'Riwayat Transaksi',
             'old_transaksi' => $id->oldTransaksi,
             'current_transaksi' => $id->currentTransaksi,
         ];

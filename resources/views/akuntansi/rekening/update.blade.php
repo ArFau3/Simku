@@ -47,6 +47,7 @@
                         Nomor Rekening
                     </label>
                 </div>
+                {{-- FIXME: perbaiki dropdown --}}
                 <div class="md:w-5/6">
                     <input disabled class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
                         value="{{ $rekening->nomor }}" data-type="nomor_rekening">
