@@ -16,7 +16,9 @@
         @endif
         {{-- SEMENTARA --}}
         <div class="md:flex md:justify-between">
+            {{-- SECTION OLD --}}
             <div>
+                {{-- Tanggal --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="my-auto block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
@@ -29,7 +31,8 @@
                             id="my-textfield">
                     </div>
                 </div>
-
+                {{-- END Tanggal --}}
+                {{-- Jenis --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
@@ -41,7 +44,8 @@
                             value="{{ $old_transaksi->jenis }}" data-type="nomor_rekening">
                     </div>
                 </div>
-
+                {{-- END Jenis --}}
+                {{-- Debit --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
@@ -53,7 +57,8 @@
                             value="{{ $old_transaksi->debit }}" data-type="nomor_rekening">
                     </div>
                 </div>
-
+                {{-- END Debit --}}
+                {{-- Kredit --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="select">
@@ -65,7 +70,8 @@
                             value="{{ $old_transaksi->kredit }}" data-type="nomor_rekening">
                     </div>
                 </div>
-
+                {{-- END Kredit --}}
+                {{-- Keterangan --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto float-left">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
@@ -76,7 +82,8 @@
                         <textarea disabled class="form-textarea block w-full focus:bg-white" id="my-textarea" name="keterangan" rows="6">{{ $old_transaksi->keterangan }}</textarea>
                     </div>
                 </div>
-
+                {{-- END Keterangan --}}
+                {{-- Nominal --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class=" block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
@@ -89,8 +96,10 @@
                             value="{{ str_replace(',00', '', Number::currency($old_transaksi->nominal, 'IDR', 'id')) }}">
                     </div>
                 </div>
-
+                {{-- END Nominal --}}
             </div>
+            {{-- END SECTION OLD --}}
+            {{-- ICON ARROW --}}
             {{-- FIXME: SVG ICON --}}
             <div class="flex justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -100,8 +109,10 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </div>
+            {{-- END ICON ARROW --}}
+            {{-- SECTION CURRENT --}}
             <div>
-
+                {{-- Tanggal --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="my-auto block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
@@ -114,7 +125,8 @@
                             id="my-textfield">
                     </div>
                 </div>
-
+                {{-- END Tanggal --}}
+                {{-- Jenis --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
@@ -126,7 +138,8 @@
                             value="{{ $current_transaksi->jenisTransaksi->jenis }}" data-type="nomor_rekening">
                     </div>
                 </div>
-
+                {{-- END Jenis --}}
+                {{-- Debit --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
@@ -138,7 +151,8 @@
                             value="{{ $current_transaksi->rekeningDebit->nama }}" data-type="nomor_rekening">
                     </div>
                 </div>
-
+                {{-- END Debit --}}
+                {{-- Kredit --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="select">
@@ -150,7 +164,8 @@
                             value="{{ $current_transaksi->rekeningKredit->nama }}" data-type="nomor_rekening">
                     </div>
                 </div>
-
+                {{-- END Kredit --}}
+                {{-- Keterangan --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto float-left">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textarea">
@@ -162,7 +177,8 @@
                             rows="6">{{ $current_transaksi->keterangan }}</textarea>
                     </div>
                 </div>
-
+                {{-- END Keterangan --}}
+                {{-- Nominal --}}
                 <div class="md:flex mb-6">
                     <div class="md:w-3/6 my-auto">
                         <label class=" block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
@@ -175,8 +191,9 @@
                             value="{{ str_replace(',00', '', Number::currency($current_transaksi->nominal, 'IDR', 'id')) }}">
                     </div>
                 </div>
-
+                {{-- END Nominal --}}
             </div>
+            {{-- END SECTION CURRENT --}}
         </div>
     </section>
 @endsection

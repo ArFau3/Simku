@@ -40,6 +40,7 @@ $total_modal = collect([]); ?>
     <div class="flex flex-col mt-1 mb-0">
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
             <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
+                {{-- FIXME: pili strktr tabel au seperti di laba rugi / neraca ini --}}
                 <table class="min-w-full">
                     {{-- SECTION Tabel Aset --}}
                     {{-- SECTION Header Tabel --}}

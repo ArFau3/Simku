@@ -4,9 +4,9 @@
     {{-- SECTION tombol akses sebelum tabel --}}
     {{-- {{ dd($debit) }} --}}
     <div class="md:flex justify-between">
+        {{-- Form Tanggal --}}
         <div class="md:flex">
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
-
                 <input id="awal" type="date"
                     class="h-10 md:mx-1 rounded-sm mt-1 form-input block w-full focus:bg-white" id="my-textfield"
                     name="awal" value="{{ request('awal') }}">
@@ -34,6 +34,8 @@
                 </a>
             @endif
         </div>
+        {{-- END Form Tanggal --}}
+        {{-- Sisi Kanan --}}
         <div class="sm:flex">
             <a href="buku-besar/download">
                 <button
@@ -57,6 +59,7 @@
                 </a>
             @endif
         </div>
+        {{-- END Sisi Kanan --}}
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
@@ -67,18 +70,22 @@
             @continue
         @endif
         {{-- ========================================= --}}
+        {{-- Penampung untuk data saldo --}}
         <?php $saldo_debit = 0;
         $saldo_kredit = 0; ?>
+        {{-- ========================== --}}
+        {{-- SECTION Nama Rekening Tabel --}}
         <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-4 tracking-wide text-left text-gray-800 uppercase">
             {{ $rekenings->nomor . ' | ' . $rekenings->nama }}
         </p>
         <hr class="border-zinc-800">
+        {{-- END SECTION Nama Rekening Tabel --}}
         {{-- SECTION Tabel Data --}}
         <div class="flex flex-col mt-1 mb-10">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
                 <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                     <table class="min-w-full">
-                        {{-- SECTION Header Tabel --}}
+                        {{-- Header Tabel --}}
                         <thead class="bg-zinc-200">
                             <tr>
                                 <th
@@ -102,19 +109,17 @@
                                     Saldo</th>
                             </tr>
                         </thead>
-                        {{-- END SECTION Header Tabel --}}
-                        {{-- SECTION Body Tabel --}}
+                        {{-- END Header Tabel --}}
+                        {{-- Body Tabel --}}
                         <tbody class="bg-white">
                             @foreach ($transaksi as $transaksis)
                                 @if ($transaksis->debit == $rekenings->id || $transaksis->kredit == $rekenings->id)
                                     <tr>
                                         {{-- Kolom Tanggal --}}
-
                                         <td
                                             class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                             {{ \Carbon\Carbon::parse($transaksis->tanggal)->format('d/m/Y') }}
                                         </td>
-
                                         {{-- END Kolom Tanggal --}}
                                         {{-- Kolom Jenis Transaksi --}}
                                         <td
@@ -170,19 +175,22 @@
                             @endforeach
                             {{-- Kolom Total --}}
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="3"></td>
+                                {{-- Total Debit --}}
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-800 font-medium">
                                         {{ Number::currency($saldo_debit, 'IDR', 'id') }}
                                     </div>
                                 </td>
+                                {{-- END Total Debit --}}
+                                {{-- Total Kredit --}}
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-800 font-medium">
                                         {{ Number::currency($saldo_kredit, 'IDR', 'id') }}
                                     </div>
                                 </td>
+                                {{-- END Total Kredit --}}
+                                {{-- Total Saldo --}}
                                 <td class="px-4 sm:px-1 py-3 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-800 font-medium">
                                         <?php $saldo = $saldo_debit - $saldo_kredit; ?>
@@ -193,16 +201,21 @@
                                         @endif
                                     </div>
                                 </td>
+                                {{-- END Total Saldo --}}
                             </tr>
-                            {{-- END Kolom Saldo --}}
+                            {{-- END Kolom Total --}}
                         </tbody>
-                        {{-- END SECTION Body Tabel --}}
+                        {{-- END Body Tabel --}}
                     </table>
                 </div>
             </div>
         </div>
         {{-- END SECTION Tabel Data --}}
     @endforeach
-    {{ $rekening->links() }}
     {{-- END SECTION Tabels --}}
+    {{-- Pagination --}}
+    <div class="pt-3 grid justify-items-end">
+        {{ $rekening->links() }}
+    </div>
+    {{-- END Pagination --}}
 @endsection

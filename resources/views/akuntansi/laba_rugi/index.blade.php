@@ -5,11 +5,11 @@ $total_beban = collect([]); ?>
 @section('content')
     {{-- SECTION tombol akses sebelum tabel --}}
     <div class="md:flex justify-between">
+        {{-- Form Tanggal --}}
         <div class="md:flex">
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
-
-                <input id="date" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
-                    id="my-textfield">
+                <input id="awal" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
+                    id="my-textfield" name="awal" value="{{ request('awal') }}">
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                     class="w-12 h-7 md:h-12 mx-auto">
@@ -18,21 +18,28 @@ $total_beban = collect([]); ?>
                         clip-rule="evenodd"></path>
                 </svg>
 
-                <input id="date" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
-                    id="my-textfield">
+                <input id="akhir" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
+                    id="my-textfield" name="akhir" value="{{ request('akhir') }}">
 
                 <div>
-                    <a href="transaksi/cari">
-                        <button
-                            class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased">Oke</button>
-                    </a>
+                    <button class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased"
+                        type="submit">Oke</button>
                 </div>
             </form>
+            @if (request('awal'))
+                <a href="/laba-rugi" class="my-1">
+                    <button
+                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                </a>
+            @endif
         </div>
+        {{-- END Form Tanggal --}}
+        {{-- Sisi Kanan --}}
         <a href="laba-rugi/download">
             <button
                 class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
         </a>
+        {{-- END Sisi Kanan --}}
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
@@ -41,7 +48,7 @@ $total_beban = collect([]); ?>
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
             <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                 <table class="min-w-full">
-                    {{-- SECTION Header Tabel --}}
+                    {{-- Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
                             <th colspan="3"
@@ -50,10 +57,11 @@ $total_beban = collect([]); ?>
                             </th>
                         </tr>
                     </thead>
-                    {{-- END SECTION Header Tabel --}}
-                    {{-- SECTION Body Tabel --}}
+                    {{-- END Header Tabel --}}
+                    {{-- Body Tabel --}}
                     <tbody class="bg-white">
                         @foreach ($pendapatan as $pendapatan)
+                            {{-- Nama Rekening --}}
                             <tr>
                                 <td colspan="3"
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
@@ -62,6 +70,8 @@ $total_beban = collect([]); ?>
                                     </div>
                                 </td>
                             </tr>
+                            {{-- END Nama Rekening --}}
+                            {{-- FIXME: perbaiki logic seperti di buku besar --}}
                             @foreach ($transaksi->where('debit', $pendapatan->id) as $debit)
                                 {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
                                 <tr>
@@ -129,7 +139,7 @@ $total_beban = collect([]); ?>
                                 </td>
                             </tr>
                         @endforeach
-                        {{-- Baris Total Pendaptan --}}
+                        {{-- Baris Total Pendapatan --}}
                         <tr class="bg-zinc-200 border-gray-400">
                             <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
                                 <div class="text-base leading-5 text-gray-800 font-bold">
@@ -142,9 +152,9 @@ $total_beban = collect([]); ?>
                                 </div>
                             </td>
                         </tr>
-                        {{-- END Baris Total Pendaptan --}}
+                        {{-- END Baris Total Pendapatan --}}
                     </tbody>
-                    {{-- END SECTION Body Tabel --}}
+                    {{-- END Body Tabel --}}
                 </table>
             </div>
         </div>
@@ -156,7 +166,7 @@ $total_beban = collect([]); ?>
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
             <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                 <table class="min-w-full">
-                    {{-- SECTION Header Tabel --}}
+                    {{-- Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
                             <th colspan="3"
@@ -165,10 +175,11 @@ $total_beban = collect([]); ?>
                             </th>
                         </tr>
                     </thead>
-                    {{-- END SECTION Header Tabel --}}
-                    {{-- SECTION Body Tabel --}}
+                    {{-- END Header Tabel --}}
+                    {{-- Body Tabel --}}
                     <tbody class="bg-white">
                         @foreach ($beban as $beban)
+                            {{-- Nama Rekening --}}
                             <tr>
                                 <td colspan="3"
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
@@ -177,6 +188,8 @@ $total_beban = collect([]); ?>
                                     </div>
                                 </td>
                             </tr>
+                            {{-- END Nama Rekening --}}
+                            {{-- FIXME: perbaiki logic seperti di buku besar --}}
                             @foreach ($transaksi->where('debit', $beban->id) as $debit)
                                 <tr>
                                     {{-- Baris Debit --}}
@@ -279,7 +292,7 @@ $total_beban = collect([]); ?>
                         </tr>
                         {{-- END Baris Total Laba Rugi --}}
                     </tbody>
-                    {{-- END SECTION Body Tabel --}}
+                    {{-- END Body Tabel --}}
                 </table>
             </div>
         </div>

@@ -4,7 +4,6 @@
     {{-- {{ dd($rekening->rekening_induk) }} --}}
     {{-- HACK: apakah current rekening pakai yg terbaru ? atau pas diedit walaupun sekrang sudah berubah lagi ? --}}
     <section class="w-full p-8 mt-6 lg:mt-0 rounded border shadow">
-
         {{-- FIXME: SEMENTARA --}}
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -17,6 +16,7 @@
         @endif
         {{-- SEMENTARA --}}
         <div class="md:flex justify-between">
+            {{-- SECTION OLD --}}
             <div>
                 {{-- Rekening Induk --}}
                 <div class="md:flex mb-6">
@@ -58,6 +58,8 @@
                 </div>
                 {{-- END Nama Rekening --}}
             </div>
+            {{-- END SECTION OLD --}}
+            {{-- ICON ARROW --}}
             {{-- FIXME: SVG ICON --}}
             <div class="flex justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -67,6 +69,8 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </div>
+            {{-- END ICON ARROW --}}
+            {{-- SECTION CURRENT --}}
             <div>
                 {{-- Rekening Induk --}}
                 <div class="md:flex mb-6">
@@ -109,6 +113,7 @@
                 </div>
                 {{-- END Nama Rekening --}}
             </div>
+            {{-- END SECTION CURRENT --}}
         </div>
     </section>
 @endsection

@@ -10,9 +10,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data = [
-            "title" => "Dashboard",
+            "title" => "Beranda",
             'user' => $request->user(),
-            'judul' => 'Dashboard',
+            'judul' => 'Beranda',
         ];
         return view('akuntansi.home', $data);
     }

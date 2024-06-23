@@ -41,14 +41,14 @@
                 class="object-contain float-right h-5/6 sm:h-full w-20 mr-2">
         </div>
         {{-- END SECTION Header --}}
-        {{-- SECTION Time --}}
+        {{-- Time --}}
         <div class="container min-w-full py-1 border-2 text-sm border-slate-300 bg-zinc-300 pr-3 flex justify-end">
             <p>Sistem Akuntansi -
                 {{ \Carbon\Carbon::now()->isoFormat('dddd, ') }}
             <div class="px-1 text-sm" id="clock"></div> WIB
             </p>
         </div>
-        {{-- END SECTION Time --}}
+        {{-- END Time --}}
         {{-- SECTION Body --}}
         <div class="min-h-screen">
             <div class="pt-3 md:px-2">
@@ -83,8 +83,7 @@
         let min = time.getMinutes();
         let sec = time.getSeconds();
 
-        hour =
-            hour < 10 ? "0" + hour : hour;
+        hour = hour < 10 ? "0" + hour : hour;
         min = min < 10 ? "0" + min : min;
         sec = sec < 10 ? "0" + sec : sec;
 
@@ -117,6 +116,7 @@
             menu1.classList.toggle("hidden");
         }
     };
+
     let menu2 = document.getElementById("menu2");
     const showMenu2 = (flag) => {
         if (flag) {
@@ -124,6 +124,16 @@
             icon2.classList.toggle("rotate-180");
             menuHeader2.classList.toggle("text-indigo-400")
             menu2.classList.toggle("hidden");
+        }
+    };
+
+    let menu3 = document.getElementById("menu3");
+    const showMenu3 = (flag) => {
+        if (flag) {
+
+            icon3.classList.toggle("rotate-180");
+            menuHeader3.classList.toggle("text-indigo-400")
+            menu3.classList.toggle("hidden");
         }
     };
     // END DROPDOWN SIDEBAR
@@ -136,7 +146,6 @@
             formatCurrency($(this), "blur");
         }
     });
-
 
     function formatNumber(n) {
         // format number 1000000 to 1,234,567

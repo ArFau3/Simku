@@ -22,6 +22,7 @@
             </div>
 
             <!-- Password -->
+            {{-- QOL: toggle visibility --}}
             <div class="mt-4">
                 <x-text-input id="password" placeholder="Masukkan Password"
                     class="block p-2 mt-1 w-full rounded-none text-zinc-800 font-medium" type="password" name="password"

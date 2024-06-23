@@ -14,6 +14,7 @@ class AktivitasController extends Controller
             "title" => "Aktivitas",
             'user' => $request->user(),
             'judul' => 'Aktivitas',
+            // FIXME: sistem cari/filter
             'aktivitas' => Aktivitas::orderBy('created_at')->paginate(30),
         ];
         return view('akuntansi.aktivitas.aktivitas', $data);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Akuntansi\HomeController;
 use App\Http\Controllers\Akuntansi\JurnalUmumController;
 use App\Http\Controllers\Akuntansi\LabaRugiController;
 use App\Http\Controllers\Akuntansi\NeracaController;
+use App\Http\Controllers\Akuntansi\PerubahanModalController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
 use App\Http\Controllers\GatewayController;
@@ -66,6 +67,10 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
 
     Route::controller(NeracaController::class)->group(function () {
         Route::get('/neraca', 'index');
+    });
+
+    Route::controller(PerubahanModalController::class)->group(function () {
+        Route::get('/perubahan-modal', 'index');
     });
 
     Route::controller(AktivitasController::class)->group(function () {
