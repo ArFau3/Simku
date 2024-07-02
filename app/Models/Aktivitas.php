@@ -20,6 +20,22 @@ class Aktivitas extends Model
         'created_at',
     ];
 
+    public function scopeFilter($query, $awal, $akhir){
+        $query->when(isset($awal) ? [$awal,$akhir] : false, function($query, $rentang){
+            return $query->where([
+                ['created_at', '>=', $rentang[0]],
+                ['created_at', '<=', $rentang[1]],
+            ]);
+        });
+    }
+
+    public function scopeCari($query, $data){
+        $query->when($data ?? false, function($query, $data)
+        {
+            return $query->where('deskripsi', 'like', "%".$data."%");
+        });
+    }
+
     public $timestamps = true;
     public function oldRekening(): BelongsTo
     {   

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,17 @@ class ProfileController extends Controller
         return view('profile.akuntansi.edit', $data);
     }
 
+    public function updateHp(Request $request, User $id): View
+    {
+        // TODO: buat middleware konfirm pass dulu
+        $data = [
+            'user' => $request->user(),
+            'title' => 'Ubah No Telepon',
+            'judul' => 'Ubah No Telepon',
+        ];
+        return view('profile.akuntansi.editHp', $data);
+        // TODO: setelah selesai buat konfirm kode OTP
+    }
     /**
      * Update the user's profile information.
      */

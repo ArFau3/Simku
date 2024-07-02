@@ -40,6 +40,8 @@
         </a>
         {{-- END LINK Beranda --}}
         {{-- LINK Pengaturan --}}
+        {{-- FIXME: buat sistem --}}
+        {{-- TODO: Role mgmt --}}
         <div class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             href="/elements">
             <div class="w-full">
@@ -134,7 +136,7 @@
                             <p class="text-base leading-4 text-left">Transaksi</p>
                         </button>
                     </a>
-                    <a href="/tutup-buku"
+                    <a href="/tutup-buku" {{-- FIXME: buat sistem --}}
                         class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Tutup Buku' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-6 px-3 py-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -228,7 +230,7 @@
                             <p class="text-base leading-4 text-left">Neraca</p>
                         </button>
                     </a>
-                    <a href="/arus-kas"
+                    <a href="/arus-kas" {{-- FIXME: buat sistem --}}
                         class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Arus Kas' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-6 px-3 py-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -239,7 +241,7 @@
                             <p class="text-base leading-4 text-left">Arus Kas</p>
                         </button>
                     </a>
-                    <a href="/perubahan-modal"
+                    <a href="/perubahan-modal" {{-- FIXME: perbaiki UI --}}
                         class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Perubahan Modal' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-7 px-3 py-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -250,7 +252,7 @@
                             <p class="text-base leading-4 text-left">Perubahan Modal</p>
                         </button>
                     </a>
-                    <a href="/penjualan-tbs"
+                    <a href="/penjualan-tbs" {{-- FIXME: buat sistem --}}
                         class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Penjualan TBS' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-6 px-3 py-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -267,6 +269,7 @@
         </div>
         {{-- END LINK Laporan --}}
         {{-- LINK Grafik --}}
+        {{-- FIXME: buat sistem --}}
         <a class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ $title === 'Grafik' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}"
             href="/forms">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

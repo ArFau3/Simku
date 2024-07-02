@@ -37,6 +37,8 @@ Route::get('/gateway', [GatewayController::class, 'index'])->middleware(['auth',
 Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function () {
     Route::controller(App\Http\Controllers\Akuntansi\ProfileController::class)->group(function () {
         Route::get('/profile', 'edit')->name('profile.edit');
+        // HACK: perlu route model binding ?
+        Route::get('/profile/updateHp', 'updateHp');
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });

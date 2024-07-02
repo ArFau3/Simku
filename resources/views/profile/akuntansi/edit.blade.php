@@ -35,7 +35,7 @@
                     <x-text-input id="no_hp" name="no_hp" type="text" class="mt-1 block w-full"
                         :value="old('no_hp', $user->no_hp)" />
                     <x-input-error class="mt-2" :messages="$errors->get('no_hp')" />
-                    <a href="/">
+                    <a href="profile/updateHp">
                         <button type="button"
                             class="bg-amber-400 opacity-85 p-2 mt-2 rounded-sm font-medium text-sm lg:text-base antialiased inline-block w-11/12">Ubah
                             Nomor
@@ -44,7 +44,7 @@
                     <a href="/">
                         <button type="button"
                             class="bg-amber-400 opacity-85 p-2 mt-2 rounded-sm font-medium text-sm lg:text-base antialiased inline-block w-11/12">Tambah
-                            Nomor Pemulihan</button>
+                            Nomor Telepon</button>
                     </a>
                 </div>
                 {{-- END No. Hp --}}

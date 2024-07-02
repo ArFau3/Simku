@@ -44,6 +44,12 @@
                     </button>
                 </form>
             </div>
+            @if (request('cari'))
+                <a href="{{ strtolower($title) }}" class="my-1">
+                    <button
+                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                </a>
+            @endif
         </div>
         {{-- END Sisi Kanan --}}
     </div>
