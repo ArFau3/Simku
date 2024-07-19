@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Akuntansi\AktivitasController;
+use App\Http\Controllers\Akuntansi\AkuntanController;
 use App\Http\Controllers\Akuntansi\BukuBesarController;
 use App\Http\Controllers\Akuntansi\HomeController;
 use App\Http\Controllers\Akuntansi\JurnalUmumController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Akuntansi\PerubahanModalController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
 use App\Http\Controllers\GatewayController;
+use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Supplier\AngkutanController;
 use App\Http\Controllers\Supplier\BerandaController;
@@ -39,6 +41,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
         Route::get('/profile', 'edit')->name('profile.edit');
         // HACK: perlu route model binding ?
         Route::get('/profile/updateHp', 'updateHp');
+        Route::get('/profile/kodeOTP', 'kodeOTP');
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
@@ -81,7 +84,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
         Route::get('/aktivitas-transaksi/{id}', 'historyTransaksi')->whereNumber('id');
     });
 });
-
+#TODO: buat sistem download data sebagai pdf di data yg bisa di download
 // USER: Akuntan
 Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
     Route::controller(RekeningController::class)->group(function () {
@@ -101,6 +104,27 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         // QOL: soft deleting with rollback
         Route::delete('/transaksi/hapus/{id}', 'delete')->whereNumber('id');
     });
+});
+
+// USER: Pengurus
+Route::middleware(['auth', 'verified', 'role:pengurus'])->group(function () {
+    Route::controller(KoperasiController::class)->group(function () {
+    // TODO: buat logic dan UI
+        Route::get('/pengaturan-koperasi', 'edit');
+        Route::get('/profile/kodeOTP', 'kodeOTP'); //untuk konfirm perubahan pakai kode otp
+    });
+
+    Route::controller(AkuntanController::class)->group(function () {
+    // TODO: buat logic dan UI
+        Route::get('/daftar-akuntan', 'index'); //daftar akuntan
+        Route::get('/akuntan/{id}', 'show')->whereNumber('id'); //data per akuntan -> akses tombol delete akuntan terkait
+        Route::get('/Akuntan/tambah', 'tambah'); //tambah akuntan
+        Route::post('/akuntan/tambah/simpan', 'store'); //simpan tambahan akuntan
+        Route::delete('/akuntan/hapus/{id}', 'delete')->whereNumber('id'); //hapus akuntan
+        //TODO: jika tambah maka cek untuk akuntan baru, jika hapus cek di nomor ketua
+        Route::get('/profile/kodeOTP', 'kodeOTP'); //untuk konfirm akuntan baru pakai kode otp 
+
+    }); 
 });
 
 // HACK: sementara for dev

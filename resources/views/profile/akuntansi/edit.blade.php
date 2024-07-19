@@ -49,6 +49,8 @@
                 </div>
                 {{-- END No. Hp --}}
                 {{-- Password --}}
+                {{-- QOL: siapkan slot non-input pass lama yg bisa di toggle? --}}
+                {{-- TODO: siapak kode perubahan pass --}}
                 <div class="mt-10 mb-5">
                     <div>
                         <x-input-label for="update_password_password" :value="__('Password Baru')" />

@@ -1,13 +1,19 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
-    <div>
-        <h1 class="font-bold text-3xl text-blue-600">Ini Punya Arib :</h1>
-        <p class="text-xl">This is my Arib body content.</p>
+    <div class="mb-3">
+        <p class="italic text-zinc-600 text-lg">Selamat datang di Sistem Informasi Akuntansi Koperasi Perkebunan Tapang Dadap
+        </p>
     </div>
 
-    <br>
-
+    {{-- <br> --}}
+    <hr class="border-b border-zinc-700">
+    <div class="mx-5 my-1">
+        <p class="font-bold text-zinc-600 text-lg">Total Kas</p>
+        <p class="font-semibold text-zinc-800 text-5xl my-1">{{ Number::currency($kas->sum('nominal'), 'IDR', 'id') }}</p>
+        <p class="font-bold text-zinc-700 text-xs my-3" id="akhir">{{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
+    </div>
+    <hr class="border-b border-zinc-700">
     <div>
         <h1 class="font-bold text-3xl text-red-600">Ini Punya Ridwan :</h1>
         <p class="text-xl">This is my Arib body content.</p>

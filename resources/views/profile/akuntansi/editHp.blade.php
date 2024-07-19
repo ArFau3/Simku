@@ -30,9 +30,14 @@
             {{-- END Keterangan --}}
             <div class="flex text-zinc-50 md:px-0 px-2">
                 {{-- Tombol Save --}}
+                {{-- FIXME: kedepan kasi controller untuk ke kode otp verif? --}}
+                {{-- HACK: untuk sekarang lgsg pindahkan ke halaman kode otp dan confirm nya disana saja, karna jika nomor salah otp tidak akan kekirim jadi tidak bisa benar --}}
                 <div class="flex items-center gap-4 pr-3">
-                    <Button class="bg-blue-600 py-2 px-3 font-medium rounded-sm" type="submit">Verifikasi</Button>
+                    {{-- <Button class="bg-blue-600 py-2 px-3 font-medium rounded-sm" type="submit">Verifikasi</Button> --}}
 
+                    <a href="/profile/kodeOTP">
+                        <Button type="button" class="bg-blue-600 py-2 px-3 font-medium rounded-sm">Verifikasi</Button>
+                    </a>
                     @if (session('status') === 'profile-updated')
                         <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
                             class="text-sm text-gray-600">{{ __('Saved.') }}</p>

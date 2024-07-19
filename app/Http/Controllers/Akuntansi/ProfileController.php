@@ -73,4 +73,18 @@ class ProfileController extends Controller
 
         return Redirect::to('/dashboard');
     }
+
+    public function kodeOtp(Request $request,){
+        // TODO: tambahkan logic untuk krim kode otp
+        $data = [
+            'user' => $request->user(),
+            'title' => 'Kofirmasi OTP',
+            'judul' => 'Masukkan OTP',
+        ];
+        return view('profile.akuntansi.kodeOTP', $data);
+    }
+
+    public function confirmOtp(){
+        // TODO: tambahkan logic konfirm kode otp
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
+use App\Models\TransaksiInventaris;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,6 +14,7 @@ class HomeController extends Controller
             "title" => "Beranda",
             'user' => $request->user(),
             'judul' => 'Beranda',
+            'kas' => TransaksiInventaris::inventaris('1.1.1')->get(),
         ];
         return view('akuntansi.home', $data);
     }
