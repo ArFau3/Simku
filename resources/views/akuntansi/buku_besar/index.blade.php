@@ -66,7 +66,7 @@
     {{-- SECTION Tabels --}}
     @foreach ($rekening as $rekenings)
         {{-- lewati rekening jika tidak ada data transaksi --}}
-        @if ($transaksi->where('debit', $rekenings->id)->isEmpty() || $transaksi->where('kredit', $rekenings->id)->isEmpty())
+        @if ($transaksi->where('debit', $rekenings->id)->isEmpty() && $transaksi->where('kredit', $rekenings->id)->isEmpty())
             @continue
         @endif
         {{-- ========================================= --}}

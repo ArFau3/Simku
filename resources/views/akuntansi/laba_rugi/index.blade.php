@@ -71,47 +71,97 @@ $total_beban = collect([]); ?>
                                 </td>
                             </tr>
                             {{-- END Nama Rekening --}}
-                            {{-- FIXME: perbaiki logic seperti di buku besar --}}
-                            @foreach ($transaksi->where('debit', $pendapatan->id) as $debit)
-                                {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
-                                <tr>
-                                    {{-- Baris Debit --}}
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $debit->rekeningDebit->nomor }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $debit->rekeningDebit->nama }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800 font-medium">
-                                            DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
-                                        </div>
-                                    </td>
-                                    {{-- END Baris Debit --}}
-                                </tr>
-                            @endforeach
-                            @foreach ($transaksi->where('kredit', $pendapatan->id) as $kredit)
-                                <tr>
-                                    {{-- Baris Kredit --}}
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $kredit->rekeningKredit->nomor }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $kredit->rekeningKredit->nama }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800 font-medium">
-                                            KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
-                                        </div>
-                                    </td>
-                                    {{-- END Baris Kredit --}}
-                                </tr>
+
+                            @foreach ($transaksi as $transaksis)
+                                {{-- FIXME: pakai logic inverse saja --}}
+                                @if ($transaksis->debit == $pendapatan->id || $transaksis->kredit == $pendapatan->id)
+                                    {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
+                                    @if ($transaksis->debit == $pendapatan->id && $transaksis->kredit == $pendapatan->id)
+                                        <tr>
+                                            {{-- Baris Debit --}}
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $pendapatan->id)
+                                                    {{ $transaksis->rekeningDebit->nomor }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nomor }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $pendapatan->id)
+                                                    {{ $transaksis->rekeningDebit->nama }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nama }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    DEBIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                </div>
+                                            </td>
+                                            {{-- END Baris Debit --}}
+                                        </tr>
+                                        <tr>
+                                            {{-- Baris Debit --}}
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $pendapatan->id)
+                                                    {{ $transaksis->rekeningDebit->nomor }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nomor }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $pendapatan->id)
+                                                    {{ $transaksis->rekeningDebit->nama }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nama }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    KREDIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                </div>
+                                            </td>
+                                            {{-- END Baris Debit --}}
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            {{-- Baris Debit --}}
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $pendapatan->id)
+                                                    {{ $transaksis->rekeningDebit->nomor }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nomor }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $pendapatan->id)
+                                                    {{ $transaksis->rekeningDebit->nama }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nama }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    @if ($transaksis->debit == $pendapatan->id)
+                                                        DEBIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                    @else
+                                                        KREDIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            {{-- END Baris Debit --}}
+                                        </tr>
+                                    @endif
+                                @endif
                             @endforeach
                             {{-- Baris Total per Rekening --}}
                             <tr class="border-gray-400">
@@ -189,46 +239,97 @@ $total_beban = collect([]); ?>
                                 </td>
                             </tr>
                             {{-- END Nama Rekening --}}
-                            {{-- FIXME: perbaiki logic seperti di buku besar --}}
-                            @foreach ($transaksi->where('debit', $beban->id) as $debit)
-                                <tr>
-                                    {{-- Baris Debit --}}
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $debit->rekeningDebit->nomor }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $debit->rekeningDebit->nama }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800 font-medium">
-                                            DEBIT {{ Number::currency($debit->nominal, 'IDR', 'id') }}
-                                        </div>
-                                    </td>
-                                    {{-- END Baris Debit --}}
-                                </tr>
-                            @endforeach
-                            @foreach ($transaksi->where('kredit', $beban->id) as $kredit)
-                                <tr>
-                                    {{-- Baris Kredit --}}
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $kredit->rekeningKredit->nomor }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $kredit->rekeningKredit->nama }}
-                                    </td>
-                                    <td
-                                        class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800 font-medium">
-                                            KREDIT {{ Number::currency($kredit->nominal, 'IDR', 'id') }}
-                                        </div>
-                                    </td>
-                                    {{-- END Baris Kredit --}}
-                                </tr>
+                            @foreach ($transaksi as $transaksis)
+                                @if ($transaksis->debit == $beban->id || $transaksis->kredit == $beban->id)
+                                    @if ($transaksis->debit == $beban->id && $transaksis->kredit == $beban->id)
+                                        {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
+                                        <tr>
+                                            {{-- Baris Debit --}}
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $beban->id)
+                                                    {{ $transaksis->rekeningDebit->nomor }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nomor }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $beban->id)
+                                                    {{ $transaksis->rekeningDebit->nama }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nama }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    DEBIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                </div>
+                                            </td>
+                                            {{-- END Baris Debit --}}
+                                        </tr>
+                                        {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
+                                        <tr>
+                                            {{-- Baris Debit --}}
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $beban->id)
+                                                    {{ $transaksis->rekeningDebit->nomor }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nomor }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $beban->id)
+                                                    {{ $transaksis->rekeningDebit->nama }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nama }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    KREDIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                </div>
+                                            </td>
+                                            {{-- END Baris Debit --}}
+                                        </tr>
+                                    @else
+                                        {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
+                                        <tr>
+                                            {{-- Baris Debit --}}
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $beban->id)
+                                                    {{ $transaksis->rekeningDebit->nomor }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nomor }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                @if ($transaksis->debit == $beban->id)
+                                                    {{ $transaksis->rekeningDebit->nama }}
+                                                @else
+                                                    {{ $transaksis->rekeningKredit->nama }}
+                                                @endif
+                                            </td>
+                                            <td
+                                                class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-800 font-medium">
+                                                    @if ($transaksis->debit == $beban->id && $transaksis->kredit != $beban->id)
+                                                        DEBIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                    @else
+                                                        KREDIT {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            {{-- END Baris Debit --}}
+                                        </tr>
+                                    @endif
+                                @endif
                             @endforeach
                             {{-- Baris Total per Rekening --}}
                             <tr class="border-gray-400">
