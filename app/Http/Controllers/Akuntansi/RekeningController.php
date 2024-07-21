@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
 use App\Models\OldRekening;
 use App\Models\Rekening;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -158,4 +159,16 @@ class RekeningController extends Controller
         Rekening::destroy($id->id);
         return redirect('/rekening');
     }
+
+    public function downloadPDF() {
+        // $pegawai = Pegawai::all();
+ 
+    	// $pdf = PDF::loadview('pegawai_pdf',['pegawai'=>$pegawai]);
+    	// return $pdf->download('laporan-pegawai-pdf');
+
+        $rekenings = Rekening::all();
+        $pdf = Pdf::loadView('layouts/testDownload', compact('rekenings'));
+        
+        return $pdf->download('Daftar Rekening.pdf');
+}
 }

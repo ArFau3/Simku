@@ -94,7 +94,10 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         Route::post('/rekening/tambah/simpan', 'store');
         // QOL: soft deleting with rollback
         Route::delete('/rekening/hapus/{id}', 'delete')->whereNumber('id');
+        // HACK: DEBUG: cek sistem download
+        // Route::get('/downloadPDF','downloadPDF');
     });
+    Route::get('/downloadPDF', [RekeningController::class, 'downloadPDF']);
 
     Route::controller(TransaksiInventarisController::class)->group(function () {
         Route::get('/transaksi/{id}', 'edit')->whereNumber('id');
