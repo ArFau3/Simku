@@ -4,9 +4,15 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <style>
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
 </head>
 
 <body>
+    {{-- {{ dd($rekenings[0]) }} --}}
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -16,7 +22,22 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($rekenings as $rekenings)
+            @for ($i = 0; $i < $rekenings->count(); $i++)
+                {{-- <p>Page 1</p> --}}
+                <tr>
+                    <td>
+                        {{ $rekenings[$i]->nama }}
+                    </td>
+                    <td>
+                        {{ $rekenings[$i]->nomor }}
+                    </td>
+                </tr>
+
+                @if (($i + 1) % 10 == 0)
+                    <p>Page {{ $i }}</p>
+                    <div class="page-break"></div>
+                @endif
+                {{-- foreach ($rekenings as $rekenings)
                 <tr>
                     <td>
                         {{ $rekenings->nama }}
@@ -25,7 +46,8 @@
                         {{ $rekenings->nomor }}
                     </td>
                 </tr>
-            @endforeach
+            endforeach --}}
+            @endfor
         </tbody>
     </table>
 </body>

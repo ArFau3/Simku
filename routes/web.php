@@ -3,6 +3,7 @@
 use App\Http\Controllers\Akuntansi\AktivitasController;
 use App\Http\Controllers\Akuntansi\AkuntanController;
 use App\Http\Controllers\Akuntansi\BukuBesarController;
+use App\Http\Controllers\Akuntansi\GrafikController;
 use App\Http\Controllers\Akuntansi\HomeController;
 use App\Http\Controllers\Akuntansi\JurnalUmumController;
 use App\Http\Controllers\Akuntansi\LabaRugiController;
@@ -47,6 +48,8 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
     });
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    Route::get('/grafik', [GrafikController::class, 'index']);
 
     Route::controller(RekeningController::class)->group(function () {
         Route::get('/rekening', 'index');

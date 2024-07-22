@@ -160,11 +160,12 @@ class RekeningController extends Controller
         return redirect('/rekening');
     }
 
-    public function downloadPDF() {
+    public function downloadPDF(Request $request) {
         // $pegawai = Pegawai::all();
  
     	// $pdf = PDF::loadview('pegawai_pdf',['pegawai'=>$pegawai]);
     	// return $pdf->download('laporan-pegawai-pdf');
+
 
         $rekenings = Rekening::all();
         $pdf = Pdf::loadView('layouts/testDownload', compact('rekenings'));
