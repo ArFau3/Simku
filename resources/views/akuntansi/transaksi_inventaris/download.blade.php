@@ -15,23 +15,23 @@
                     <thead>
                         <tr>
                             <th
-                                class="w-20 border-r border-zinc-800 sm:w-16 pl-4 pr-2 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
+                                class="border-r border-zinc-800 pl-4 pr-2 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
                                 Nomor</th>
                             <th
-                                class="w-20 sm:w-24 border-r border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
+                                class="border-r border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
                                 Tanggal</th>
                             <th
-                                class="w-20 sm:w-24 border-r border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
+                                class="border-r border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
                                 Jenis Transaksi
                             </th>
                             <th
-                                class="w-32 sm:w-36 border-r border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
+                                class="border-r border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b ">
                                 Debit - Kredit</th>
                             <th
                                 class="px-4 sm:px-4 border-r text-center border-zinc-800 text-xs font-bold leading-4 tracking-wider text-gray-800 uppercase border-b ">
                                 Keterangan</th>
                             <th
-                                class="w-20 sm:w-24 border-b border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase">
+                                class="border-b border-zinc-800 px-4 sm:px-4 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase">
                                 Total</th>
                         </tr>
                     </thead>

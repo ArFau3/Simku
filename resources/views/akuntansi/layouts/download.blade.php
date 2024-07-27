@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Download Data | Simku</title>
     {{-- <link href="/css/style.css" rel="stylesheet"> --}}
-    <link href="/css/download.css" rel="stylesheet">
-    {{-- @vite('resources/css/app.css') --}}
+    @vite('resources/css/app.css')
+    {{-- <style>
+        
+    </style> --}}
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -21,12 +24,12 @@
 </head>
 
 <body>
-    <div class="px-5 text-center border my-7 min-h-screen">
+    <div class="text-center mb-7">
         {{-- FIXME: font --}}
-        <p class="text-2xl antialiased uppercase font-bold">{{ $user->koperasi->nama }}</p>
+        <p class="text-xl antialiased uppercase font-bold">{{ $user->koperasi->nama }}</p>
         <p class="font-semibold antialiased ">Badan Hukum Nomor: {{ $user->koperasi->hukum }}</p>
         <p class="font-semibold antialiased">Alamat: {{ $user->koperasi->alamat }}</p>
-        <hr class="border-double border-4 border-t-zinc-900 my-2 mx-3">
+        <hr class="border-double border-4 border-y-zinc-900 my-2 bg-transparent">
         @yield('content')
     </div>
 </body>
