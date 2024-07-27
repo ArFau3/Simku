@@ -8,6 +8,7 @@ use App\Models\Jenis;
 use App\Models\OldTransaksiInventaris;
 use App\Models\Rekening;
 use App\Models\TransaksiInventaris;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Number;
@@ -42,6 +43,20 @@ class TransaksiInventarisController extends Controller
             
         ];
         return view('akuntansi.transaksi_inventaris.index', $data);
+    }
+
+    public function downloadTransaksi(Request $request){
+        $data = [
+            'user' => $request->user(),
+            'title' => "Histori Transaksi",
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+                                                                                                    $request['akhir']
+                                                                                            )->get(),
+        ];
+// FIXME: tambahkan tanggal dalam judul pdf
+        $pdf = Pdf::loadView('akuntansi.transaksi_inventaris.download', $data);
+        return $pdf->download('Histori Transaksi.pdf');
+        // return view('akuntansi.transaksi_inventaris.download', $data);
     }
 
     public function edit(TransaksiInventaris $id, Request $request)

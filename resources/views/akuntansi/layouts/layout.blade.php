@@ -24,7 +24,7 @@
         {{-- SECTION Header --}}
         <div class="bg-white p-3 sm:p-5 flex justify-between">
             <div class="">
-                <img src="/assets/logo.png" alt="logo.png"
+                <img src="/assets/{{ $user->koperasi->logo }}" alt="logo.png"
                     class="object-contain float-left sm:h-full max-h-20 sm:w-20 flex-shrink-0 mr-2">
                 <div class="leading-4 float-left pt-3">
                     <h3 class="sm:leading-7 font-bold sm:text-xl">SISTEM INFORMASI AKUNTANSI</h3>
@@ -32,18 +32,19 @@
                         {{-- <p>Koperasi Unit Desa (KUD) Tapang Dadap</p> --}}
                         <p>{{ $user->koperasi->nama }}</p>
                         {{-- TODO: perlu nomor koperasi di tabel! yg lain ? --}}
-                        <p>Nomor : 0003967//BH/M.KUKM.2/IV/2017</p>
+                        <p>Nomor : {{ $user->koperasi->hukum }}</p>
                     </div>
                 </div>
             </div>
-            {{-- TODO: di user ketua siapkan file upload --}}
-            <img src="/assets/{{ $user->koperasi->logo }}" alt="logo-sekadau.png"
+            {{-- FIXME: pastika size responsive --}}
+            <img src="/assets/logo-sekadau.png" alt="logo-sekadau.png"
                 class="object-contain float-right h-5/6 sm:h-full w-20 mr-2">
         </div>
         {{-- END SECTION Header --}}
         {{-- Time --}}
         <div class="container min-w-full py-1 border-2 text-sm border-slate-300 bg-zinc-300 pr-3 flex justify-end">
             <p>Sistem Akuntansi -
+                {{-- TODO: perlu tanggal --}}
                 {{ \Carbon\Carbon::now()->isoFormat('dddd, ') }}
             <div class="px-1 text-sm" id="clock"></div> WIB
             </p>

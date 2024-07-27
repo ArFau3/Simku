@@ -1,6 +1,7 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
+    {{-- FIXME: perubahan modal perlu ? cara nyarinya gimn? --}}
     {{-- SECTION tombol akses sebelum tabel --}}
     <div class="md:flex justify-between">
         <div class="md:flex">
@@ -47,14 +48,14 @@
                     <thead class="bg-zinc-200">
                         <tr>
                             <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Nomor Rekening
                             </th>
                             <th
-                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Nama Rekening</th>
                             <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
+                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Nominal</th>
                         </tr>
                     </thead>
@@ -65,15 +66,15 @@
                             <tr>
                                 {{-- Baris 1/Debit --}}
                                 <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                     {{ $transaksi->rekeningDebit->nomor }}
                                 </td>
                                 <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                     {{ $transaksi->rekeningDebit->nama }}
                                 </td>
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
                                         {{ Number::currency($transaksi->nominal, 'IDR', 'id') }}
                                     </div>
                                 </td>
@@ -83,18 +84,13 @@
                         {{-- Baris Total Debit = Kredit --}}
                         <?php $total = $transaksi->sum('nominal'); ?>
                         <tr class="border-2 border-gray-400">
-                            <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base text-center leading-5 text-gray-500 font-bold">
+                            <td colspan="2" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                <div class="text-base text-center leading-5 text-gray-800 font-bold">
                                     TOTAL
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
-                                    {{ Number::currency($total, 'IDR', 'id') }}
-                                </div>
-                            </td>
-                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
+                                <div class="text-base underline leading-5 text-gray-800 font-bold">
                                     {{ Number::currency($total, 'IDR', 'id') }}
                                 </div>
                             </td>

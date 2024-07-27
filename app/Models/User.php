@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +16,13 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements LaratrustUser
 {
     use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions;
+
+    public function scopeKoperasis($query, $data){
+        $query->when($data ?? false, function($query, $data)
+        {
+            return $query->where('koperasi_id', 'like', $data);
+        });
+    }
 
     /**
      * The attributes that are mass assignable.

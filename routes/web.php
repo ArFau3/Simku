@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
 
     Route::controller(TransaksiInventarisController::class)->group(function () {
         Route::get('/transaksi', 'indexTransaksi');
+        Route::get('/transaksi/download', 'downloadTransaksi');
 
         Route::get('/inventaris', 'indexInventaris');
     });
@@ -100,6 +101,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         // HACK: DEBUG: cek sistem download
         // Route::get('/downloadPDF','downloadPDF');
     });
+    // HACK: DEBUG Download system
     Route::get('/downloadPDF', [RekeningController::class, 'downloadPDF']);
 
     Route::controller(TransaksiInventarisController::class)->group(function () {
@@ -115,9 +117,13 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
 // USER: Pengurus
 Route::middleware(['auth', 'verified', 'role:pengurus'])->group(function () {
     Route::controller(KoperasiController::class)->group(function () {
-    // TODO: buat logic dan UI
+        // Pengaturan Koperasi
         Route::get('/pengaturan-koperasi', 'edit');
-        Route::get('/profile/kodeOTP', 'kodeOTP'); //untuk konfirm perubahan pakai kode otp
+        Route::post('koperasi/update/{id}', 'update')->whereNumber('id'); //TODO: ganti slug
+
+        // Pengaturan Akuntan oleh Ketua Koperasi
+        Route::get('/pengaturan-akuntan', 'indexAkuntan');
+        // TODO: siapkan sistem tambah dan hapus akuntan
     });
 
     Route::controller(AkuntanController::class)->group(function () {

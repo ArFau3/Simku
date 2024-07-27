@@ -1,7 +1,6 @@
 {{-- SECTION SIDEBAR --}}
 {{-- FIXME: add icon --}}
 {{-- FIXME: toggle side in hp --}}
-{{-- FIXME: rapikan viewport < --}}
 <div class="lg:float-left lg:fixed overflow-y-auto lg:w-1/6 bg-zinc-800 lg:translate-x-0 lg:inset-0">
     {{-- SECTION card profile --}}
     <a href="/profile">
@@ -40,13 +39,11 @@
         </a>
         {{-- END LINK Beranda --}}
         {{-- LINK Pengaturan --}}
-        {{-- FIXME: buat sistem --}}
-        {{-- TODO: Role mgmt --}}
         <div class="flex items-center px-4 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             href="/elements">
             <div class="w-full">
                 <button id="menuHeader1" onclick="showMenu1(true)"
-                    class="{{ $title === 'Koperasi' || $title === 'Akuntan' ? '!text-indigo-400' : '' }} focus:outline-none text-left flex justify-between items-center w-full ">
+                    class="{{ $title === 'Profil Koperasi' || $title === 'Kelola Akuntan' ? '!text-indigo-400' : '' }} focus:outline-none text-left flex justify-between items-center w-full ">
                     <div><svg class="w-6 h-6 float-left" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,7 +52,7 @@
                         <p class="mx-3 text-sm leading-5 float-left uppercase">Pengaturan</p>
                     </div>
                     <svg id="icon1"
-                        class="{{ $title === 'Koperasi' || $title === 'Akuntan' ? '' : 'rotate-180' }} transform  float-right"
+                        class="{{ $title === 'Profil Koperasi' || $title === 'Kelola Akuntan' ? '' : 'rotate-180' }} transform  float-right"
                         width="24" height="24" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -63,9 +60,9 @@
                     </svg>
                 </button>
                 <div id="menu1"
-                    class="{{ $title === 'Koperasi' || $title === 'Akuntan' ? '' : 'hidden' }} flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
+                    class="{{ $title === 'Profil Koperasi' || $title === 'Kelola Akuntan' ? '' : 'hidden' }} flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
                     <a href="/pengaturan-koperasi"
-                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Koperasi' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Profil Koperasi' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-6 px-3 py-2">
                             <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +73,7 @@
                         </button>
                     </a>
                     <a href="/pengaturan-akuntan"
-                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Akuntan' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
+                        class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Kelola Akuntan' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-6 px-3 py-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -241,7 +238,7 @@
                             <p class="text-base leading-4 text-left">Arus Kas</p>
                         </button>
                     </a>
-                    <a href="/perubahan-modal" {{-- FIXME: perbaiki UI --}}
+                    <a href="/perubahan-modal"
                         class="w-full hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded {{ $title === 'Perubahan Modal' ? '!text-gray-100 bg-gray-700 bg-opacity-75' : '' }}">
                         <button class="flex justify-start items-center space-x-7 px-3 py-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

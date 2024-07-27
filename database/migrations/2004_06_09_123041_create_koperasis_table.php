@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('koperasis', function (Blueprint $table) {
             $table->id();
             $table->string("nama");
+            $table->string("hukum")->nullable();
+            $table->string('alamat');
             $table->string('logo')->nullable();
             $table->timestamps();
         });

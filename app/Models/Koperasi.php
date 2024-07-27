@@ -12,6 +12,8 @@ class Koperasi extends Model
     protected $fillable = [
         'nama',
         'logo',
+        'hukum',
+        'alamat',
     ];
 
     public $timestamps = true;

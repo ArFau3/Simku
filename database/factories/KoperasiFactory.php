@@ -18,6 +18,8 @@ class KoperasiFactory extends Factory
     {
         return [
             'nama' => fake()->company(),
+            'alamat' => fake()->address(),
+            'hukum' => '0003967//BH/M.KUKM.2/IV/2017',
         ];
     }
 }
