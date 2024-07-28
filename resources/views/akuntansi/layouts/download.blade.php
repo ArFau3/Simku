@@ -1705,10 +1705,6 @@
                     border-left-width: 4px
                 }
 
-                .border-r {
-                    border-right-width: 1px
-                }
-
                 .border-r-0 {
                     border-right-width: 0px
                 }
@@ -1719,6 +1715,11 @@
 
                 .border-double {
                     border-style: double
+                }
+
+                .border-black {
+                    --tw-border-opacity: 1;
+                    border-color: rgb(0 0 0 / var(--tw-border-opacity))
                 }
 
                 .border-blue-500 {
@@ -1798,12 +1799,6 @@
                 .border-zinc-800 {
                     --tw-border-opacity: 1;
                     border-color: rgb(39 39 42 / var(--tw-border-opacity))
-                }
-
-                .border-y-zinc-900 {
-                    --tw-border-opacity: 1;
-                    border-top-color: rgb(24 24 27 / var(--tw-border-opacity));
-                    border-bottom-color: rgb(24 24 27 / var(--tw-border-opacity))
                 }
 
                 .border-opacity-20 {
@@ -3825,7 +3820,7 @@
         <p class="text-xl antialiased uppercase font-bold">{{ $user->koperasi->nama }}</p>
         <p class="font-semibold antialiased ">Badan Hukum Nomor: {{ $user->koperasi->hukum }}</p>
         <p class="font-semibold antialiased">Alamat: {{ $user->koperasi->alamat }}</p>
-        <hr class="border-double border-4 border-y-zinc-900 my-2 bg-transparent">
+        <hr class="border-double border-4 border-black my-2 bg-transparent">
         @yield('content')
     </div>
 </body>
