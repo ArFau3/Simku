@@ -56,6 +56,7 @@ class TransaksiInventarisController extends Controller
         ];
 // FIXME: tambahkan tanggal dalam judul pdf
         $pdf = Pdf::loadView('akuntansi.transaksi_inventaris.download', $data);
+        $pdf->setPaper("A4", "potrait");
         return $pdf->stream('Histori Transaksi.pdf');
 
         // return view('akuntansi.transaksi_inventaris.download', $data);
