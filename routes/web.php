@@ -60,10 +60,12 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
         Route::get('/transaksi/download', 'downloadTransaksi');
 
         Route::get('/inventaris', 'indexInventaris');
+        Route::get('/inventaris/download', 'downloadInventaris');
     });
 
     Route::controller(JurnalUmumController::class)->group(function () {
         Route::get('/jurnal-umum', 'index');
+        Route::get('/jurnal-umum/download', 'download');
     });
 
     Route::controller(BukuBesarController::class)->group(function () {

@@ -33,10 +33,19 @@
         </div>
         {{-- END Form Tanggal --}}
         {{-- Sisi Kanan --}}
-        <a href="jurnal-umum/download">
-            <button
-                class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
-        </a>
+        @if (request('awal'))
+            <form action="jurnal-umum/download" class="my-1">
+                <input type="hidden" name="awal" value="{{ request('awal') }}">
+                <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                <button
+                    class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+            </form>
+        @else
+            <a href="jurnal-umum/download">
+                <button
+                    class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+            </a>
+        @endif
         {{-- END Sisi Kanan --}}
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
@@ -155,5 +164,7 @@
             </div>
         </div>
     </div>
+    {{-- FIXME: kolom kredit masukkan ke dlm --}}
+    {{-- FIXME: perbaiki yg kolom tanggal sama --}}
     {{-- END SECTION Tabel Data --}}
 @endsection

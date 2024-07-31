@@ -57,9 +57,25 @@ class TransaksiInventarisController extends Controller
 // FIXME: tambahkan tanggal dalam judul pdf
         $pdf = Pdf::loadView('akuntansi.transaksi_inventaris.download', $data);
         $pdf->setPaper("A4", "potrait");
-        return $pdf->stream('Histori Transaksi.pdf');
+        return $pdf->download('Histori Transaksi.pdf');
 
         // return view('akuntansi.transaksi_inventaris.download', $data);
+    }
+    public function downloadInventaris(Request $request)
+    {
+        // FIXME: perbaiki data judul & title
+        $data = [
+            "title" => "Aset Tetap",
+            'user' => $request->user(),
+            'judul' => 'Daftar Aset Tetap',
+            'transaksi' => TransaksiInventaris::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
+                                                                                                                    $request['akhir']
+                                                                                                            )->get(),
+            
+        ];
+        $pdf = Pdf::loadView('akuntansi.transaksi_inventaris.download', $data);
+        $pdf->setPaper("A4", "potrait");
+        return $pdf->download('Histori Inventaris.pdf');
     }
 
     public function edit(TransaksiInventaris $id, Request $request)

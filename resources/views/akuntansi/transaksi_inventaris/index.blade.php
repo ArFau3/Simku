@@ -35,6 +35,9 @@
                 </div>
             </form> --}}
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5 ">
+                @if (request('cari'))
+                    <input type="hidden" name="cari" value="{{ request('cari') }}">
+                @endif
                 <div class="border border-zinc-300 mx-1 md:flex">
                     <input id="awal" type="date" class="form-input border-0 block w-full p-1 focus:bg-white"
                         id="my-textfield" name="awal" value="{{ request('awal') }}">
@@ -55,20 +58,62 @@
                 </div>
             </form>
             @if (request('awal'))
-                <a href="{{ strtolower($title) }}" class="my-1">
-                    <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                </a>
+                @if (request('cari'))
+                    <form action="" class="my-1">
+                        <input type="hidden" name="cari" value="{{ request('cari') }}">
+                        <button type="submit"
+                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                    </form>
+                @else
+                    <a href="{{ strtolower($title) }}" class="my-1">
+                        <button
+                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                    </a>
+                @endif
             @endif
         </div>
         <div class="sm:flex">
-            <a href="/transaksi/download">
-                {{-- <a href="transaksi/download"> --}}
-                <button
-                    class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
-            </a>
+            @if ($title == 'Aset Tetap')
+                <?php $link_download = '/inventaris'; ?>
+            @else
+                <?php $link_download = '/transaksi'; ?>
+            @endif
+            @if (request('awal') || request('cari'))
+                @if (request('awal') && request('cari'))
+                    <form action={{ $link_download . '/download' }} class="my-1">
+                        <input type="hidden" name="awal" value="{{ request('awal') }}">
+                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                        <input type="hidden" name="cari" value="{{ request('cari') }}">
+                        <button
+                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                    </form>
+                @elseif(request('cari'))
+                    <form action={{ $link_download . '/download' }} class="my-1">
+                        <input type="hidden" name="cari" value="{{ request('cari') }}">
+                        <button
+                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                    </form>
+                @else
+                    <form action={{ $link_download . '/download' }} class="my-1">
+                        <input type="hidden" name="awal" value="{{ request('awal') }}">
+                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                        <button
+                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                    </form>
+                @endif
+            @else
+                <a href={{ $link_download . '/download' }}>
+                    {{-- <a href="transaksi/download"> --}}
+                    <button
+                        class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                </a>
+            @endif
             <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
                 <form action="" class="flex justify-between">
+                    @if (request('awal'))
+                        <input type="hidden" name="awal" value="{{ request('awal') }}">
+                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                    @endif
                     <input type="text"
                         class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-sm focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
                         name="cari" id="cari" placeholder="Keterangan/Jenis/Rekening Transaksi"
@@ -79,10 +124,19 @@
                 </form>
             </div>
             @if (request('cari'))
-                <a href="{{ strtolower($title) }}" class="my-1">
-                    <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                </a>
+                @if (request('awal'))
+                    <form action="" class="my-1">
+                        <input type="hidden" name="awal" value="{{ request('awal') }}">
+                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                        <button type="submit"
+                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                    </form>
+                @else
+                    <a href="{{ strtolower($title) }}" class="my-1">
+                        <button
+                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                    </a>
+                @endif
             @endif
         </div>
     </div>
@@ -155,7 +209,8 @@
                                     class="px-4 sm:px-4 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
                                     <a href="transaksi/{{ $transaksi[$i]->id }}"
                                         class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="/transaksi/hapus/{{ $transaksi[$i]->id }}" method="POST" class="inline">
+                                    <form action="/transaksi/hapus/{{ $transaksi[$i]->id }}" method="POST"
+                                        class="inline">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="text-indigo-600 hover:text-indigo-900"
