@@ -10,7 +10,9 @@ use App\Http\Controllers\Akuntansi\LabaRugiController;
 use App\Http\Controllers\Akuntansi\NeracaController;
 use App\Http\Controllers\Akuntansi\PerubahanModalController;
 use App\Http\Controllers\Akuntansi\RekeningController;
+use App\Http\Controllers\Akuntansi\TBSController;
 use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
+use App\Http\Controllers\Akuntansi\TutupBukuController;
 use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\ProfileController;
@@ -39,11 +41,11 @@ Route::get('/gateway', [GatewayController::class, 'index'])->middleware(['auth',
 // USER: Akuntan & Pengurus
 Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function () {
     Route::controller(App\Http\Controllers\Akuntansi\ProfileController::class)->group(function () {
-        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::get('/profile', 'edit')->name('profil.edit');
         // HACK: perlu route model binding ?
         Route::get('/profile/updateHp', 'updateHp');
         Route::get('/profile/kodeOTP', 'kodeOTP');
-        Route::patch('/profile', 'update')->name('profile.update');
+        Route::patch('/profile', 'update')->name('profil.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 
@@ -63,6 +65,10 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
         Route::get('/inventaris/download', 'downloadInventaris');
     });
 
+    Route::controller(TutupBukuController::class)->group(function () {
+        Route::get('/tutup-buku', 'index');
+    });
+
     Route::controller(JurnalUmumController::class)->group(function () {
         Route::get('/jurnal-umum', 'index');
         Route::get('/jurnal-umum/download', 'download');
@@ -70,18 +76,29 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
 
     Route::controller(BukuBesarController::class)->group(function () {
         Route::get('/buku-besar', 'index');
+        Route::get('/buku-besar/download', 'download');
     });
 
     Route::controller(LabaRugiController::class)->group(function () {
         Route::get('/laba-rugi', 'index');
+        Route::get('/laba-rugi/download', 'download');
     });
 
     Route::controller(NeracaController::class)->group(function () {
         Route::get('/neraca', 'index');
+        Route::get('/neraca/download', 'download');
     });
 
     Route::controller(PerubahanModalController::class)->group(function () {
         Route::get('/perubahan-modal', 'index');
+    });
+
+    Route::controller(TBSController::class)->group(function () {
+        Route::get('/penjualan-tbs', 'index');
+        Route::get('/penjualan-tbs/pilih-rekening', 'tautkanIndex');
+        Route::post('/penjualan-tbs/tautkan/{id}', 'tautkan')->whereNumber('id');
+        Route::delete('/penjualan-tbs/hapus/{id}', 'delete')->whereNumber('id');
+        Route::get('/penjualan-tbs/download', 'download');
     });
 
     Route::controller(AktivitasController::class)->group(function () {
@@ -103,6 +120,14 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
         // HACK: DEBUG: cek sistem download
         // Route::get('/downloadPDF','downloadPDF');
     });
+
+    Route::controller(TutupBukuController::class)->group(function () {
+        Route::get('/tutup-buku/pilih-tanggal', 'pilihTanggal');
+        Route::post('/lakukan-tutup-buku', 'tambah');
+        Route::post('/tutup-buku/selesaikan', 'store');
+        Route::delete('/tutup-buku/hapus/{id}', 'delete')->whereNumber('id');
+    });
+    
     // HACK: DEBUG Download system
     Route::get('/downloadPDF', [RekeningController::class, 'downloadPDF']);
 
@@ -122,16 +147,12 @@ Route::middleware(['auth', 'verified', 'role:pengurus'])->group(function () {
         // Pengaturan Koperasi
         Route::get('/pengaturan-koperasi', 'edit');
         Route::post('koperasi/update/{id}', 'update')->whereNumber('id'); //TODO: ganti slug
-
-        // Pengaturan Akuntan oleh Ketua Koperasi
-        Route::get('/pengaturan-akuntan', 'indexAkuntan');
-        // TODO: siapkan sistem tambah dan hapus akuntan
     });
 
     Route::controller(AkuntanController::class)->group(function () {
     // TODO: buat logic dan UI
-        Route::get('/daftar-akuntan', 'index'); //daftar akuntan
-        Route::get('/akuntan/{id}', 'show')->whereNumber('id'); //data per akuntan -> akses tombol delete akuntan terkait
+    // TODO: siapkan sistem tambah dan hapus akuntan
+        Route::get('/pengaturan-akuntan', 'index'); //daftar akuntan
         Route::get('/Akuntan/tambah', 'tambah'); //tambah akuntan
         Route::post('/akuntan/tambah/simpan', 'store'); //simpan tambahan akuntan
         Route::delete('/akuntan/hapus/{id}', 'delete')->whereNumber('id'); //hapus akuntan
@@ -145,7 +166,7 @@ Route::middleware(['auth', 'verified', 'role:pengurus'])->group(function () {
 Route::middleware('auth', 'verified')->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profil', 'edit')->name('profile.edit');
-        Route::patch('/profil', 'update')->name('profile.update');
+        Route::post('/profil', 'update')->name('profile.update');
         Route::delete('/profil', 'destroy')->name('profile.destroy');
     });
 });

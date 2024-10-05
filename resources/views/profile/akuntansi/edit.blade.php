@@ -1,10 +1,11 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
+    {{-- {{ dd($user->nama_lengkap) }} --}}
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profil.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
         <div class="sm:flex sm:justify-between sm:self-start">
@@ -17,10 +18,11 @@
                 <div class="mb-5">
                     <x-input-label for="name" :value="__('Nama: ')" />
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->nama_lengkap)"
-                        required autofocus autocomplete="name" />
+                        required autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                 </div>
                 {{-- END Nama --}}
+                {{-- TODO: edit foto --}}
                 {{-- Alamat --}}
                 <div class="mb-5">
                     <x-input-label for="alamat" :value="__('Alamat: ')" />
@@ -32,8 +34,8 @@
                 {{-- No. Hp --}}
                 <div class="mb-5">
                     <x-input-label for="no_hp" :value="__('Nomor Telepon: ')" />
-                    <x-text-input id="no_hp" name="no_hp" type="text" class="mt-1 block w-full"
-                        :value="old('no_hp', $user->no_hp)" />
+                    <x-text-input id="no_hp" name="no_hp" type="text" class="mt-1 block w-full bg-zinc-300 "
+                        disabled :value="old('no_hp', $user->no_hp)" />
                     <x-input-error class="mt-2" :messages="$errors->get('no_hp')" />
                     <a href="profile/updateHp">
                         <button type="button"
@@ -51,8 +53,8 @@
                 {{-- Password --}}
                 {{-- QOL: siapkan slot non-input pass lama yg bisa di toggle? --}}
                 {{-- TODO: siapak kode perubahan pass --}}
-                <div class="mt-10 mb-5">
-                    <div>
+                <div class="mt-24 mb-5">
+                    {{-- <div>
                         <x-input-label for="update_password_password" :value="__('Password Baru')" />
                         <x-text-input id="update_password_password" name="password" type="password"
                             class="mt-1 block w-full" autocomplete="new-password" />
@@ -64,7 +66,7 @@
                         <x-text-input id="update_password_password_confirmation" name="password_confirmation"
                             type="password" class="mt-1 block w-full" autocomplete="new-password" />
                         <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
-                    </div>
+                    </div> --}}
                     <a href="/">
                         <button type="button"
                             class="bg-amber-400 opacity-85 p-2 mt-2 rounded-sm font-medium text-sm lg:text-base antialiased inline-block w-11/12">
@@ -79,15 +81,16 @@
                 {{-- Nama Koperasi --}}
                 <div class="mb-5">
                     <x-input-label for="koperasi" :value="__('Koperasi: ')" />
-                    <x-text-input id="koperasi" disabled name="koperasi" type="text" class="mt-1 block w-full"
-                        value="{{ $user->koperasi->nama }}" />
+                    <x-text-input id="koperasi" disabled name="koperasi" type="text"
+                        class="bg-zinc-300 mt-1 block w-full" value="{{ $user->koperasi->nama }}" />
                     <x-input-error class="mt-2" :messages="$errors->get('koperasi')" />
                 </div>
                 {{-- END Nama Koperasi --}}
                 {{-- Jabatan --}}
                 <div class="mb-5">
                     <x-input-label for="jabatan" :value="__('Jabatan: ')" />
-                    <x-text-input id="jabatan" disabled name="jabatan" type="text" class="mt-1 block w-full"
+                    <x-text-input id="jabatan" disabled name="jabatan" type="text"
+                        class="bg-zinc-300 mt-1 block w-full"
                         value="{{ $user->getRoles() ? ucwords($user->getRoles()[0]) : 'User' }}" />{{-- ->nama --}}
                     <x-input-error class="mt-2" :messages="$errors->get('jabatan')" />
                 </div>

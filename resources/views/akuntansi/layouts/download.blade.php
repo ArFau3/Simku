@@ -292,6 +292,10 @@
             padding-bottom: .25rem
         }
 
+        .text-left {
+            text-align: left
+        }
+
         .bg-white {
             --tw-bg-opacity: 1;
             background-color: rgb(255 255 255 / var(--tw-bg-opacity))
@@ -345,6 +349,30 @@
 
         .w-1 {
             width: 0.25rem;
+        }
+
+        .pt-2 {
+            padding-top: .5rem
+        }
+
+        .mt-2 {
+            margin-top: .5rem
+        }
+
+        .invisible {
+            visibility: hidden
+        }
+
+        .mt-4 {
+            margin-top: 1rem
+        }
+
+        .mb-1 {
+            margin-bottom: .25rem
+        }
+
+        .mb-2 {
+            margin-bottom: .5rem
         }
     </style>
 

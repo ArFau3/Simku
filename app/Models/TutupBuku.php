@@ -13,6 +13,7 @@ class TutupBuku extends Model
     protected $fillable = [
         'awal',
         'akhir',
+        "nominal",
     ];
 
     public $timestamps = false;

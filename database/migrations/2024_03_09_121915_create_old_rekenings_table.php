@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->string('nomor', 20);
+            $table->integer("desimal");
             $table->string('rekening_induk', 20);
         });
     }

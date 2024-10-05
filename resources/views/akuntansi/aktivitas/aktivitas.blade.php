@@ -54,6 +54,7 @@
         {{-- END Sisi Kanan --}}
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
+
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
     {{-- SECTION Tabel Data --}}
     <div class="flex flex-col mt-1">

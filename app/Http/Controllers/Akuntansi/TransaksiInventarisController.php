@@ -20,13 +20,14 @@ class TransaksiInventarisController extends Controller
 {
     public function indexTransaksi(Request $request)
     {
+        $request['akhir'] = \Carbon\Carbon::now()->toDateString();
         $data = [
             "title" => "Transaksi",
             'user' => $request->user(),
             'judul' => 'Daftar Transaksi',
             'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
-                                                                                            )->get(),
+                                                                                            )->paginate(25),
         ];
         // dd($data['transaksi']->where('tanggal', '<', $request['awal']));
         return view('akuntansi.transaksi_inventaris.index', $data);
@@ -34,13 +35,14 @@ class TransaksiInventarisController extends Controller
 
     public function indexInventaris(Request $request)
     {
+        $request['akhir'] = \Carbon\Carbon::now()->toDateString();
         $data = [
             "title" => "Aset Tetap",
             'user' => $request->user(),
             'judul' => 'Daftar Aset Tetap',
             'transaksi' => TransaksiInventaris::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
                                                                                                                     $request['akhir']
-                                                                                                            )->get(),
+                                                                                                            )->paginate(25),
             
         ];
         return view('akuntansi.transaksi_inventaris.index', $data);

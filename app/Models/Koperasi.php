@@ -14,6 +14,7 @@ class Koperasi extends Model
         'logo',
         'hukum',
         'alamat',
+        "berdiri",
     ];
 
     public $timestamps = true;

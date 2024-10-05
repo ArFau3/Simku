@@ -90,21 +90,21 @@
                         <tr class="border-2 border-gray-400">
                             {{-- Kolom Total --}}
                             <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="py-1 px-2 text-sm leading-5 text-black">
+                                <div class="py-1 px-2 font-bold text-sm leading-5 text-black">
                                     TOTAL
                                 </div>
                             </td>
                             {{-- END Kolom Total --}}
                             {{-- Kolom Debit --}}
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="py-1 px-2 text-sm leading-5 text-black">
+                                <div class="py-1 px-2 text-sm font-bold leading-5 text-black">
                                     {{ Number::currency($total, 'IDR', 'id') }}
                                 </div>
                             </td>
                             {{-- END Kolom Debit --}}
                             {{-- Kolom Kredit --}}
                             <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="py-1 px-2 text-sm leading-5 text-black">
+                                <div class="py-1 px-2 text-sm font-bold leading-5 text-black">
                                     {{ Number::currency($total, 'IDR', 'id') }}
                                 </div>
                             </td>

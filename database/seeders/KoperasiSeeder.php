@@ -16,6 +16,7 @@ class KoperasiSeeder extends Seeder
         Koperasi::insert(
             [
                 'nama' => "Koperasi Unit Desa",
+                "berdiri" => "2017-01-01",
                 'hukum' => '0003967//BH/M.KUKM.2/IV/2017',
                 'logo' => "logo.png",
                 'alamat' => 'Jl. Test',

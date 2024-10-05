@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class AktivitasController extends Controller
 {
+    #region test
     public function index(Request $request){
         $data = [
             "title" => "Aktivitas",
@@ -18,6 +19,7 @@ class AktivitasController extends Controller
                                                                                     $request['akhir'])->paginate(30),
         ];
         return view('akuntansi.aktivitas.aktivitas', $data);
+        #endregion
     }
 
     public function historyRekening(Aktivitas $id, Request $request){

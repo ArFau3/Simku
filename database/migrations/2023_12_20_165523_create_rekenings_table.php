@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100)->unique();
             $table->string('nomor', 20)->unique();
+            $table->integer("desimal")->unique();
             $table->boolean('edit');
             $table->timestamps();
             $table->softDeletes();

@@ -12,6 +12,7 @@ class OldRekening extends Model
         'nama',
         'nomor',
         'rekening_induk',
+        "desimal",
     ];
 
     public $timestamps = false;

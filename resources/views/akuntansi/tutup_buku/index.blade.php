@@ -1,32 +1,14 @@
 @extends('akuntansi.layouts.layout')
 
 @section('content')
-    {{-- {{ dd($rekening) }} --}}
+    {{-- {{ dd($tbs) }} --}}
     {{-- SECTION tombol akses sebelum tabel --}}
+    {{-- FIXME: tutup buku perlu ada cari --}}
     <div class="flex justify-between">
-        <a href="rekening/tambah">
-            <button class="bg-amber-400 opacity-85 p-2 mt-1 rounded-sm font-medium text-sm lg:text-base antialiased">Tambah
-                Rekening</button>
+        <a href="tutup-buku/pilih-tanggal">
+            <button class="bg-amber-400 opacity-85 p-2 mt-1 rounded-sm font-medium text-sm lg:text-base antialiased">Lakukan
+                Tutup Buku</button>
         </a>
-        <div class="flex">
-            <div class="flex rounded w-32 sm:w-64 justify-between border px-3 my-1 antialiased">
-                <form action="">
-                    <input type="text"
-                        class="border-0 bg-zinc-50 w-20 sm:w-52 font-medium text-sm lg:text-base focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
-                        name="cari" id="cari" placeholder="Nama/Nomor Rekening" value="{{ request('cari') }}">
-                    <button>
-                        <i class="self-center fa fa-search text-gray-400" type="submit"></i>
-                    </button>
-                </form>
-
-            </div>
-            @if (request('cari'))
-                <a href="rekening" class="my-1">
-                    <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                </a>
-            @endif
-        </div>
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
@@ -40,10 +22,13 @@
                         <tr>
                             <th
                                 class="w-20 sm:w-24 px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Nomor Rekening</th>
+                                Nomor</th>
                             <th
                                 class="px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Nama Rekening</th>
+                                Tanggal</th>
+                            <th
+                                class="px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
+                                File Tutup Buku</th>
                             <th
                                 class="w-16 sm:w-32 px-4 sm:px-6 py-1 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
                                 Aksi</th>
@@ -52,32 +37,45 @@
                     {{-- END SECTION Header Tabel --}}
                     {{-- SECTION Body Tabel --}}
                     <tbody class="bg-white">
-                        @foreach ($rekenings as $rekening)
+                        <?php $u = 0; ?>
+                        @for ($i = 0; $i < $tbs->count(); $i++)
+                            @if (!$tbs[$i]->akhir)
+                                @continue
+                            @endif
+                            <?php $u += 1;
+                            $tanggalAkhir = \Carbon\Carbon::parse($tbs[$i]->akhir)->format('d-m-Y');
+                            $tanggalAwal = \Carbon\Carbon::parse($tbs[$i]->awal)->format('d-m-Y'); ?>
                             <tr>
                                 <td
                                     class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $rekening->nomor }}</td>
+                                    {{ $u }}</td>
 
                                 <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800 font-medium">{{ $rekening->nama }}</div>
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
+                                        {{ \Carbon\Carbon::parse($tanggalAkhir)->format('d-m-Y') }}</div>
+                                </td>
+                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="text-sm leading-5 text-gray-800 font-medium">
+                                        Tutup Buku {{ $u }} Periode
+                                        {{ $tanggalAwal }} s/d
+                                        {{ $tanggalAkhir }}</div>
                                 </td>
                                 <td
                                     class="px-4 sm:px-6 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-                                    @if ($rekening['edit'])
-                                        <a href="/rekening/{{ $rekening->id }}"
-                                            class="text-indigo-600 hover:text-indigo-900 pr-1.5 sm:border-black sm:border-r">Edit</a>
-                                        <form action="/rekening/hapus/{{ $rekening->id }}" method="POST" class="inline">
+                                    <a href="/tutup-buku/{{ $tbs[$i]->id }}"
+                                        class="text-indigo-600 hover:text-indigo-900 pr-1.5 sm:border-black sm:border-r">Lihat</a>
+                                    @if ($u == 1)
+                                        {{-- FIXME: jika tutup buku dihapus tutp buku sebelumya kolom akhir hapus juga --}}
+                                        <form action="/tutup-buku/hapus/{{ $tbs[$i]->id }}" method="POST" class="inline">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" class="text-indigo-600 hover:text-indigo-900"
-                                                onclick="return confirm('Apakah Anda yakin ingin Menghapus Rekening {{ $rekening->nama }}')">Hapus</button>
+                                                onclick="return confirm('Apakah Anda yakin ingin Menghapus Tutup Buku Terakhir {{ $tanggalAwal }} s/d {{ $tanggalAkhir }}')">Hapus</button>
                                         </form>
-                                    @else
-                                        <i class="mx-auto fa fa-lock text-gray-900"></i>
                                     @endif
                                 </td>
                             </tr>
-                        @endforeach
+                        @endfor
                     </tbody>
                     {{-- SECTION Body Tabel --}}
                 </table>
@@ -87,7 +85,7 @@
     {{-- END SECTION Tabel Data --}}
     {{-- Pagination --}}
     <div class="pt-3 grid justify-items-end">
-        {{ $rekenings->links() }}
+        {{ $tbs->links() }}
     </div>
     {{-- END Pagination --}}
 @endsection

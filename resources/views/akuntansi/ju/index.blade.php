@@ -24,10 +24,10 @@
                         type="submit">Oke</button>
                 </div>
             </form>
-            @if (request('awal'))
+            @if (request('awal') != $tutup_buku || request('akhir') != \Carbon\Carbon::now()->toDateString())
                 <a href="/jurnal-umum" class="my-1">
                     <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center mt-1  fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 font-medium text-sm lg:text-base antialiased"></button>
                 </a>
             @endif
         </div>
@@ -79,7 +79,7 @@
                     {{-- END Header Tabel --}}
                     {{-- Body Tabel --}}
                     <tbody class="bg-white">
-                        @foreach ($transaksi as $transaksi)
+                        @foreach ($transaksis as $transaksi)
                             <tr>
                                 {{-- Kolom Tanggal --}}
                                 <td rowspan="2"
@@ -133,7 +133,7 @@
                             </tr>
                         @endforeach
                         {{-- Baris Total Debit == Kredit --}}
-                        <?php $total = $transaksi->sum('nominal'); ?>
+                        <?php $total = $transaksis->sum('nominal'); ?>
                         <tr class="border-2 border-gray-400">
                             {{-- Kolom Total --}}
                             <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
@@ -167,4 +167,10 @@
     {{-- FIXME: kolom kredit masukkan ke dlm --}}
     {{-- FIXME: perbaiki yg kolom tanggal sama --}}
     {{-- END SECTION Tabel Data --}}
+    {{-- FIXME: kemungkinan jurnal umum dari tanggal terakhir tutup buku? --}}
+    {{-- Pagination --}}
+    <div class="pt-3 grid justify-items-end">
+        {{ $transaksis->links() }}
+    </div>
+    {{-- END Pagination --}}
 @endsection

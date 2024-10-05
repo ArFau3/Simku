@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('awal');
             $table->date('akhir')->nullable();
+            $table->decimal('nominal', 16, 2);
         });
     }
 

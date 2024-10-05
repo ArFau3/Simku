@@ -20,8 +20,10 @@ class RekeningController extends Controller
             "title" => "Rekening",
             'user' => $request->user(),
             'judul' => 'Daftar Rekening',
-            'rekening' => Rekening::orderBy('nomor')->cari($request['cari'])->get(),
+            'rekenings' => Rekening::orderBy('desimal')->cari($request['cari'])->paginate(50),
             'rekening_json' => Rekening::all(),
+            // FIXME: perbaiki edit dan tambah karna sekarang pakai desimal untuk sorting
+            // tambah jadi support keturunan ke 6 (1+10+10+10+10+10)
         ];
         return view('akuntansi.rekening.index', $data);
     }
@@ -34,7 +36,7 @@ class RekeningController extends Controller
             "title" => "Rekening",
             'user' => $request->user(),
             'judul' => 'Edit Rekening',
-            'rekenings' => Rekening::orderBy('nomor')->get(),
+            'rekenings' => Rekening::orderBy('desimal')->get(),
             'rekening' => $id,
             'rekening_json' => Rekening::select('id as rekening_id','nomor')->orderBy('nomor')->get(),
         ];

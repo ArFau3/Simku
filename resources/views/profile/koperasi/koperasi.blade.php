@@ -22,7 +22,16 @@
                     <x-input-error class="mt-2" :messages="$errors->get('nama')" />
                 </div>
                 {{-- END Nama --}}
+                {{-- Tahun Berdiri --}}
+                <div class="mb-5">
+                    <x-input-label for="berdiri" :value="__('Tahun Berdiri: ')" />
+                    <x-text-input id="berdiri" name="berdiri" type="date" class="mt-1 block w-full" :value="old('berdiri', $user->koperasi->berdiri)"
+                        required />
+                    <x-input-error class="mt-2" :messages="$errors->get('nama')" />
+                </div>
+                {{-- END Tahun Berdiri --}}
                 {{-- Alamat --}}
+                {{-- TODO: ubah logo --}}
                 <div class="mb-5">
                     <x-input-label for="alamat" :value="__('Alamat Koperasi: ')" />
                     <x-text-input id="alamat" name="alamat" type="text" class="mt-1 block w-full"

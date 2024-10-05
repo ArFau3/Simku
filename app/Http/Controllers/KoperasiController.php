@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\View\View;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class KoperasiController extends Controller
 {
@@ -22,9 +24,23 @@ class KoperasiController extends Controller
     }
 
     public function update(Request $request, Koperasi $id){
-        // TODO: buat sistem update
+         // Rule Validation
+         $validator = Validator::make($request->all(), [
+            'name' => 'string', 'max:255',
+            'alamat' => 'string', 'max:255',
+            'hukum' => 'string', 'max:255',
+        ]);
+
+        // Validating input
+        $validated = $validator->validated();
+
+        $id->nama = $validated["name"];
+        $id->alamat = $validated["alamat"];
+        $id->hukum = $validated["hukum"];
+        $id->save();
         // TODO: buat record di aktivitas
-        dd($request);
+
+        return redirect("/pengaturan-koperasi");
     }
 
     public function indexAkuntan(Request $request, Koperasi $koperasi){

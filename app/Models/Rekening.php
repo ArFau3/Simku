@@ -15,6 +15,7 @@ class Rekening extends Model
         'nomor',
         'edit',
         'rekening_induk',
+        "desimal",
     ];
 
     public $timestamps = false;
@@ -38,4 +39,5 @@ class Rekening extends Model
     public function transaksiKredit(): HasMany{
         return $this->hasMany(TransaksiInventaris::class, 'kredit');
     }
+
 }

@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            {{-- FIXME: pastika size responsive --}}
+            {{-- FIXME: pastikan size responsive --}}
             <img src="/assets/logo-sekadau.png" alt="logo-sekadau.png"
                 class="object-contain float-right h-5/6 sm:h-full w-20 mr-2">
         </div>
@@ -103,10 +103,15 @@
 
     showTime();
     // END Jam Digital
-    // Atur field tanggal akhir filter tanggal
-    if (document.getElementById('akhir')) {
-        document.getElementById('akhir').valueAsDate = new Date();
+    // Auto submit Drodown
+    function DoSubmit(item) {
+        document.getElementById(item).submit();
     }
+    // END Auto submit Drodown
+    // Atur field tanggal akhir filter tanggal
+    // if (document.getElementById('akhir')) {
+    //     document.getElementById('akhir').valueAsDate = new Date();
+    // }
     // END Atur field tanggal akhir filter tanggal
     // DROPDOWN SIDEBAR
     let menu1 = document.getElementById("menu1");

@@ -184,7 +184,7 @@
                                     class="font-medium pl-4 pr-2 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                     {{ $u }}
                                 </td>
-                                <td
+                                <td {{-- FIXME: nomor mulai dari awal saat pagination --}}
                                     class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
                                     {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->format('d/m/Y') }}
                                 </td>
@@ -226,4 +226,9 @@
         </div>
     </div>
     {{-- END SECTION Tabel Data --}}
+    {{-- Pagination --}}
+    <div class="pt-3 grid justify-items-end">
+        {{ $transaksi->links() }}
+    </div>
+    {{-- END Pagination --}}
 @endsection
