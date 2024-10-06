@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class JurnalUmum extends Model
 {
     use HasFactory;
-
+// FIXME: Tidak dipakai lagi
     protected $fillable = [
         'tutup_buku_id',
         'total',
