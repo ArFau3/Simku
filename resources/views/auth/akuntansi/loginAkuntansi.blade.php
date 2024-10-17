@@ -15,10 +15,10 @@
             <!-- no. hp -->
             {{-- FIXME: harusnya hanya no hp --}}
             <div>
-                <x-text-input id="username" class="block p-2 mt-1 w-full rounded-none text-zinc-800 font-medium"
-                    placeholder="Masukkan Nomor Telepon" type="username" name="username" :value="old('username')" required autofocus
-                    autocomplete="username" />
-                <x-input-error :messages="$errors->get('username')" class="mt-2" />
+                <x-text-input id="no_hp" class="block p-2 mt-1 w-full rounded-none text-zinc-800 font-medium"
+                    placeholder="Masukkan Nomor Telepon" type="no_hp" name="no_hp" :value="old('no_hp')" required autofocus
+                    autocomplete="no_hp" />
+                <x-input-error :messages="$errors->get('no_hp')" class="mt-2" />
             </div>
 
             <!-- Password -->

@@ -118,6 +118,6 @@ class RekeningSeeder extends Seeder
             "desimal" => 50100,
         ],
         ]);
-        Rekening::factory(20)->create();
+        Rekening::factory(13)->create();
     }
 }

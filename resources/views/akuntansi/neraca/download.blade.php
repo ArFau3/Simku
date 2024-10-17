@@ -18,14 +18,14 @@ $total_modal = collect([]); ?>
                 <table class="min-w-full">
                     {{-- SECTION Tabel Aset --}}
                     {{-- SECTION Header Tabel --}}
-                    <thead class="bg-zinc-200">
-                        <tr>
-                            <th colspan="3"
-                                class="px-4 text-base font-bold leading-4 tracking-wider text-left text-black uppercase">
-                                Aktiva
-                            </th>
-                        </tr>
-                    </thead>
+
+                    <tr>
+                        <th colspan="3"
+                            class="px-4 text-base font-bold leading-4 tracking-wider text-left text-black uppercase">
+                            Aktiva
+                        </th>
+                    </tr>
+
                     {{-- END SECTION Header Tabel --}}
                     {{-- SECTION Body Tabel --}}
                     {{-- FIXME: di modal tambahkan laba rugi tanpa nomor, untuk menyamakan sisi, jika sudah tutup buku baru dipindahkan ke rekening modal yg benar --}}
@@ -171,14 +171,14 @@ $total_modal = collect([]); ?>
                     {{-- END SECTION Tabel Aset --}}
                     {{-- SECTION Tabel Kewajiban & Modal --}}
                     {{-- SECTION Header Tabel --}}
-                    <thead class="bg-zinc-200">
-                        <tr>
-                            <th colspan="3"
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wide text-left text-gray-800 uppercase border-b border-gray-200">
-                                Pasiva
-                            </th>
-                        </tr>
-                    </thead>
+
+                    <tr>
+                        <th colspan="3"
+                            class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-base font-bold leading-4 tracking-wide text-left text-gray-800 uppercase border-b border-gray-200">
+                            Pasiva
+                        </th>
+                    </tr>
+
                     {{-- END SECTION Header Tabel --}}
                     <tbody class="bg-white">
                         {{-- SECTION Tabel Kewajiban --}}

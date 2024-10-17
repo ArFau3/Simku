@@ -23,6 +23,7 @@
         {{-- SECTION Header --}}
         <div class="bg-zinc-600/75 mt-4 mb-1.5 mx-1.5 sm:mx-5 py-2 px-3 rounded flex justify-between">
             <div class="">
+                {{-- TODO: logo dan data simku, karna koperasi blm masuk jadi tidak bisa pakai itu --}}
                 <img src="/assets/logo.png" alt="logo.png"
                     class="object-contain float-left sm:h-full max-h-20 sm:w-20 flex-shrink-0 mr-2">
                 <div class="leading-4 float-left">

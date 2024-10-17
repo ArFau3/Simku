@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('old_transaksi_inventaris', function (Blueprint $table) {
+        Schema::create('old_transaksis', function (Blueprint $table) {
             $table->id();
             $table->string('debit');
             $table->string('kredit');

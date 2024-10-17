@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jurnal_umums', function (Blueprint $table) {
+        Schema::create('o_t_p_s', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tutup_buku_id');
-            $table->decimal('total',10,2);
             $table->timestamps();
-
-            $table->foreign('tutup_buku_id')->references('id')->on('tutup_bukus')
-                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jurnal_umums');
+        Schema::dropIfExists('o_t_p_s');
     }
 };

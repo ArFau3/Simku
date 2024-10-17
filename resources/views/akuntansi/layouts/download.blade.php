@@ -166,12 +166,16 @@
             text-transform: uppercase
         }
 
-        .leading-4 {
-            line-height: 1rem
+        .leading-tiny {
+            line-height: .75rem
         }
 
         .tracking-wider {
             letter-spacing: .05em
+        }
+
+        .tracking-wide {
+            letter-spacing: .025em
         }
 
         .font-bold {
@@ -238,12 +242,17 @@
             flex-direction: column
         }
 
+        .items-center {
+            align-items: center
+        }
+
         .font-semibold {
             font-weight: 600
         }
 
         .border-double {
-            border-style: double
+            border-top-style: double;
+            border-bottom-style: double
         }
 
         .border-4 {
@@ -374,6 +383,55 @@
         .mb-2 {
             margin-bottom: .5rem
         }
+
+        .object-contain {
+            -o-object-fit: contain;
+            object-fit: contain
+        }
+
+        .float-left {
+            float: left
+        }
+
+        .max-h-20 {
+            max-height: 5rem
+        }
+
+        .flex-shrink-0,
+        .shrink-0 {
+            flex-shrink: 0
+        }
+
+        .mr-2 {
+            margin-right: .5rem
+        }
+
+        .justify-between {
+            justify-content: space-between
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem
+        }
+
+        .p-10 {
+            padding: 2.5rem;
+        }
+
+        .border-y-2 {
+            border-top-width: 2px;
+            border-bottom-width: 2px;
+        }
+
+        .border-y-4 {
+            border-top-width: 3px;
+            border-bottom-width: 3px;
+        }
+
+        .leading-tight {
+            line-height: 1rem;
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -388,13 +446,34 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'> --}}
 </head>
 
-<body class="mt-10">
-    <div class="text-center mb-7 p-6">
+<body class="mt-3">
+    <div class="text-center p-10">
+        {{-- Section Kop --}}
         {{-- FIXME: font --}}
-        <p class="text-xl antialiased uppercase font-bold">{{ $user->koperasi->nama }}</p>
-        <p class="font-semibold antialiased ">Badan Hukum Nomor: {{ $user->koperasi->hukum }}</p>
-        <p class="font-semibold antialiased my-1">Alamat: {{ $user->koperasi->alamat }}</p>
-        <hr class="border-double border-4 border-black my-2 bg-transparent">
+        <p class="text-lg antialiased uppercase font-bold tracking-wide">{{ $user->koperasi->nama }}</p>
+        <p class="font-semibold antialiased ">Badan Hukum Nomor : {{ $user->koperasi->hukum }}</p>
+        <p class=" antialiased my-1">Alamat : {{ $user->koperasi->alamat }}</p>
+        {{-- END Section Kop --}}
+
+        <hr class=" border-y-2 border-black my-2 bg-transparent">
+
+        {{-- Section Judul --}}
+        <p class="mt-5 uppercase font-bold tracking-tight antialiased">{{ $title }}</p>
+        <p class="text-sm tracking-tight antialiased mb-1">Per.
+            @if (request('awal'))
+                {{ \Carbon\Carbon::parse(request('awal'))->format('d M Y') }}
+            @else
+                {{ \Carbon\Carbon::parse($user->koperasi->berdiri)->format('d M Y') }}
+            @endif
+            s/d
+            {{-- FIXME: bulan tampilkan fullname + pastikan bahasa indo --}}
+            @if (request('akhir'))
+                {{ \Carbon\Carbon::parse(request('akhir'))->format('d M Y') }}
+            @else
+                {{ \Carbon\Carbon::now()->format('d M Y') }}
+            @endif
+        </p>
+        {{-- END Section Judul --}}
         @yield('content')
     </div>
 </body>

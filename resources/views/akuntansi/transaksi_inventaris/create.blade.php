@@ -99,12 +99,9 @@
             </div>
 
             {{-- SECTION Tombol Aksi --}}
-            <button type="submit"
-                class="bg-blue-600 text-zinc-50 opacity-85 px-3 py-2 mr-3 mt-5 rounded-sm font-medium text-sm lg:text-base antialiased">Simpan
-            </button>
+            <x-button.simpan :value="__('Simpan')" />
             <a href="/transaksi">
-                <button type="button"
-                    class="bg-zinc-500 text-zinc-50 opacity-85 px-3 py-2 mt-5 rounded-sm font-medium text-sm lg:text-base antialiased">Batal</button>
+                <x-button.cancel :value="__('Batal')" />
             </a>
             {{-- SECTION Tombol Aksi --}}
         </form>

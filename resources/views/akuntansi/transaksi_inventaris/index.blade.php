@@ -8,9 +8,7 @@
             {{-- SECTION Tambah Transaksi if halaman transaksi --}}
             @if ($title === 'Transaksi')
                 <a href="transaksi/tambah">
-                    <button
-                        class="bg-amber-400 opacity-85 rounded-sm p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Tambah
-                        Transaksi</button>
+                    <x-button.tambah :value="__('Tambah Transaksi')" />
                 </a>
             @endif
             {{-- END SECTION Tambah Transaksi if halaman transaksi --}}
@@ -38,36 +36,17 @@
                 @if (request('cari'))
                     <input type="hidden" name="cari" value="{{ request('cari') }}">
                 @endif
-                <div class="border border-zinc-300 mx-1 md:flex">
-                    <input id="awal" type="date" class="form-input border-0 block w-full p-1 focus:bg-white"
-                        id="my-textfield" name="awal" value="{{ request('awal') }}">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                        class="w-12 h-7 md:h-12 mx-auto">
-                        <path fill-rule="evenodd"
-                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-
-                    <input id="akhir" type="date" class=" border-0   form-input block w-full p-1 focus:bg-white"
-                        id="my-textfield" name="akhir" value="{{ request('akhir') }}">
-                </div>
-                <div>
-                    <button class="bg-amber-400 rounded-sm opacity-85 p-2 mt-1 font-medium text-sm lg:text-base antialiased"
-                        type="submit">Cari</button>
-                </div>
+                <x-filter.tanggal />
             </form>
-            @if (request('awal'))
+            @if (request('awal') != $user->koperasi->berdiri || request('akhir') != \Carbon\Carbon::now()->toDateString())
                 @if (request('cari'))
                     <form action="" class="my-1">
                         <input type="hidden" name="cari" value="{{ request('cari') }}">
-                        <button type="submit"
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                        <x-filter.cancel-btn />
                     </form>
                 @else
                     <a href="{{ strtolower($title) }}" class="my-1">
-                        <button
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                        <x-filter.cancel-btn />
                     </a>
                 @endif
             @endif
@@ -80,64 +59,54 @@
             @endif
             @if (request('awal') || request('cari'))
                 @if (request('awal') && request('cari'))
-                    <form action={{ $link_download . '/download' }} class="my-1">
+                    <form action={{ $link_download . '/download' }} class="">
                         <input type="hidden" name="awal" value="{{ request('awal') }}">
                         <input type="hidden" name="akhir" value="{{ request('akhir') }}">
                         <input type="hidden" name="cari" value="{{ request('cari') }}">
-                        <button
-                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                        <x-button.download />
                     </form>
                 @elseif(request('cari'))
-                    <form action={{ $link_download . '/download' }} class="my-1">
+                    <form action={{ $link_download . '/download' }} class="">
                         <input type="hidden" name="cari" value="{{ request('cari') }}">
-                        <button
-                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                        <x-button.download />
                     </form>
                 @else
-                    <form action={{ $link_download . '/download' }} class="my-1">
+                    <form action={{ $link_download . '/download' }} class="">
                         <input type="hidden" name="awal" value="{{ request('awal') }}">
                         <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                        <button
-                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                        <x-button.download />
                     </form>
                 @endif
             @else
                 <a href={{ $link_download . '/download' }}>
                     {{-- <a href="transaksi/download"> --}}
-                    <button
-                        class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                    <x-button.download />
                 </a>
             @endif
-            <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
-                <form action="" class="flex justify-between">
-                    @if (request('awal'))
-                        <input type="hidden" name="awal" value="{{ request('awal') }}">
-                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                    @endif
-                    <input type="text"
-                        class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-sm focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
-                        name="cari" id="cari" placeholder="Keterangan/Jenis/Rekening Transaksi"
-                        value="{{ request('cari') }}">
-                    <button>
-                        <i class="self-center fa fa-search text-gray-400" type="submit"></i>
-                    </button>
-                </form>
-            </div>
-            @if (request('cari'))
-                @if (request('awal'))
-                    <form action="" class="my-1">
-                        <input type="hidden" name="awal" value="{{ request('awal') }}">
-                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                        <button type="submit"
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+            <div class="flex">
+                <div class="rounded w-full sm:w-64 border px-1 antialiased">
+                    <form action="" class="flex justify-between">
+                        @if (request('awal'))
+                            <input type="hidden" name="awal" value="{{ request('awal') }}">
+                            <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                        @endif
+                        <x-filter.cari />
                     </form>
-                @else
-                    <a href="{{ strtolower($title) }}" class="my-1">
-                        <button
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                    </a>
+                </div>
+                @if (request('cari'))
+                    @if (request('awal'))
+                        <form action="" class="">
+                            <input type="hidden" name="awal" value="{{ request('awal') }}">
+                            <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                            <x-filter.cancel-btn />
+                        </form>
+                    @else
+                        <a href="{{ strtolower($title) }}" class="">
+                            <x-filter.cancel-btn />
+                        </a>
+                    @endif
                 @endif
-            @endif
+            </div>
         </div>
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
@@ -150,28 +119,13 @@
                     {{-- SECTION Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
-                            <th
-                                class="w-20 sm:w-16 pl-4 pr-2 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Nomor</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Tanggal</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Jenis Transaksi
-                            </th>
-                            <th
-                                class="w-32 sm:w-36 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Debit - Kredit</th>
-                            <th
-                                class="px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Keterangan</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Total</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-4 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Aksi</th>
+                            <x-tabel.head :value="__('Nomor')" />
+                            <x-tabel.head :value="__('Tanggal')" />
+                            <x-tabel.head :value="__('Jenis Transaksi')" />
+                            <x-tabel.head :value="__('Debit - Kredit')" />
+                            <x-tabel.head :value="__('Keterangan')" />
+                            <x-tabel.head :value="__('Total')" />
+                            <x-tabel.head :value="__('Aksi')" />
                         </tr>
                     </thead>
                     {{-- END SECTION Header Tabel --}}
@@ -180,37 +134,19 @@
                         @for ($i = 0; $i < $transaksi->count(); $i++)
                             <?php $u = $i + 1; ?>
                             <tr>
+                                <x-tabel.td :value="$u" />
+                                <x-tabel.td :value="\Carbon\Carbon::parse($transaksi[$i]->tanggal)->format('d/m/Y')" />
+                                <x-tabel.td :value="$transaksi[$i]->jenisTransaksi->jenis" />
+                                <x-tabel.td :value="$transaksi[$i]->rekeningDebit->nama .
+                                    ' - ' .
+                                    $transaksi[$i]->rekeningKredit->nama" />
+                                <x-tabel.td :value="$transaksi[$i]->keterangan" />
+                                <x-tabel.td-nominal :value="$transaksi[$i]->nominal" />
                                 <td
-                                    class="font-medium pl-4 pr-2 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $u }}
-                                </td>
-                                <td {{-- FIXME: nomor mulai dari awal saat pagination --}}
-                                    class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->format('d/m/Y') }}
-                                </td>
-                                <td
-                                    class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi[$i]->jenisTransaksi->jenis }}
-                                </td>
-                                <td
-                                    class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi[$i]->rekeningDebit->nama }} - {{ $transaksi[$i]->rekeningKredit->nama }}
-                                </td>
-                                <td
-                                    class="font-medium px-4 sm:px-4 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi[$i]->keterangan }}
-                                </td>
-                                <td class="px-4 sm:px-4 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800 font-medium">
-                                        {{ Number::currency($transaksi[$i]->nominal, 'IDR', 'id') }}
-                                    </div>
-                                </td>
-                                <td
-                                    class="px-4 sm:px-4 py-3 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
+                                    class="text-left font-medium py-2 px-4 sm:px-6  text-sm leading-tight text-gray-900 whitespace-no-wrap border-b border-gray-200">
                                     <a href="transaksi/{{ $transaksi[$i]->id }}"
                                         class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="/transaksi/hapus/{{ $transaksi[$i]->id }}" method="POST"
-                                        class="inline">
+                                    <form action="/transaksi/hapus/{{ $transaksi[$i]->id }}" method="POST" class="inline">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="text-indigo-600 hover:text-indigo-900"

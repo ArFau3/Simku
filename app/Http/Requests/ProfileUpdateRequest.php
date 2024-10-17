@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -18,6 +19,10 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' => ['string', 'max:255'],
             'alamat' => ['string', 'max:255'],
+            'foto' => File::image()
+                            ->max(10 * 1024)
+                            ->types('jpg,bmp,png,jpeg'),
+            // 'foto' => ['image|file|max:10240'],
         ];
     }
 }

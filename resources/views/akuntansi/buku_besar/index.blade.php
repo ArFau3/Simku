@@ -4,113 +4,94 @@
     {{-- SECTION tombol akses sebelum tabel --}}
     {{-- {{ dd($debit) }} --}}
     <div class="md:flex justify-between">
-        {{-- Form Tanggal --}}
+        {{-- Sisi Kiri --}}
         <div class="md:flex">
+            {{-- Form Tanggal --}}
+            {{-- Form --}}
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
                 @if (request('cari'))
                     <input type="hidden" name="cari" value="{{ request('cari') }}">
                 @endif
-                <input id="awal" type="date"
-                    class="h-10 md:mx-1 rounded-sm mt-1 form-input block w-full focus:bg-white" id="my-textfield"
-                    name="awal" value="{{ request('awal') }}">
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    class="w-12 h-7 md:h-12 mx-auto">
-                    <path fill-rule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-
-                <input id="akhir" type="date"
-                    class="h-10 mt-1 rounded-sm md:mx-1 form-input block w-full focus:bg-white" id="my-textfield"
-                    name="akhir" value="{{ request('akhir') }}">
-
-                <div>
-                    <button class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased"
-                        type="submit">Oke</button>
-                </div>
+                <x-filter.tanggal />
             </form>
-            @if (request('awal'))
+            {{-- END Form --}}
+            {{-- Cancel button --}}
+            @if (request('awal') != $user->koperasi->berdiri || request('akhir') != $now)
                 @if (request('cari'))
                     <form action="" class="my-1">
                         <input type="hidden" name="cari" value="{{ request('cari') }}">
-                        <button type="submit"
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                        <x-filter.cancel-btn />
                     </form>
                 @else
                     <a href="/buku-besar" class="my-1">
-                        <button
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+                        <x-filter.cancel-btn />
                     </a>
                 @endif
             @endif
+            {{-- END Cancel button --}}
+            {{-- END Form Tanggal --}}
         </div>
-        {{-- FIXME: saat filter/cari, pagination kacau, karna paginate dulu baru filter data data --}}
-        {{-- FIXME: saat pindah page, filter hilang --}}
-        {{-- END Form Tanggal --}}
+        {{-- END Sisi Kiri --}}
         {{-- Sisi Kanan --}}
         <div class="sm:flex">
+            {{-- Download Button --}}
             @if (request('awal') || request('cari'))
                 @if (request('awal') && request('cari'))
                     <form action="buku-besar/download" class="my-1">
                         <input type="hidden" name="awal" value="{{ request('awal') }}">
                         <input type="hidden" name="akhir" value="{{ request('akhir') }}">
                         <input type="hidden" name="cari" value="{{ request('cari') }}">
-                        <button
-                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                        <x-button.download />
                     </form>
                 @elseif(request('cari'))
                     <form action="buku-besar/download" class="my-1">
                         <input type="hidden" name="cari" value="{{ request('cari') }}">
-                        <button
-                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                        <x-button.download />
                     </form>
                 @else
                     <form action="buku-besar/download" class="my-1">
                         <input type="hidden" name="awal" value="{{ request('awal') }}">
                         <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                        <button
-                            class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                        <x-button.download />
                     </form>
                 @endif
             @else
                 <a href="buku-besar/download">
                     {{-- <a href="transaksi/download"> --}}
-                    <button
-                        class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                    <x-button.download />
                 </a>
             @endif
-
-            <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
-                <form action="" class="flex justify-between">
-                    @if (request('awal'))
-                        <input type="hidden" name="awal" value="{{ request('awal') }}">
-                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                    @endif
-                    <input type="text"
-                        class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-base focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
-                        name="cari" id="cari" placeholder="Keterangan/Jenis Transaksi"
-                        value="{{ request('cari') }}">
-                    <button>
-                        <i class="self-center fa fa-search text-gray-400" type="submit"></i>
-                    </button>
-                </form>
-            </div>
-            @if (request('cari'))
-                @if (request('awal'))
-                    <form action="" class="my-1">
-                        <input type="hidden" name="awal" value="{{ request('awal') }}">
-                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                        <button type="submit"
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
+            {{-- END Download Button --}}
+            {{-- Form Cari --}}
+            <div class="flex">
+                {{-- Form --}}
+                <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
+                    <form action="" class="flex justify-between">
+                        @if (request('awal'))
+                            <input type="hidden" name="awal" value="{{ request('awal') }}">
+                            <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                        @endif
+                        <x-filter.cari />
                     </form>
-                @else
-                    <a href="/buku-besar" class="my-1">
-                        <button
-                            class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                    </a>
+                </div>
+                {{-- END Form --}}
+                {{-- Cancel Button --}}
+                @if (request('cari'))
+                    @if (request('awal'))
+                        <form action="" class="my-1">
+                            <input type="hidden" name="awal" value="{{ request('awal') }}">
+                            <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                            <x-filter.cancel-btn />
+                        </form>
+                    @else
+                        <a href="/buku-besar" class="my-1">
+                            <x-filter.cancel-btn />
+                        </a>
+                    @endif
                 @endif
-            @endif
+                {{-- END Cancel Button --}}
+            </div>
+            {{-- END Form Cari --}}
         </div>
         {{-- END Sisi Kanan --}}
     </div>
@@ -128,7 +109,7 @@
         $saldo_kredit = 0; ?>
         {{-- ========================== --}}
         {{-- SECTION Nama Rekening Tabel --}}
-        <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-4 tracking-wide text-left text-gray-800 uppercase">
+        <p class="px-4 sm:px-6 py-1 text-lg font-bold leading-tight tracking-wide text-left text-gray-900 uppercase">
             {{ $rekenings->nomor . ' | ' . $rekenings->nama }}
         </p>
         <hr class="border-zinc-800">
@@ -139,27 +120,14 @@
                 <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                     <table class="min-w-full">
                         {{-- Header Tabel --}}
-                        <thead class="bg-zinc-200">
+                        <thead class="bg-zinc-300">
                             <tr>
-                                <th
-                                    class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                    Tanggal</th>
-                                <th
-                                    class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                    Jenis Transaksi
-                                </th>
-                                <th
-                                    class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                    Keterangan</th>
-                                <th
-                                    class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                    Debit</th>
-                                <th
-                                    class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                    Kredit</th>
-                                <th
-                                    class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                    Saldo</th>
+                                <x-tabel.head :value="__('Tanggal')" />
+                                <x-tabel.head :value="__('Jenis Transaksi')" />
+                                <x-tabel.head :value="__('Keterangan')" />
+                                <x-tabel.head :value="__('Debit')" />
+                                <x-tabel.head :value="__('Kredit')" />
+                                <x-tabel.head :value="__('Saldo')" />
                             </tr>
                         </thead>
                         {{-- END Header Tabel --}}
@@ -169,106 +137,71 @@
                                 @if ($transaksis->debit == $rekenings->id || $transaksis->kredit == $rekenings->id)
                                     <tr>
                                         {{-- Kolom Tanggal --}}
-                                        <td
-                                            class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                            {{ \Carbon\Carbon::parse($transaksis->tanggal)->format('d/m/Y') }}
-                                        </td>
+                                        <x-tabel.td :value="\Carbon\Carbon::parse($transaksis->tanggal)->format('d/m/Y')" />
                                         {{-- END Kolom Tanggal --}}
                                         {{-- Kolom Jenis Transaksi --}}
-                                        <td
-                                            class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $transaksis->jenisTransaksi->jenis }}
-                                        </td>
+                                        <x-tabel.td :value="$transaksis->jenisTransaksi->jenis" />
                                         {{-- END Kolom Jenis Transaksi --}}
                                         {{-- Kolom Keterangan --}}
-                                        <td
-                                            class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $transaksis->keterangan }}
-                                        </td>
+                                        <x-tabel.td :value="$transaksis->keterangan" />
                                         {{-- END Kolom Keterangan --}}
                                         {{-- Kolom Debit --}}
-                                        <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800 font-medium">
-                                                @if ($transaksis->debit == $rekenings->id)
-                                                    {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
-                                                    <?php $saldo_debit += $transaksis->nominal; ?>
-                                                @else
-                                                    -
-                                                @endif
-                                            </div>
-                                        </td>
+                                        @if ($transaksis->debit == $rekenings->id)
+                                            <x-tabel.td :value="Number::currency($transaksis->nominal, 'IDR', 'id')" />
+                                            <?php $saldo_debit += $transaksis->nominal; ?>
+                                        @else
+                                            <x-tabel.td :value="__('-')" />
+                                        @endif
                                         {{-- END Kolom Debit --}}
                                         {{-- Kolom Kredit --}}
-                                        <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800 font-medium">
-                                                @if ($transaksis->kredit == $rekenings->id)
-                                                    {{ Number::currency($transaksis->nominal, 'IDR', 'id') }}
-                                                    <?php $saldo_kredit += $transaksis->nominal; ?>
-                                                @else
-                                                    -
-                                                @endif
-                                            </div>
-                                        </td>
+                                        @if ($transaksis->kredit == $rekenings->id)
+                                            <x-tabel.td :value="Number::currency($transaksis->nominal, 'IDR', 'id')" />
+                                            <?php $saldo_kredit += $transaksis->nominal; ?>
+                                        @else
+                                            <x-tabel.td :value="__('-')" />
+                                        @endif
                                         {{-- END Kolom Kredit --}}
                                         {{-- Kolom Saldo --}}
                                         {{-- FIXME: rekening kredit kalau kredit > apakah dihitung minus ? --}}
-                                        <td class="px-4 sm:px-1 py-3 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800 font-medium">
-                                                <?php $saldo = $saldo_debit - $saldo_kredit; ?>
-                                                @if ($saldo >= 0)
-                                                    {{ Number::currency($saldo, 'IDR', 'id') }}
-                                                @else
-                                                    ({{ Number::currency($saldo * -1, 'IDR', 'id') }})
-                                                @endif
-                                            </div>
-                                        </td>
+                                        {{-- FIXME: pendapatan jika di debit minus, kalau di kredit harusnnya plus. CEK LAGI SEMUA SUSUSNAN DEBIG/KREDIT REKENINGS --}}
+                                        <?php $saldo = $saldo_debit - $saldo_kredit; ?>
+                                        <x-tabel.td-nominal :value="$saldo" />
                                         {{-- END Kolom Saldo --}}
                                     </tr>
                                 @endif
                             @endforeach
                             {{-- Kolom Total --}}
                             <tr>
-                                <td colspan="3"></td>
+                                <x-tabel.total-col :value="__('Total')" :cols="__('3')" />
+
                                 {{-- Total Debit --}}
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800 font-medium">
-                                        {{ Number::currency($saldo_debit, 'IDR', 'id') }}
-                                    </div>
-                                </td>
+                                <x-tabel.total-nominal :value="$saldo_debit" />
                                 {{-- END Total Debit --}}
                                 {{-- Total Kredit --}}
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800 font-medium">
-                                        {{ Number::currency($saldo_kredit, 'IDR', 'id') }}
-                                    </div>
-                                </td>
+                                <x-tabel.total-nominal :value="$saldo_kredit" />
                                 {{-- END Total Kredit --}}
                                 {{-- Total Saldo --}}
-                                <td class="px-4 sm:px-1 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800 font-medium">
-                                        <?php $saldo = $saldo_debit - $saldo_kredit; ?>
-                                        @if ($saldo >= 0)
-                                            {{ Number::currency($saldo, 'IDR', 'id') }}
-                                        @else
-                                            ({{ Number::currency($saldo * -1, 'IDR', 'id') }})
-                                        @endif
-                                    </div>
-                                </td>
-                                {{-- END Total Saldo --}}
-                            </tr>
-                            {{-- END Kolom Total --}}
-                        </tbody>
-                        {{-- END Body Tabel --}}
-                    </table>
+                                <?php $saldo = $saldo_debit - $saldo_kredit; ?>
+                                <x-tabel.total-nominal :value="$saldo" />
                 </div>
+                </td>
+                {{-- END Total Saldo --}}
+                </tr>
+                {{-- END Kolom Total --}}
+                </tbody>
+                {{-- END Body Tabel --}}
+                </table>
             </div>
+        </div>
         </div>
         {{-- END SECTION Tabel Data --}}
     @endforeach
     {{-- END SECTION Tabels --}}
     {{-- Pagination --}}
-    <div class="pt-3 grid justify-items-end">
-        {{ $rekening->links() }}
-    </div>
+    @if (!(request('cari') || request('awal')))
+        <div class="pt-3 grid justify-items-end">
+            {{ $rekening->links() }}
+        </div>
+    @endif
     {{-- END Pagination --}}
 @endsection

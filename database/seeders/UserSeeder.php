@@ -16,44 +16,40 @@ class UserSeeder extends Seeder
     {
         // CREATE user utama
         $arib = User::create([
-            'username' => 'Arr',
             'password' => bcrypt('12345678'),
             'nama_lengkap' => 'Arib Fauzan',
             'foto' => "Arr.jpg",
-            'no_hp' => '08198563768',
+            'no_hp' => 'arr',
             'alamat' => fake()->address(),
             'koperasi_id' => 1,
         ]);
         $arib->addRole(3);
 
         $ridwan = User::create([
-            'username' => 'ridwan',
             'password' => bcrypt('12345678'),
             'nama_lengkap' => 'Ridwan Firdaus',
             'foto' => "Arr.jpg",
-            'no_hp' => '08198563768',
+            'no_hp' => 'ridwan',
             'alamat' => fake()->address(),
             'koperasi_id' => 1,
         ]);
         $ridwan->addRole(2);
 
         $maya = User::create([
-            'username' => 'Mayy',
             'password' => bcrypt('12345678'),
             'nama_lengkap' => 'May May',
             'foto' => "mayy.jpg",
-            'no_hp' => '08198563768',
+            'no_hp' => 'mayy',
             'alamat' => fake()->address(),
             'koperasi_id' => 1,
         ]);
         $maya->addRole(4);
 
         $untan = User::create([
-            'username' => 'Untan',
             'password' => bcrypt('12345678'),
             'nama_lengkap' => 'Sistem Informasi Untan',
             'foto' => "untan.jpg",
-            'no_hp' => '08198563768',
+            'no_hp' => 'untan',
             'alamat' => fake()->address(),
             'koperasi_id' => 1,
         ]);

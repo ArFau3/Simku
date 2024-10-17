@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rekening;
-use App\Models\TransaksiInventaris;
+use App\Models\Transaksi;
 use App\Models\TutupBuku;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,7 +47,7 @@ class TutupBukuController extends Controller
             'user' => $request->user(),
             'rekenings' => Rekening::where('nomor', 'like',  4 . '%')->orWhere('nomor', 'like',  5 . '%')->get(),
             'judul' => 'Lakukan Tutup Buku',
-            'transaksis' => TransaksiInventaris::orderBy('tanggal')->filter($request['awal'],
+            'transaksis' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                             $request['akhir']
                                                                     )->get(),
         ];
@@ -67,7 +67,7 @@ class TutupBukuController extends Controller
         // edit data rekening laba rugi di modal agar neraca seimbang
 
         // FIXME: bagaimana dengan rekening laba rugi ditahan?
-        $transaksi = new TransaksiInventaris();
+        $transaksi = new Transaksi();
         // FIXME: debit pakai rekening apa ya?
         $transaksi->debit = 10000;
         $transaksi->kredit = 11;
@@ -93,8 +93,8 @@ class TutupBukuController extends Controller
         TutupBuku::destroy($tutup_buku_terakhir->id);
 
         // Perbaiki nominal di rekening laba rugi modal 
-        $transaksi = TransaksiInventaris::where("kredit", 11)->where("tanggal", $id->akhir)->where("nominal", $id->nominal)->first();
-        TransaksiInventaris::destroy($transaksi->id);
+        $transaksi = Transaksi::where("kredit", 11)->where("tanggal", $id->akhir)->where("nominal", $id->nominal)->first();
+        Transaksi::destroy($transaksi->id);
         // TODO: buat aktivitas
         // FIXME: bagaimana dengan rekening laba rugi ditahan?
 
@@ -105,4 +105,5 @@ class TutupBukuController extends Controller
 
         return redirect('/tutup-buku');
     }
+    // TODO: download & rincian
 }

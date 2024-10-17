@@ -4,23 +4,36 @@ namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rekening;
-use App\Models\TransaksiInventaris;
+use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class BukuBesarController extends Controller
 {
     public function index(Request $request){
-        $request['akhir'] = \Carbon\Carbon::now()->toDateString();
+        $now = \Carbon\Carbon::now()->toDateString();
+        if(!$request['awal']){
+            $request['awal'] = $request->user()->koperasi->berdiri;
+            $request['akhir'] = $now;
+        }
+
+        // setting rekening apakah ambil semua atau paginate
+        if($request['cari']||$request['awal']){
+            // HACK: jika di paginate ketika ada filter maka error karena paginate di rekening tapi filter di transaksi
+            $rekening = Rekening::orderBy('desimal')->get();
+        }else{
+            $rekening = Rekening::orderBy('nomor')->paginate(10);
+        }
         $data = [
             "title" => "Buku Besar",
             'user' => $request->user(),
             // HACK: sebaiknya tidak usah pakai pagination di buku besar, toh bukan termasuk laporan
-            'rekening' => Rekening::orderBy('nomor')->paginate(10),
+            'rekening' => $rekening,
             'judul' => 'Buku Besar',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->get(),
+            'now' => $now,
 
             // ===================================================
             // 'debit' => $trans->except('kredit'),
@@ -39,13 +52,13 @@ class BukuBesarController extends Controller
     }
     public function download(Request $request)
     {
-        // FIXME: fungsi periode untuk ap ?
         $data = [
             "title" => "Buku Besar",
             'user' => $request->user(),
             'rekening' => Rekening::orderBy('nomor')->get(),
+            // "logo" =>public_path('storage/' . $request->user()->koperasi->logo),
             'judul' => 'Buku Besar',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->get(),
         ];

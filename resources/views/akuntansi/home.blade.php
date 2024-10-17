@@ -10,7 +10,10 @@
     <hr class="border-b border-zinc-700">
     <div class="mx-5 my-1">
         <p class="font-bold text-zinc-600 text-lg">Total Kas</p>
-        <p class="font-semibold text-zinc-800 text-5xl my-1">{{ Number::currency($kas->sum('nominal'), 'IDR', 'id') }}</p>
+        {{-- HACK: Hardcode total kas pakai id == 7  --}}
+        <p class="font-semibold text-zinc-800 text-5xl my-1">
+            {{ Number::currency($kas->where('debit', 7)->sum('nominal') - $kas->where('kredit', 7)->sum('nominal'), 'IDR', 'id') }}
+        </p>
         <p class="font-bold text-zinc-700 text-xs my-3" id="akhir">{{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
     </div>
     <hr class="border-b border-zinc-700">

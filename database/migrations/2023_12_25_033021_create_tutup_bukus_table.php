@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('awal');
             $table->date('akhir')->nullable();
-            $table->decimal('nominal', 16, 2);
+            $table->foreignId('transaksi_id', 20)->nullable();
+
+            $table->foreign('transaksi_id')->references('id')->on('transaksis')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

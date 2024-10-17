@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\TransaksiInventaris;
+use App\Models\Transaksi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TransaksiInventarisSeeder extends Seeder
+class TransaksiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        TransaksiInventaris::factory(50)->create();
+        Transaksi::factory(50)->create();
     }
 }

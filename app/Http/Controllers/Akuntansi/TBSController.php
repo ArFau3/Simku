@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Akuntansi;
 use App\Http\Controllers\Controller;
 use App\Models\Rekening;
 use App\Models\TBS;
-use App\Models\TransaksiInventaris;
+use App\Models\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -28,7 +28,7 @@ class TBSController extends Controller
             'user' => $request->user(),
             'rekenings' => TBS::all(),
             'judul' => 'Penjualan TBS',
-            'transaksis' => TransaksiInventaris::orderBy('tanggal')->filter($request['awal'],
+            'transaksis' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                             $request['akhir']
                                                                     )->get(),
             "tahun" => $tahun,

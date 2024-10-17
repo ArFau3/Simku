@@ -19,6 +19,6 @@ class Jenis extends Model
 
     public function transaksi(): HasMany
     {
-        return $this->hasMany(TransaksiInventaris::class);
+        return $this->hasMany(Transaksi::class);
     }
 }

@@ -24,9 +24,9 @@ return new class extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('current_rekening')->references('id')->on('rekenings')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('old_transaksi')->references('id')->on('old_transaksi_inventaris')
+            $table->foreign('old_transaksi')->references('id')->on('old_transaksis')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('current_transaksi')->references('id')->on('transaksi_inventaris')
+            $table->foreign('current_transaksi')->references('id')->on('transaksis')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }

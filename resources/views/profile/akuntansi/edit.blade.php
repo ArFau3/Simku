@@ -5,12 +5,21 @@
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
-    <form method="post" action="{{ route('profil.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profil.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
         <div class="sm:flex sm:justify-between sm:self-start">
             {{-- Bagian Foto --}}
-            <img src="https://placehold.co/200" class="rounded-lg self-start" alt="profile picture" srcset="">
+            <input type="hidden" id="foto_lama" name="foto_lama" value="{{ $user->foto }}">
+            <div>
+                {{-- TODO: prefiew foto & delete changed foto --}}
+                <label for="foto" class="hover:cursor-pointer"><img
+                        src="{{ $user->foto ? asset('storage/' . $user->foto) : 'https://placehold.co/200' }}"
+                        class="rounded-lg self-start w-44 h-52 object-scale-down img-foto img-preview" alt="profile picture"
+                        srcset="">
+                </label>
+                <input class="hidden" type="file" id="foto" name="foto" onchange="previewImg()">
+            </div>
             {{-- END Bagian Foto --}}
             {{-- Informasi Diri --}}
             <section class="w-2/6">

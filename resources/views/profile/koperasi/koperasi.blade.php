@@ -5,12 +5,33 @@
         @csrf
     </form>
     {{-- TODO: ganti slug untuk route action --}}
-    <form method="POST" action="koperasi/update/{{ $user->koperasi->id }}" class="mt-6 space-y-6">
+    {{-- SEMENTARA --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {{-- SEMENTARA --}}
+
+
+    <form method="POST" action="koperasi/update/{{ $user->koperasi->id }}" class="mt-6 space-y-6"
+        enctype="multipart/form-data">
         @csrf
         <div class="sm:flex sm:self-start">
             {{-- Bagian Foto --}}
-            {{-- TODO: siapka file system --}}
-            <img src="/assets/{{ $user->koperasi->logo }}" alt="logo.png" class="rounded-lg self-start mx-5" srcset="">
+            <input type="hidden" id="foto_lama" name="foto_lama" value="{{ $user->koperasi->logo }}">
+            <div>
+                {{-- TODO: prefiew foto & delete changed foto --}}
+                <label for="foto" class="hover:cursor-pointer">
+                    <img src="{{ $user->koperasi->logo ? asset('storage/' . $user->koperasi->logo) : '' }}" alt="logo.png"
+                        class="rounded-lg self-start mx-5 w-44 h-52 object-scale-down img-foto img-preview" srcset="">
+                </label>
+                <input class="hidden" type="file" id="foto" name="foto" onchange="previewImg()">
+            </div>
             {{-- END Bagian Foto --}}
             {{-- Informasi Diri --}}
             <section class="w-2/6">

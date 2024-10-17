@@ -3,47 +3,34 @@
 @section('content')
     {{-- SECTION tombol akses sebelum tabel --}}
     <div class="md:flex justify-between">
-        {{-- Form Tanggal --}}
+        {{-- Sisi Kiri --}}
         <div class="md:flex">
+            {{-- Form Tanggal --}}
+            {{-- Form --}}
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
-                <input id="awal" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
-                    id="my-textfield" name="awal" value="{{ request('awal') }}">
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    class="w-12 h-7 md:h-12 mx-auto">
-                    <path fill-rule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-
-                <input id="akhir" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
-                    id="my-textfield" name="akhir" value="{{ request('akhir') }}">
-
-                <div>
-                    <button class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased"
-                        type="submit">Oke</button>
-                </div>
+                <x-filter.tanggal />
             </form>
-            @if (request('awal') != $tutup_buku || request('akhir') != \Carbon\Carbon::now()->toDateString())
+            {{-- END Form --}}
+            {{-- Cancel Button --}}
+            @if (request('awal') != $user->koperasi->berdiri || request('akhir') != \Carbon\Carbon::now()->toDateString())
                 <a href="/jurnal-umum" class="my-1">
-                    <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center mt-1  fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 font-medium text-sm lg:text-base antialiased"></button>
+                    <x-filter.cancel-btn />
                 </a>
             @endif
+            {{-- END Cancel Button --}}
+            {{-- Form Tanggal --}}
         </div>
-        {{-- END Form Tanggal --}}
+        {{-- END Sisi Kiri --}}
         {{-- Sisi Kanan --}}
         @if (request('awal'))
             <form action="jurnal-umum/download" class="my-1">
                 <input type="hidden" name="awal" value="{{ request('awal') }}">
                 <input type="hidden" name="akhir" value="{{ request('akhir') }}">
-                <button
-                    class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                <x-button.download />
             </form>
         @else
             <a href="jurnal-umum/download">
-                <button
-                    class="bg-green-600 rounded-sm text-zinc-50 opacity-85 p-2 md:mb-0 mb-5 mx-1 mt-1 font-medium text-sm lg:text-base antialiased">Download</button>
+                <x-button.download />
             </a>
         @endif
         {{-- END Sisi Kanan --}}
@@ -58,22 +45,11 @@
                     {{-- Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Tanggal</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Nomor Rekening
-                            </th>
-                            <th
-                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Nama Rekening</th>
-                            <th
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Debit</th>
-                            <th
-                                class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200">
-                                Kredit</th>
+                            <x-tabel.head :value="__('Tanggal')" />
+                            <x-tabel.head :value="__('Nomor Rekening')" />
+                            <x-tabel.head :value="__('Nama Rekening')" />
+                            <x-tabel.head :value="__('Debit')" />
+                            <x-tabel.head :value="__('Kredit')" />
                         </tr>
                     </thead>
                     {{-- END Header Tabel --}}
@@ -83,81 +59,38 @@
                             <tr>
                                 {{-- Kolom Tanggal --}}
                                 <td rowspan="2"
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                    class="text-left font-medium px-4 sm:px-6 py-2 text-sm leading-tight text-gray-900 whitespace-no-wrap border-b border-gray-200">
                                     {{ \Carbon\Carbon::parse($transaksi->tanggal)->format('d/m/Y') }}
                                 </td>
                                 {{-- END Kolom Tanggal --}}
                                 {{-- Baris 1/Debit --}}
-                                <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi->rekeningDebit->nomor }}
-                                </td>
-                                <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    {{ $transaksi->rekeningDebit->nama }}
-                                </td>
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">
-                                        {{ Number::currency($transaksi->nominal, 'IDR', 'id') }}
-                                    </div>
-                                </td>
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">
-                                        -
-                                    </div>
-                                </td>
+                                <x-tabel.td :value="$transaksi->rekeningDebit->nomor" />
+                                <x-tabel.td :value="$transaksi->rekeningDebit->nama" />
+                                <x-tabel.td :value="Number::currency($transaksi->nominal, 'IDR', 'id')" />
+                                <x-tabel.td :value="__('-')" />
                                 {{-- END Baris 1/Debit --}}
                             </tr>
                             <tr>
                                 {{-- Baris 2/Kredit --}}
-                                <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200 bg-zinc-100">
-                                    {{ $transaksi->rekeningKredit->nomor }}
-                                </td>
-                                <td
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200 bg-zinc-100">
-                                    {{ $transaksi->rekeningKredit->nama }}
-                                </td>
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200 bg-zinc-100">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">
-                                        -
-                                    </div>
-                                </td>
-                                <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200 bg-zinc-100">
-                                    <div class="text-sm leading-5 text-gray-500 font-medium">
-                                        {{ Number::currency($transaksi->nominal, 'IDR', 'id') }}
-                                        {{-- {{ dd($transaksi->sum('nominal')) }} --}}
-                                    </div>
-                                </td>
+                                <x-tabel.td :value="$transaksi->rekeningKredit->nomor" />
+                                <x-tabel.td :value="$transaksi->rekeningKredit->nama" />
+                                <x-tabel.td :value="__('-')" />
+                                <x-tabel.td :value="Number::currency($transaksi->nominal, 'IDR', 'id')" />
                                 {{-- END Baris 2/Kredit --}}
                             </tr>
                         @endforeach
-                        {{-- Baris Total Debit == Kredit --}}
+                        {{-- Baris Total --}}
                         <?php $total = $transaksis->sum('nominal'); ?>
                         <tr class="border-2 border-gray-400">
-                            {{-- Kolom Total --}}
-                            <td colspan="3" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base text-center leading-5 text-gray-500 font-bold">
-                                    TOTAL
-                                </div>
-                            </td>
-                            {{-- END Kolom Total --}}
-                            {{-- Kolom Debit --}}
-                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
-                                    {{ Number::currency($total, 'IDR', 'id') }}
-                                </div>
-                            </td>
-                            {{-- END Kolom Debit --}}
-                            {{-- Kolom Kredit --}}
-                            <td class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-base underline leading-5 text-gray-500 font-bold">
-                                    {{ Number::currency($total, 'IDR', 'id') }}
-                                </div>
-                            </td>
-                            {{-- END Kolom Kredit --}}
+                            {{-- Kolom Label Total --}}
+                            <x-tabel.total-col :value="__('Total')" :cols="__('3')" />
+                            {{-- END Kolom Label Total --}}
+                            {{-- Kolom Debit/Kredit --}}
+                            <x-tabel.total-nominal :value="$total" />
+                            <x-tabel.total-nominal :value="$total" />
+                            {{-- END Kolom Debit/Kredit --}}
                         </tr>
-                        {{-- END Baris Total Debit == Kredit --}}
+                        {{-- END Baris Total --}}
                     </tbody>
                     {{-- END Body Tabel --}}
                 </table>

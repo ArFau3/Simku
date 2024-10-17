@@ -13,13 +13,8 @@ class TutupBuku extends Model
     protected $fillable = [
         'awal',
         'akhir',
-        "nominal",
+        "transaksi_id",
     ];
 
     public $timestamps = false;
-
-    public function jurnal_umum(): HasOne
-    {
-        return $this->hasOne(JurnalUmum::class);
-    }
 }

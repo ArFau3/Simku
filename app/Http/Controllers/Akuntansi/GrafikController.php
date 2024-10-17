@@ -15,7 +15,7 @@ class GrafikController extends Controller
         "title" => "Grafik",
         'user' => $request->user(),
         'judul' => 'Coba Lib Grafik',
-        'chart' => $chart->build(),
+        'kas' => $chart->setTable(),
     ];
     return view('akuntansi.grafik.index', $data);
 }

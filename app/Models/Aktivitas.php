@@ -48,11 +48,11 @@ class Aktivitas extends Model
     }
 
     public function oldTransaksi(): BelongsTo{
-        return $this->belongsTo(OldTransaksiInventaris::class, 'old_transaksi');
+        return $this->belongsTo(OldTransaksi::class, 'old_transaksi');
     }
 
     public function currentTransaksi(): BelongsTo
     {   
-        return $this->belongsTo(TransaksiInventaris::class, 'current_transaksi');
+        return $this->belongsTo(Transaksi::class, 'current_transaksi');
     }
 }

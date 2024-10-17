@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\profile\KoperasiUpdateRequest;
 use App\Models\Koperasi;
 use App\Models\User;
 use Illuminate\View\View;
@@ -23,33 +24,22 @@ class KoperasiController extends Controller
         return view('profile.koperasi.koperasi', $data);
     }
 
-    public function update(Request $request, Koperasi $id){
-         // Rule Validation
-         $validator = Validator::make($request->all(), [
-            'name' => 'string', 'max:255',
-            'alamat' => 'string', 'max:255',
-            'hukum' => 'string', 'max:255',
-        ]);
+    public function update(KoperasiUpdateRequest $request, Koperasi $id){
+        // Handling file foto
+        if($request["foto"]){
+            $foto = $request->file('foto')->store('koperasi');
+        }else{
+            $foto = $request['foto_lama'];
+        }
 
-        // Validating input
-        $validated = $validator->validated();
-
-        $id->nama = $validated["name"];
-        $id->alamat = $validated["alamat"];
-        $id->hukum = $validated["hukum"];
+        // Save Data
+        $id->nama = $request["name"];
+        $id->alamat = $request["alamat"];
+        $id->hukum = $request["hukum"];
+        $id->logo = $foto;
         $id->save();
         // TODO: buat record di aktivitas
 
         return redirect("/pengaturan-koperasi");
-    }
-
-    public function indexAkuntan(Request $request, Koperasi $koperasi){
-        $data = [
-            'user' => $request->user(),
-            'title' => 'Kelola Akuntan',
-            'judul' => 'Daftar Akuntan',
-            'akuntan' => User::orderBy('created_at')->koperasis($koperasi->id)->get(),
-        ];
-        return view('profile.koperasi.indexAkuntan', $data);
     }
 }

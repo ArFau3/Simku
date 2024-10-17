@@ -16,29 +16,8 @@ class TutupBukuSeeder extends Seeder
         // TutupBuku::factory(5)->create();
         TutupBuku::insert([
             [
-                'awal' => '2023-01-01',
-                'akhir' => '2023-03-01',
-                'nominal' => 1000000,
-            ],
-            [
-                'awal' => '2023-03-02',
-                'akhir' => '2023-06-01',
-                'nominal' => 300000,
-            ],
-            [
-                'awal' => '2023-07-01',
-                'akhir' => '2023-011-01',
-                'nominal' => 1200000,
-            ],
-            [
-                'awal' => '2023-11-02',
-                'akhir' => '2023-11-05',
-                'nominal' => 5000000,
-            ],
-            [
-                'awal' => '2023-12-01',
+                'awal' => '2017-01-01',
                 'akhir' => null,
-                'nominal' => 0,
             ],
         ]);
     }

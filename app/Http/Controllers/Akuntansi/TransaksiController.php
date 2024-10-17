@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Akuntansi;
 use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
 use App\Models\Jenis;
-use App\Models\OldTransaksiInventaris;
+use App\Models\OldTransaksi;
 use App\Models\Rekening;
-use App\Models\TransaksiInventaris;
+use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
@@ -16,16 +16,20 @@ use Illuminate\Support\Number;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
-class TransaksiInventarisController extends Controller
+class TransaksiController extends Controller
 {
     public function indexTransaksi(Request $request)
     {
-        $request['akhir'] = \Carbon\Carbon::now()->toDateString();
+        if(!$request['awal']){
+            $request['awal'] = $request->user()->koperasi->berdiri;
+            $request['akhir'] = \Carbon\Carbon::now()->toDateString();;
+        }
+        
         $data = [
             "title" => "Transaksi",
             'user' => $request->user(),
             'judul' => 'Daftar Transaksi',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->paginate(25),
         ];
@@ -35,12 +39,15 @@ class TransaksiInventarisController extends Controller
 
     public function indexInventaris(Request $request)
     {
-        $request['akhir'] = \Carbon\Carbon::now()->toDateString();
+        if(!$request['awal']){
+            $request['awal'] = $request->user()->koperasi->berdiri;
+            $request['akhir'] = \Carbon\Carbon::now()->toDateString();;
+        }
         $data = [
             "title" => "Aset Tetap",
             'user' => $request->user(),
             'judul' => 'Daftar Aset Tetap',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
                                                                                                                     $request['akhir']
                                                                                                             )->paginate(25),
             
@@ -49,28 +56,30 @@ class TransaksiInventarisController extends Controller
     }
 
     public function downloadTransaksi(Request $request){
+        // FIXME: perbaiki tanggal per ?
         $data = [
             'user' => $request->user(),
             'title' => "Histori Transaksi",
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->get(),
         ];
 // FIXME: tambahkan tanggal dalam judul pdf
         $pdf = Pdf::loadView('akuntansi.transaksi_inventaris.download', $data);
         $pdf->setPaper("A4", "potrait");
-        return $pdf->download('Histori Transaksi.pdf');
+        return $pdf->stream('Histori Transaksi.pdf');
 
         // return view('akuntansi.transaksi_inventaris.download', $data);
     }
     public function downloadInventaris(Request $request)
     {
         // FIXME: perbaiki data judul & title
+        // FIXME: perbaiki tanggal per ?
         $data = [
             "title" => "Aset Tetap",
             'user' => $request->user(),
             'judul' => 'Daftar Aset Tetap',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->inventaris('1.2')->cari($request['cari'])->filter($request['awal'],
                                                                                                                     $request['akhir']
                                                                                                             )->get(),
             
@@ -80,7 +89,7 @@ class TransaksiInventarisController extends Controller
         return $pdf->download('Histori Inventaris.pdf');
     }
 
-    public function edit(TransaksiInventaris $id, Request $request)
+    public function edit(Transaksi $id, Request $request)
     {
         $data = [
             "title" => "Transaksi",
@@ -93,7 +102,7 @@ class TransaksiInventarisController extends Controller
             return view('akuntansi.transaksi_inventaris.update', $data);
     }
 
-    public function update(Request $request, TransaksiInventaris $id){
+    public function update(Request $request, Transaksi $id){
         // Rule Validation
         $validator = Validator::make($request->all(), [
             'tanggal' => 'required', 'date',
@@ -123,7 +132,7 @@ class TransaksiInventarisController extends Controller
         // Siapkan data history
         // QOL: saat di rincian aktivitas, ada 1-click button to rollback data
         // replicate data to oldRekening
-        $replicated_data = OldTransaksiInventaris::create([
+        $replicated_data = OldTransaksi::create([
             'debit' => $id->rekeningDebit->nama,
             'kredit' => $id->rekeningKredit->nama,
             'jenis' => $id->jenisTransaksi->jenis,
@@ -165,7 +174,7 @@ class TransaksiInventarisController extends Controller
             "title" => "Transaksi",
             'user' => $request->user(),
             'judul' => 'Tambah Transaksi',
-            'transaksi' => TransaksiInventaris::all()->sortBy('tanggal'),
+            'transaksi' => Transaksi::all()->sortBy('tanggal'),
             'jenis' => Jenis::all(),
             'rekening' => Rekening::orderBy('nomor')->get(),
         ];
@@ -212,7 +221,7 @@ class TransaksiInventarisController extends Controller
         $aktivitas->save();
 
         // Insert New data
-        $data = new TransaksiInventaris();
+        $data = new Transaksi();
         $data->debit = $debit;
         $data->kredit = $kredit;
         $data->jenis = $jenis;
@@ -226,7 +235,7 @@ class TransaksiInventarisController extends Controller
         return redirect('/transaksi');
     }
 
-    public function delete(TransaksiInventaris $id, Request $request){
+    public function delete(Transaksi $id, Request $request){
         // Insert data aktivitas
         $aktivitas = new Aktivitas();
         $rincian = $request->user()->getRoles()[0]." ".$request->user()->nama_lengkap.
@@ -236,7 +245,7 @@ class TransaksiInventarisController extends Controller
         $aktivitas->deskripsi = $rincian;
         $aktivitas->save();
 
-        TransaksiInventaris::destroy($id->id);
+        Transaksi::destroy($id->id);
         return redirect('/transaksi');
     }
 }

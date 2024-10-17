@@ -4,30 +4,34 @@ namespace App\Http\Controllers\Akuntansi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rekening;
-use App\Models\TransaksiInventaris;
+use App\Models\Transaksi;
 use App\Models\TutupBuku;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LabaRugiController extends Controller
 {
     public function index(Request $request){
         $taggalTutupBukuTerakhir = TutupBuku::where("akhir",  null)->get()[0]["awal"];
-        if(!$request['awal']){
+        if($request['periode']){
+            $request['awal'] = $request['periode']."-01-01";
+        }elseif(!$request['awal'] && !$request['periode']){
             $request['awal'] = $taggalTutupBukuTerakhir;
-            $request['akhir'] = \Carbon\Carbon::now()->toDateString();
         }
-
+        $request['akhir'] = Carbon::now()->toDateString();
+// TODO: proses laba rugi sebelum dan sesuadh pajak
         $data = [
             "title" => "Laba Rugi",
             'user' => $request->user(),
             'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->get(),
             'beban' => Rekening::where('nomor', 'like',  5 . '%')->get(),
             'judul' => 'Laba Rugi',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                         $request['akhir']
                                                                     )->get(),
             'tutup_buku' => $taggalTutupBukuTerakhir,
+            'year' => \Carbon\Carbon::now()->year,
         ];
         return view('akuntansi.laba_rugi.index', $data);
     }
@@ -41,7 +45,7 @@ class LabaRugiController extends Controller
             'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->get(),
             'beban' => Rekening::where('nomor', 'like',  5 . '%')->get(),
             'judul' => 'Laba Rugi',
-            'transaksi' => TransaksiInventaris::orderBy('tanggal')->filter($request['awal'],
+            'transaksi' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                         $request['akhir']
                                                                     )->get(),
         ];

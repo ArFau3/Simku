@@ -16,7 +16,7 @@ class AkuntanController extends Controller
             'judul' => 'Daftar Akuntan',
             'akuntan' => User::orderBy('created_at')->koperasis($koperasi->id)->get(),
         ];
-        return view('profile.koperasi.indexAkuntan', $data);
+        return view('profile.koperasi.akuntan', $data);
     }
 
     public function tambah(){}

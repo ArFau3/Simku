@@ -24,7 +24,7 @@
         {{-- SECTION Header --}}
         <div class="bg-white p-3 sm:p-5 flex justify-between">
             <div class="">
-                <img src="/assets/{{ $user->koperasi->logo }}" alt="logo.png"
+                <img src="{{ $user->koperasi->logo ? asset('storage/' . $user->koperasi->logo) : '' }}" alt="logo.png"
                     class="object-contain float-left sm:h-full max-h-20 sm:w-20 flex-shrink-0 mr-2">
                 <div class="leading-4 float-left pt-3">
                     <h3 class="sm:leading-7 font-bold sm:text-xl">SISTEM INFORMASI AKUNTANSI</h3>
@@ -64,7 +64,7 @@
         {{-- END SECTION Body --}}
         {{-- SECTION Footer --}}
         <div class="container min-w-full -mt-2 self-end py-1 border border-slate-400 bg-zinc-300">
-            <p class="text-center text-sm">Copyright &copy; Koperasi Sekadau 2023</p>
+            <p class="text-center text-sm">Copyright &copy; Koperasi Sekadau 2024</p>
         </div>
         {{-- END SECTION Footer --}}
     </div>
@@ -318,4 +318,17 @@
         }
     @endif
     //END NOMOR REKENING MAKER
+    // Preview Image
+    function previewImg() {
+        const foto = document.querySelector('#foto');
+        const img_preview = document.querySelector('.img-preview');
+
+        const file_thumbnail = new FileReader();
+        file_thumbnail.readAsDataURL(foto.files[0]);
+
+        file_thumbnail.onload = function(e) {
+            img_preview.src = e.target.result;
+        }
+    }
+    // END Privoew Image
 </script>

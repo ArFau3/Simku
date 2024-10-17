@@ -7,8 +7,9 @@
         <div class="items-center justify-center mt-8">
             <section class="flex w-5/6 mx-auto bg-zinc-700 rounded-2xl px-3 py-4 shadow-lg">
                 <div class="flex-shrink-0 lg:w-3/6 float-left pr-3">
-                    <img src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe" class="rounded-lg "
-                        alt="profile picture" srcset="">
+                    <img src="{{ $user->foto ? asset('storage/' . $user->foto) : '' }}"
+                        class="rounded-lg object-scale-down w-20 h-20 md:w-16 md:h-16" alt="profile picture"
+                        srcset="">
                 </div>
 
                 <div class="pr-3 text-white -ml-1">

@@ -11,7 +11,7 @@ use App\Http\Controllers\Akuntansi\NeracaController;
 use App\Http\Controllers\Akuntansi\PerubahanModalController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TBSController;
-use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
+use App\Http\Controllers\Akuntansi\TransaksiController;
 use App\Http\Controllers\Akuntansi\TutupBukuController;
 use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\KoperasiController;
@@ -24,7 +24,6 @@ use App\Http\Controllers\Supplier\PupukController;
 use App\Http\Controllers\Supplier\SawitController;
 use App\Http\Controllers\Supplier\SuratJalanController;
 use App\Http\Controllers\Supplier\SuratKonfirmasiController;
-use App\Http\Controllers\Supplier\TransaksiController;
 use App\Http\Controllers\Supplier\VarietasController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +56,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
         Route::get('/rekening', 'index');
     });
 
-    Route::controller(TransaksiInventarisController::class)->group(function () {
+    Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi', 'indexTransaksi');
         Route::get('/transaksi/download', 'downloadTransaksi');
 
@@ -131,7 +130,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
     // HACK: DEBUG Download system
     Route::get('/downloadPDF', [RekeningController::class, 'downloadPDF']);
 
-    Route::controller(TransaksiInventarisController::class)->group(function () {
+    Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi/{id}', 'edit')->whereNumber('id');
         Route::post('/transaksi/update/{id}', 'update')->whereNumber('id');
         Route::get('/transaksi/tambah', 'tambah');

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TransaksiInventaris>
  */
-class TransaksiInventarisFactory extends Factory
+class TransaksiFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class TransaksiInventarisFactory extends Factory
             'debit' => $transaksi->random()->id,
             'kredit' => $transaksi->random()->id,
             'jenis' => fake()->numberBetween(1, 8),
-            'tanggal' => fake()->date(),
+            'tanggal' => fake()->dateTimeBetween('-5 years', '0 week'),
             'keterangan' => fake()->sentence(11),
             'nominal' => fake()->numberBetween(1000, 5000000),
         ];
