@@ -3,11 +3,9 @@
 namespace App\Charts;
 
 use App\Models\Transaksi;
-use App\Models\TransaksiInventaris;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use Illuminate\Support\Number;
 
-class TransaksiChartTest
+class testChart2
 {
     protected $chart;
 
@@ -21,7 +19,7 @@ class TransaksiChartTest
         // jika tampilkan dalam bulan, hanya tahun tersebut terakhir
         if($bulan){
         // filter data
-        $dataDirty = Transaksi::where('debit', 7)->orderBy('tanggal')->filter($tahun.'-01-01',$tahun.'-12-31')->get();
+        $dataDirty = Transaksi::where('kredit', 7)->orderBy('tanggal')->filter($tahun.'-01-01',$tahun.'-12-31')->get();
         
         // siapin array chart
         $data = array();
@@ -65,6 +63,7 @@ class TransaksiChartTest
             // masukkan data per tahun
             $data[] = $nominal;
         }
+
         // buat grafik
         return $this->build($data, $bulan);
         }
@@ -76,23 +75,19 @@ class TransaksiChartTest
         // Jika Per Bulan
         if($bulan){
             return $this->chart->barChart()
-            ->setTitle('Kas Masuk')
+            ->setTitle('Kas Keluar')
             ->setSubtitle('Wins during season 2021.')
-            ->addData("Kas Masuk",$data)
-            ->setXAxis(['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'])
-            ->setGrid([
-                'tooltip' => [
-                    'show' => false // or false, depending on what you want.
-                ]]);
+            ->addData("Kas Keluar",$data)
+            ->setXAxis(['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']);
         
             // Jika Per Tahun
         }else{   
         $tahun = \Carbon\Carbon::now()->year;
 
             return $this->chart->barChart()
-            ->setTitle('Kas Masuk')
+            ->setTitle('Kas Keluar')
             ->setSubtitle('Wins during season 2021.')
-            ->addData("Kas Masuk",$data)
+            ->addData("Kas Keluar",$data)
             ->setXAxis([$tahun-4,$tahun-3,$tahun-2,$tahun-1,$tahun]);
         }
             

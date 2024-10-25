@@ -34,10 +34,17 @@ $total_beban = []; ?>
         </div>
         {{-- END Sisi Kiri --}}
         {{-- Sisi Kanan --}}
-        @if (request('awal'))
+        @if (
+            (request('awal') != $tutup_buku || request('akhir') != \Carbon\Carbon::now()->toDateString()) &&
+                !request('periode'))
             <form action="laba-rugi/download">
                 <input type="hidden" name="awal" value="{{ request('awal') }}">
                 <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                <x-button.download />
+            </form>
+        @elseif(request('periode'))
+            <form action="laba-rugi/download">
+                <input type="hidden" name="periode" value="{{ request('periode') }}">
                 <x-button.download />
             </form>
         @else
@@ -50,11 +57,11 @@ $total_beban = []; ?>
     </div>
     {{-- END SECTION tombol akses sebelum tabel --}}
     <div class="w-full my-2 bg-zinc-400 h-[1px]"></div>
-    {{-- SECTION Tabel Pendapatan --}}
     <div class="flex flex-col mt-1 mb-0">
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
             <div class="inline-block min-w-full overflow-hidden border align-middle shadow-sm sm:rounded-sm">
                 <table class="min-w-full">
+                    {{-- SECTION Tabel Pendapatan --}}
                     {{-- Header Tabel --}}
                     <tr class="bg-zinc-200">
                         <th colspan="{{ request('periode') ? '2' : '3' }}"

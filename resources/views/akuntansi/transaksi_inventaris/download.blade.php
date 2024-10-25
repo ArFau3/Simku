@@ -1,13 +1,6 @@
 @extends('akuntansi.layouts.download')
 {{-- FIXME: tidak bisa pakai css terpisah --}}
 @section('content')
-    <p class="mt-5 uppercase text-sm font-bold tracking-tight antialiased">{{ $title }}</p>
-    <p class="uppercase text-sm font-bold tracking-tight antialiased">per.
-        {{-- FIXME: bulan tampilkan fullname + pastikan bahasa indo --}}
-        {{ \Carbon\Carbon::now()->format('d M Y') }}
-    </p>
-    {{-- FIXME: pdf size auto adjusted with omnitor size --}}
-    {{-- TODO: tambahkan total di bawah --}}
     {{-- SECTION Tabel Data --}}
     <div class="mt-5">
         <div class="py-2 -my-2 overflow-x-auto ">{{-- sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8  --}}
@@ -17,23 +10,12 @@
                     {{-- SECTION Header Tabel --}}
                     <thead>
                         <tr>
-                            <th
-                                class="w-1 pl-4 pr-2 text-xs font-bold leading-4 tracking-wider text-center text-black uppercase">
-                                No.</th>
-                            <th class="px-4 text-xs font-bold leading-4 tracking-wider text-center text-black uppercase">
-                                Tanggal</th>{{-- sm:px-4 --}}
-                            <th class="px-4 text-xs font-bold leading-4 tracking-wider text-center text-black uppercase">
-                                Jenis Transaksi
-                            </th>{{-- sm:px-4 --}}
-                            <th class="px-4 text-xs font-bold leading-4 tracking-wider text-center text-black uppercase">
-                                Debit - Kredit</th>{{-- sm:px-4 --}}
-                            <th
-                                class="px-4 border text-center  text-xs font-bold leading-4 tracking-wider text-black uppercase">
-                                Keterangan</th>{{-- sm:px-4 --}}
-                            <th
-                                class=" px-4 text-xs font-bold leading-4 tracking-wider text-center
-                                text-black uppercase">
-                                Total</th>{{-- sm:px-4 --}}
+                            <x-download.thead :value="__('No.')" />
+                            <x-download.thead :value="__('Tanggal')" />
+                            <x-download.thead :value="__('Jenis Transaksi')" />
+                            <x-download.thead :value="__('Debit - Kredit')" />
+                            <x-download.thead :value="__('Keterangan')" />
+                            <x-download.thead :value="__('Total')" />
                         </tr>
                     </thead>
                     {{-- END SECTION Header Tabel --}}
@@ -43,26 +25,14 @@
                         @for ($i = 0; $i < $transaksi->count(); $i++)
                             <?php $u = $i + 1; ?>
                             <tr>
-                                <td class="py-1 px-2 text-sm leading-5 text-black">
-                                    {{ $u }}
-                                </td>{{-- sm:px-6 --}}
-                                <td class="py-1 px-2 text-sm leading-5 text-black">
-                                    {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->format('d/m/Y') }}
-                                </td>{{-- sm:px-4 --}}
-                                <td class="py-1 px-2 text-sm leading-5 text-black">
-                                    {{ $transaksi[$i]->jenisTransaksi->jenis }}
-                                </td>{{-- sm:px-4 --}}
-                                <td class="py-1 px-2 text-sm leading-5 text-black">
-                                    {{ $transaksi[$i]->rekeningDebit->nama }} - {{ $transaksi[$i]->rekeningKredit->nama }}
-                                </td>{{-- sm:px-4 --}}
-                                <td class=" py-1 px-2 text-sm leading-5 text-black">
-                                    {{ $transaksi[$i]->keterangan }}
-                                </td>{{-- sm:px-4 --}}
-                                <td class="py-1 px-2 ">
-                                    <div class="text-sm leading-5 text-black">
-                                        {{ Number::currency($transaksi[$i]->nominal, 'IDR', 'id') }}
-                                    </div>{{-- sm:px-4 --}}
-                                </td>
+                                <x-download.normal-td :value="$u" />
+                                <x-download.normal-td :value="\Carbon\Carbon::parse($transaksi[$i]->tanggal)->format('d/m/Y')" />
+                                <x-download.normal-td :value="$transaksi[$i]->jenisTransaksi->jenis" />
+                                <x-download.normal-td :value="$transaksi[$i]->rekeningDebit->nama .
+                                    ' - ' .
+                                    $transaksi[$i]->rekeningKredit->nama" />
+                                <x-download.normal-td :value="$transaksi[$i]->keterangan" />
+                                <x-download.nominal-td :value="$transaksi[$i]->nominal" />
                             </tr>
                         @endfor
                     </tbody>

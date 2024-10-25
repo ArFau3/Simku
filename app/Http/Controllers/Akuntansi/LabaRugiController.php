@@ -16,16 +16,17 @@ class LabaRugiController extends Controller
         $taggalTutupBukuTerakhir = TutupBuku::where("akhir",  null)->get()[0]["awal"];
         if($request['periode']){
             $request['awal'] = $request['periode']."-01-01";
+            $request['akhir'] = Carbon::now()->toDateString();
         }elseif(!$request['awal'] && !$request['periode']){
             $request['awal'] = $taggalTutupBukuTerakhir;
+            $request['akhir'] = Carbon::now()->toDateString();
         }
-        $request['akhir'] = Carbon::now()->toDateString();
 // TODO: proses laba rugi sebelum dan sesuadh pajak
         $data = [
             "title" => "Laba Rugi",
             'user' => $request->user(),
-            'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->get(),
-            'beban' => Rekening::where('nomor', 'like',  5 . '%')->get(),
+            'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->orderBy('desimal')->get(),
+            'beban' => Rekening::where('nomor', 'like',  5 . '%')->orderBy('desimal')->get(),
             'judul' => 'Laba Rugi',
             'transaksi' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                         $request['akhir']
@@ -38,16 +39,26 @@ class LabaRugiController extends Controller
 
     public function download(Request $request)
     {
-        // FIXME: perbaiki tanggal per ?
+        $taggalTutupBukuTerakhir = TutupBuku::where("akhir",  null)->get()[0]["awal"];
+        if($request['periode']){
+            $request['awal'] = $request['periode']."-01-01";
+            $request['akhir'] = Carbon::now()->toDateString();
+        }elseif(!$request['awal'] && !$request['periode']){
+            $request['awal'] = $taggalTutupBukuTerakhir;
+            $request['akhir'] = Carbon::now()->toDateString();
+        }
+        
         $data = [
             "title" => "Laba Rugi",
             'user' => $request->user(),
-            'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->get(),
-            'beban' => Rekening::where('nomor', 'like',  5 . '%')->get(),
+            'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->orderBy('desimal')->get(),
+            'beban' => Rekening::where('nomor', 'like',  5 . '%')->orderBy('desimal')->get(),
             'judul' => 'Laba Rugi',
             'transaksi' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                         $request['akhir']
                                                                     )->get(),
+            'tutup_buku' => $taggalTutupBukuTerakhir,
+            'year' => \Carbon\Carbon::now()->year,
         ];
         $pdf = Pdf::loadView('akuntansi.laba_rugi.download', $data);
         $pdf->setPaper("A4", "potrait");

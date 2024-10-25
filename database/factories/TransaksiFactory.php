@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Rekening;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class TransaksiFactory extends Factory
      */
     public function definition(): array
     {
-        $transaksi = Rekening::all();
+        $transaksi = Rekening::whereNot(function (Builder $query) {
+            $query->where('desimal', 3060000);
+        })->get();
         return [
             'debit' => $transaksi->random()->id,
             'kredit' => $transaksi->random()->id,

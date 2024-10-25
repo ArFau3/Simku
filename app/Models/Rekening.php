@@ -34,10 +34,10 @@ class Rekening extends Model
     }
 
     public function transaksiDebit(): HasMany{
-        return $this->hasMany(TransaksiInventaris::class, 'debit');
+        return $this->hasMany(Transaksi::class, 'debit');
     }
     public function transaksiKredit(): HasMany{
-        return $this->hasMany(TransaksiInventaris::class, 'kredit');
+        return $this->hasMany(Transaksi::class, 'kredit');
     }
 
 }

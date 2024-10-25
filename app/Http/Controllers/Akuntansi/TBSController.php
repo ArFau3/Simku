@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Rekening;
 use App\Models\TBS;
 use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -64,5 +65,36 @@ class TBSController extends Controller
     public function delete(TBS $id){
         TBS::destroy($id->id);
         return redirect('/penjualan-tbs');
+    }
+
+    public function download(Request $request){
+        $tahun = Carbon::now()->year;
+        if (!$request['tahun']){
+            $request['awal'] = $tahun."-01-01";
+            $request['akhir'] = $tahun."-12-31";
+            $request['tahun'] = $tahun;
+        }else{
+            $request['awal'] = $request['tahun']."-01-01";
+            $request['akhir'] = $request['tahun']."-12-31";
+        }
+        
+        $data = [
+            "title" => "Penjualan TBS",
+            'user' => $request->user(),
+            'rekenings' => TBS::all(),
+            'judul' => 'Penjualan TBS',
+            'transaksis' => Transaksi::orderBy('tanggal')->filter($request['awal'],
+                                                                            $request['akhir']
+                                                                    )->get(),
+            "tahun" => $tahun,
+            "bulans" => ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+        ];
+       
+
+        $pdf = Pdf::loadView('akuntansi.tbs.download', $data);
+        $pdf->setPaper("A4", "landscape");
+        return $pdf->stream('Penjualan TBS.pdf');
+
+        // return view('akuntansi.transaksi_inventaris.download', $data);
     }
 }

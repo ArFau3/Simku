@@ -22,7 +22,7 @@ class BukuBesarController extends Controller
             // HACK: jika di paginate ketika ada filter maka error karena paginate di rekening tapi filter di transaksi
             $rekening = Rekening::orderBy('desimal')->get();
         }else{
-            $rekening = Rekening::orderBy('nomor')->paginate(10);
+            $rekening = Rekening::orderBy('desimal')->paginate(10);
         }
         $data = [
             "title" => "Buku Besar",

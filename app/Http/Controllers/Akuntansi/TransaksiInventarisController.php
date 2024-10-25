@@ -16,7 +16,7 @@ use Illuminate\Support\Number;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
-class TransaksiController extends Controller
+class TransaksiInventarisController extends Controller
 {
     public function indexTransaksi(Request $request)
     {
@@ -41,7 +41,7 @@ class TransaksiController extends Controller
     {
         if(!$request['awal']){
             $request['awal'] = $request->user()->koperasi->berdiri;
-            $request['akhir'] = \Carbon\Carbon::now()->toDateString();;
+            $request['akhir'] = \Carbon\Carbon::now()->toDateString();
         }
         $data = [
             "title" => "Aset Tetap",
@@ -56,10 +56,15 @@ class TransaksiController extends Controller
     }
 
     public function downloadTransaksi(Request $request){
-        // FIXME: perbaiki tanggal per ?
+        if(!$request['awal']){
+            $request['awal'] = $request->user()->koperasi->berdiri;
+            $request['akhir'] = \Carbon\Carbon::now()->toDateString();;
+        }
+
         $data = [
             'user' => $request->user(),
             'title' => "Histori Transaksi",
+            'judul' => 'Daftar Transaksi',
             'transaksi' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->get(),
@@ -73,8 +78,11 @@ class TransaksiController extends Controller
     }
     public function downloadInventaris(Request $request)
     {
-        // FIXME: perbaiki data judul & title
-        // FIXME: perbaiki tanggal per ?
+        if(!$request['awal']){
+            $request['awal'] = $request->user()->koperasi->berdiri;
+            $request['akhir'] = \Carbon\Carbon::now()->toDateString();;
+        }
+        
         $data = [
             "title" => "Aset Tetap",
             'user' => $request->user(),
@@ -86,7 +94,7 @@ class TransaksiController extends Controller
         ];
         $pdf = Pdf::loadView('akuntansi.transaksi_inventaris.download', $data);
         $pdf->setPaper("A4", "potrait");
-        return $pdf->download('Histori Inventaris.pdf');
+        return $pdf->stream('Histori Inventaris.pdf');
     }
 
     public function edit(Transaksi $id, Request $request)

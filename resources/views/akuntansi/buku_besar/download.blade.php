@@ -82,20 +82,16 @@
                             <tr>
                                 <x-download.total-nominal :value="__('Total')" :cols="__('3')" />
                                 {{-- Total Debit --}}
-                                <x-download.nominal :value="Number::currency($saldo_debit, 'IDR', 'id')" />
+                                <x-download.nominal :value="$saldo_debit" />
                                 {{-- END Total Debit --}}
                                 {{-- Total Kredit --}}
-                                <x-download.nominal :value="Number::currency($saldo_kredit, 'IDR', 'id')" />
+                                <x-download.nominal :value="$saldo_kredit" />
                                 {{-- END Total Kredit --}}
                                 {{-- Total Saldo --}}
                                 <?php $saldo = $saldo_debit - $saldo_kredit; ?>
-                                @if ($saldo >= 0)
-                                    <?php $data_saldo = Number::currency($saldo, 'IDR', 'id'); ?>
-                                @else
-                                    <?php $data_saldo = '(' . Number::currency($saldo * -1, 'IDR', 'id') . ')'; ?>
-                                @endif
 
-                                <x-download.nominal :value="$data_saldo" />
+
+                                <x-download.nominal :value="$saldo" />
                                 {{-- END Total Saldo --}}
                             </tr>
                             {{-- END Kolom Total --}}

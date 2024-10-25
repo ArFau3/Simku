@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('o_t_p_s', function (Blueprint $table) {
             $table->id();
+            $table->string("otp");
+            $table->datetime('expire_at');
+            $table->foreignId('user_id', 20);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

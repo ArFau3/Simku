@@ -3,7 +3,7 @@
 @section('content')
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <p class="text-3xl font-bold mb-4 text-center">Login</p>
+    <p class="text-3xl font-bold sm:mt-20 mb-4 text-center">Login</p>
     <div class="text-center text-base mb-6 lg:w-2/6 font-light">
         <p>"Selamat Datang di Sistem Informasi Internal Koperasi Perkebunan Sekadau. Kami Siap Mendukung Transparansi dan
             Pengelolaan Keuangan yang Lebih Baik"</p>
@@ -37,7 +37,7 @@
                     <div class="flex">
                         <p class="text-sm rounded-md mr-1">Lupa Password? </p>
                         <a class="underline text-sm text-sky-500 hover:text-zinc-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            href="{{ route('password.request') }}">
+                            href="/otp/pilih-nomor">
                             {{ __('Klik di sini') }}
                         </a>
                     </div>
@@ -50,8 +50,8 @@
                 <button class="bg-yellow-500 py-2 px-5 text-zinc-800 hover:bg-lime-700 rounded-sm font-bold"
                     type="submit">Masuk</button>
             </div>
+            {{-- END Button --}}
+        </form>
     </div>
-    {{-- END Button --}}
-    </form>
     </div>
 @endsection

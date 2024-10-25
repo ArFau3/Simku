@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('foto')->nullable();
             $table->string('no_hp');
+            $table->string('no_hp2')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->foreignId('koperasi_id', 20);

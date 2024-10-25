@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class OTP extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'otp',
+        'expire_at'
+    ];
+
+    public $timestamps = true;
 }

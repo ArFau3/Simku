@@ -6,29 +6,23 @@
         {{-- Form Tanggal --}}
         <div class="md:flex">
             <form action="" class="md:flex md:mx-2 mx-1 md:mb-0 mb-5">
-                <input id="awal" type="date" class="h-10 md:mx-1 mt-1 form-input block w-full focus:bg-white"
-                    id="my-textfield" name="awal" value="{{ request('awal') }}">
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    class="w-12 h-7 md:h-12 mx-auto">
-                    <path fill-rule="evenodd"
-                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-
-                <input id="akhir" type="date" class="h-10 mt-1 md:mx-1 form-input block w-full focus:bg-white"
-                    id="my-textfield" name="akhir" value="{{ request('akhir') }}">
-
-                <div>
-                    <button class="bg-amber-400 opacity-85 rounded-sm p-2 mt-1 font-medium text-sm lg:text-base antialiased"
-                        type="submit">Oke</button>
-                </div>
+                @if (request('cari'))
+                    <input type="hidden" name="cari" value="{{ request('cari') }}">
+                @endif
+                <x-filter.tanggal />
             </form>
-            @if (request('awal'))
-                <a href="/aktivitas" class="my-1">
-                    <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                </a>
+            @if (request('awal') != $user->koperasi->berdiri ||
+                    request('akhir') != \Carbon\Carbon::now()->addDays(1)->toDateString())
+                @if (request('cari'))
+                    <form action="" class="my-1">
+                        <input type="hidden" name="cari" value="{{ request('cari') }}">
+                        <x-filter.cancel-btn />
+                    </form>
+                @else
+                    <a href="/aktivitas" class="my-1">
+                        <x-filter.cancel-btn />
+                    </a>
+                @endif
             @endif
         </div>
         {{-- END Form Tanggal --}}
@@ -36,19 +30,26 @@
         <div class="sm:flex">
             <div class="rounded w-full sm:w-64 border px-1 my-1 antialiased">
                 <form action="" class="flex justify-between">
-                    <input type="text"
-                        class="border-0 bg-zinc-50 w-full sm:w-56 font-medium text-sm lg:text-sm focus:outline-zinc-50 focus:outline-none hover:cursor-pointer"
-                        name="cari" id="cari" placeholder="Keterangan" value="{{ request('cari') }}">
-                    <button>
-                        <i class="self-center fa fa-search text-gray-400" type="submit"></i>
-                    </button>
+                    {{-- FIXME: perbaiki logic --}}
+                    @if (request('awal'))
+                        <input type="hidden" name="awal" value="{{ request('awal') }}">
+                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                    @endif
+                    <x-filter.cari />
                 </form>
             </div>
             @if (request('cari'))
-                <a href="{{ strtolower($title) }}" class="my-1">
-                    <button
-                        class="hover:opacity-90 hover:text-lg hover:my-0 self-center fa fa-times text-white bg-red-600 rounded p-2 ml-0.5 mt-1 font-medium text-sm lg:text-base antialiased"></button>
-                </a>
+                @if (request('awal'))
+                    <form action="" class="">
+                        <input type="hidden" name="awal" value="{{ request('awal') }}">
+                        <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                        <x-filter.cancel-btn />
+                    </form>
+                @else
+                    <a href="/aktivitas" class="">
+                        <x-filter.cancel-btn />
+                    </a>
+                @endif
             @endif
         </div>
         {{-- END Sisi Kanan --}}
@@ -64,15 +65,9 @@
                     {{-- Header Tabel --}}
                     <thead class="bg-zinc-200">
                         <tr>
-                            <th colspan="2"
-                                class="w-20 sm:w-24 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Tanggal</th>
-                            <th colspan="5"
-                                class="px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Keterangan</th>
-                            <th colspan="1"
-                                class="w-16 sm:w-32 px-4 sm:px-6 py-3 text-xs font-bold leading-4 tracking-wider text-left text-gray-800 uppercase border-b border-gray-200">
-                                Aksi</th>
+                            <x-tabel.head :value="__('Tanggal')" />
+                            <x-tabel.head :value="__('Keterangan')" />
+                            <x-tabel.head :value="__('Aksi')" />
                         </tr>
                     </thead>
                     {{-- END Header Tabel --}}
@@ -81,16 +76,16 @@
                         @foreach ($aktivitas as $aktivitases)
                             <tr>
                                 {{-- Tanggal --}}
-                                <td colspan="2"
-                                    class="font-medium px-4 sm:px-6 py-3 text-sm leading-5 text-gray-800 whitespace-no-wrap border-b border-gray-200">
-                                    {{ \Carbon\Carbon::parse($aktivitases->created_at)->isoFormat('DD/MM/YYYY HH:mm') }} WIB
-                                </td>
+                                <x-tabel.td :value="\Carbon\Carbon::parse($aktivitases->created_at)->isoFormat(
+                                    'DD/MM/YYYY HH:mm',
+                                )" />
                                 {{-- END Tanggal --}}
                                 {{-- Keterangan --}}
-                                <td colspan="5" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800 font-medium">{!! ucfirst($aktivitases->deskripsi) !!}
-                                    </div>
-                                </td>
+                                {{-- HACK: harus pakai manual karna ada simbol dalam --}}
+                                <th
+                                    class='text-left font-medium py-2 px-4 sm:px-6  text-sm leading-tight text-gray-900 whitespace-no-wrap border-b border-gray-200'>
+                                    {!! ucfirst($aktivitases->deskripsi) !!}
+                                </th>
                                 {{-- END Keterangan --}}
                                 {{-- Aksi --}}
                                 <td colspan="1" class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200">

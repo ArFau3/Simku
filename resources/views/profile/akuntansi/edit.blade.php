@@ -76,11 +76,11 @@
                             type="password" class="mt-1 block w-full" autocomplete="new-password" />
                         <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
                     </div> --}}
-                    <a href="/">
+                    {{-- FIXME: link --}}
+                    <a href="/otp/pilih-nomor">
                         <button type="button"
                             class="bg-amber-400 opacity-85 p-2 mt-2 rounded-sm font-medium text-sm lg:text-base antialiased inline-block w-11/12">
-                            Ubah Password</button>
-                    </a>
+                            Ubah Password</button></a>
                 </div>
                 {{-- END Password --}}
             </section>

@@ -37,6 +37,7 @@
                 </div>
             </div>
             {{-- END Rekening Induk --}}
+            {{-- TODO: old data & error --}}
             {{-- Nomor Rekening --}}
             <div class="md:flex mb-6">
                 <div class="md:w-1/6 self-center">

@@ -12,9 +12,11 @@ use App\Http\Controllers\Akuntansi\PerubahanModalController;
 use App\Http\Controllers\Akuntansi\RekeningController;
 use App\Http\Controllers\Akuntansi\TBSController;
 use App\Http\Controllers\Akuntansi\TransaksiController;
+use App\Http\Controllers\Akuntansi\TransaksiInventarisController;
 use App\Http\Controllers\Akuntansi\TutupBukuController;
 use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\KoperasiController;
+use App\Http\Controllers\OTPController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Supplier\AngkutanController;
 use App\Http\Controllers\Supplier\BerandaController;
@@ -31,6 +33,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::controller(OTPController::class)->group(function(){
+    Route::get('/otp/pilih-nomor', 'index')->name('otp.login');
+    Route::post('/otp/generate', 'generate')->name('otp.generate');
+    Route::get('/otp/verification/{user_id}', 'verification')->name('otp.verification');
+    Route::post('/otp/login', 'loginWithOtp')->name('otp.getlogin');
 });
 
 // HACK: redirect user with !== roles access
@@ -56,7 +65,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan|pengurus'])->group(function
         Route::get('/rekening', 'index');
     });
 
-    Route::controller(TransaksiController::class)->group(function () {
+    Route::controller(TransaksiInventarisController::class)->group(function () {
         Route::get('/transaksi', 'indexTransaksi');
         Route::get('/transaksi/download', 'downloadTransaksi');
 
@@ -130,7 +139,7 @@ Route::middleware(['auth', 'verified', 'role:akuntan'])->group(function () {
     // HACK: DEBUG Download system
     Route::get('/downloadPDF', [RekeningController::class, 'downloadPDF']);
 
-    Route::controller(TransaksiController::class)->group(function () {
+    Route::controller(TransaksiInventarisController::class)->group(function () {
         Route::get('/transaksi/{id}', 'edit')->whereNumber('id');
         Route::post('/transaksi/update/{id}', 'update')->whereNumber('id');
         Route::get('/transaksi/tambah', 'tambah');

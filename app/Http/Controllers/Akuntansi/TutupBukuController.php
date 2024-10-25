@@ -45,7 +45,8 @@ class TutupBukuController extends Controller
         $data = [
             "title" => "Tutup Buku",
             'user' => $request->user(),
-            'rekenings' => Rekening::where('nomor', 'like',  4 . '%')->orWhere('nomor', 'like',  5 . '%')->get(),
+            'pendapatan' => Rekening::where('nomor', 'like',  4 . '%')->orderBy('desimal')->get(),
+            'beban' => Rekening::where('nomor', 'like',  5 . '%')->orderBy('desimal')->get(),
             'judul' => 'Lakukan Tutup Buku',
             'transaksis' => Transaksi::orderBy('tanggal')->filter($request['awal'],
                                                                             $request['akhir']
@@ -55,34 +56,46 @@ class TutupBukuController extends Controller
     }
 
     public function store(Request $request){
-        // dd($request->nominal);
-
-        // Cari tutup buku terakhir
-        $tutup_buku_terakhir = TutupBuku::where("akhir",  null)->get()[0];
-        // edit data sesuai tutup buku yang baru dilakukan
-        $tutup_buku_terakhir->awal = $request->awal;
-        $tutup_buku_terakhir->akhir = $request->akhir;
-        $tutup_buku_terakhir->nominal = $request->nominal * -1;
-        $tutup_buku_terakhir->save();
+        // konfigurasi nilai nominal
+        $nominal = $request->nominal;
         // edit data rekening laba rugi di modal agar neraca seimbang
-
-        // FIXME: bagaimana dengan rekening laba rugi ditahan?
-        $transaksi = new Transaksi();
-        // FIXME: debit pakai rekening apa ya?
-        $transaksi->debit = 10000;
-        $transaksi->kredit = 11;
-        $transaksi->jenis = 8;
-        $transaksi->tanggal = $request->akhir;
-        $transaksi->keterangan = "Tutup Buku Periode ". \Carbon\Carbon::parse($request->awal)->format('d M Y')." s/d ".
-         \Carbon\Carbon::parse($request->akhir)->format('d M Y');
-        $transaksi->nominal = $request->nominal * -1;
-        $transaksi->save();
+        if($nominal >= 0){
+            $transaksi = Transaksi::create([
+                // HACK: hardcode rekening by id, 11 = laba rugi tahun berjalan, 12 laba rugi ditahan, 18 = ikhtisar laba/rugi
+                "debit" => 18,
+                "kredit" => 11,
+                "jenis" => 8,
+                "tanggal" => $request->akhir,
+                "keterangan" => "Tutup Buku Periode ". \Carbon\Carbon::parse($request->awal)->format('d M Y')." s/d ".
+                 \Carbon\Carbon::parse($request->akhir)->format('d M Y'),
+                "nominal" => $nominal,
+                ])->id;
+        }else{
+            $transaksi = Transaksi::create([
+                // HACK: hardcode rekening by id, 11 = laba rugi tahun berjalan, 12 laba rugi ditahan, 18 = ikhtisar laba/rugi
+                "debit" => 11,
+                "kredit" => 18,
+                "jenis" => 8,
+                "tanggal" => $request->akhir,
+                "keterangan" => "Tutup Buku Periode ". \Carbon\Carbon::parse($request->awal)->format('d M Y')." s/d ".
+                 \Carbon\Carbon::parse($request->akhir)->format('d M Y'),
+                "nominal" => $nominal *-1,
+                ])->id;
+        }
         // TODO: buat aktivitas
+
+         // Cari tutup buku terakhir
+         $tutup_buku_terakhir = TutupBuku::where("akhir",  null)->get()[0];
+         // edit data sesuai tutup buku yang baru dilakukan
+         $tutup_buku_terakhir->awal = $request->awal;
+         $tutup_buku_terakhir->akhir = $request->akhir;
+         $tutup_buku_terakhir->transaksi_id = $transaksi;
+         $tutup_buku_terakhir->save();
+
         // buat tutup buku periode baru
         $tutup_buku_baru = new TutupBuku();
         $tanggal_awal = Carbon::createFromFormat('Y-m-d', $request->akhir);
         $tutup_buku_baru->awal = $tanggal_awal->addDays(1);
-        $tutup_buku_baru->nominal = 0;
         $tutup_buku_baru->save();
         return redirect('/tutup-buku');
     }
@@ -92,16 +105,17 @@ class TutupBukuController extends Controller
         $tutup_buku_terakhir = TutupBuku::where("akhir",  null)->get()[0];
         TutupBuku::destroy($tutup_buku_terakhir->id);
 
-        // Perbaiki nominal di rekening laba rugi modal 
-        $transaksi = Transaksi::where("kredit", 11)->where("tanggal", $id->akhir)->where("nominal", $id->nominal)->first();
-        Transaksi::destroy($transaksi->id);
-        // TODO: buat aktivitas
-        // FIXME: bagaimana dengan rekening laba rugi ditahan?
+        // Tampung id transaksi sebelum dijadikan null
+        $transaksi = $id->transaksi_id;
 
         // edit $id/tutup buku terakhir yang PUNYA tanggal akhir
         $id->akhir = null;
-        $id->nominal = 0;
+        $id->transaksi_id = null;
         $id->save();
+
+        // Perbaiki nominal di rekening laba rugi modal 
+        Transaksi::destroy($transaksi);
+        // TODO: buat aktivitas
 
         return redirect('/tutup-buku');
     }

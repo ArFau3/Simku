@@ -32,10 +32,17 @@ $total_modal = []; ?>
             {{-- END Bandingkan Tahun --}}
         </div>
         {{-- END Sisi Kiri --}}
-        @if (request('awal'))
+        @if (
+            (request('awal') != $tutup_buku || request('akhir') != \Carbon\Carbon::now()->toDateString()) &&
+                !request('periode'))
             <form action="neraca/download">
                 <input type="hidden" name="awal" value="{{ request('awal') }}">
                 <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+                <x-button.download />
+            </form>
+        @elseif(request('periode'))
+            <form action="neraca/download">
+                <input type="hidden" name="periode" value="{{ request('periode') }}">
                 <x-button.download />
             </form>
         @else
@@ -348,7 +355,7 @@ $total_modal = []; ?>
                         {{-- END Baris Total Ekuitas --}}
                         {{-- END SECTION Tabel Ekuitas --}}
                         {{-- Baris Total Kewajiban & Ekuitas --}}
-                        <tr class="border-gray-400">
+                        <tr class="bg-zinc-200 border-gray-400">
                             <x-tabel.total-col :value="__('Kewajiban & Ekuitas')" :cols="2" />
                             @if (request('periode'))
                                 {{-- {{ dd($total_aset) }} --}}

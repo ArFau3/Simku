@@ -21,7 +21,7 @@
 <body class="text-zinc-100 antialiased">
     <div class="min-h-screen flex flex-col w-full my-1 bg-zinc-800">
         {{-- SECTION Header --}}
-        <div class="bg-zinc-600/75 mt-4 mb-1.5 mx-1.5 sm:mx-5 py-2 px-3 rounded flex justify-between">
+        <div class="h-1/6 bg-zinc-600/75 mt-4 mb-1.5 mx-1.5 sm:mx-5 py-2 px-3 rounded flex justify-between">
             <div class="">
                 {{-- TODO: logo dan data simku, karna koperasi blm masuk jadi tidak bisa pakai itu --}}
                 <img src="/assets/logo.png" alt="logo.png"
@@ -39,14 +39,21 @@
         </div>
         {{-- END SECTION Header --}}
         {{-- SECTION Body --}}
-        <div class="min-h-screen sm:mt-0 mt-10 flex flex-col sm:justify-center items-center">
+        <div class="sm:absolute w-full h-screen  sm:mt-0 mt-10 flex flex-col justify-center items-center">
             @yield('content')
         </div>
         {{-- END SECTION Body --}}
         {{-- SECTION Footer --}}
-        <div class="container static bottom-0 min-w-full -mt-2 self-end py-1 border border-slate-400 bg-zinc-500/75">
+        <div class="container fixed bottom-0 min-w-full -mt-2 self-end py-1 border border-slate-400 bg-zinc-500/75">
             <p class="text-center text-sm">Copyright &copy; Koperasi Sekadau 2023</p>
         </div>
         {{-- END SECTION Footer --}}
     </div>
 </body>
+<script type="text/javascript">
+    function DoSubmit(item, nomor) {
+        console.log(item);
+        $("input[data-type='nomor_otp']").val(nomor);
+        document.getElementById(item).submit();
+    }
+</script>

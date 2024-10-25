@@ -11,6 +11,11 @@ class AktivitasController extends Controller
 {
     #region test
     public function index(Request $request){
+        if(!$request['awal']){
+            $request['awal'] = $request->user()->koperasi->berdiri;
+            $request['akhir'] = \Carbon\Carbon::now()->addDays(1)->toDateString();
+        }
+
         $data = [
             "title" => "Aktivitas",
             'user' => $request->user(),

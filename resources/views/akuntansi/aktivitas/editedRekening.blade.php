@@ -116,4 +116,7 @@
             {{-- END SECTION CURRENT --}}
         </div>
     </section>
+    <a href="/aktivitas">
+        <x-button.cancel :value="__('Kembali')" />
+    </a>
 @endsection

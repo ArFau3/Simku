@@ -48,6 +48,7 @@
                     </label>
                 </div>
                 {{-- FIXME: perbaiki dropdown --}}
+                {{-- FIXME: nomor tidak lgsg dari awal tapi balik ke 1.4 karena yg plga pertama rekening aset sampai 1.3 --}}
                 <div class="md:w-5/6">
                     <input disabled class="form-input block w-full focus:bg-white" id="my-textfield" type="text"
                         value="{{ $rekening->nomor }}" data-type="nomor_rekening">

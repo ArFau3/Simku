@@ -23,8 +23,11 @@ class JurnalUmumController extends Controller
             'user' => $request->user(),
             'judul' => 'Jurnal Umum',
             'transaksis' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
-                                                                                                    $request['akhir']
-                                                                                            )->paginate(50),
+                                                                                            $request['akhir']
+                                                                                    )->paginate(20),
+            'total' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+                                                                                    $request['akhir']
+                                                                            )->sum("nominal"),
         ];
         return view('akuntansi.ju.index', $data);
     }
@@ -40,6 +43,9 @@ class JurnalUmumController extends Controller
             'transaksi' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
                                                                                                     $request['akhir']
                                                                                             )->get(),
+            'total' => Transaksi::orderBy('tanggal')->cari($request['cari'])->filter($request['awal'],
+                                                                                    $request['akhir']
+                                                                            )->sum("nominal"),
             'ju' => $periode->whereNull('akhir'),
         ];
         $pdf = Pdf::loadView('akuntansi.ju.download', $data);

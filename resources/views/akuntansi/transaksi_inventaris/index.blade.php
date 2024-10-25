@@ -2,7 +2,6 @@
 
 @section('content')
     {{-- SECTION tombol akses sebelum tabel --}}
-    {{-- {{ dd($transaksi) }} --}}
     <div class="md:flex justify-between">
         <div class="md:flex">
             {{-- SECTION Tambah Transaksi if halaman transaksi --}}
@@ -86,6 +85,7 @@
             <div class="flex">
                 <div class="rounded w-full sm:w-64 border px-1 antialiased">
                     <form action="" class="flex justify-between">
+                        {{-- FIXME: perbaiki logic --}}
                         @if (request('awal'))
                             <input type="hidden" name="awal" value="{{ request('awal') }}">
                             <input type="hidden" name="akhir" value="{{ request('akhir') }}">
@@ -152,6 +152,7 @@
                                         <button type="submit" class="text-indigo-600 hover:text-indigo-900"
                                             onclick="return confirm('Anda akan Menghapus Transaksi &quot;{{ $transaksi[$i]->keterangan }}&quot; yang terjadi di tanggal {{ \Carbon\Carbon::parse($transaksi[$i]->tanggal)->isoFormat('D MMMM Y') }}')">Hapus</button>
                                     </form>
+                                    {{-- FIXME: jika data transaksi untuk tutup buku dihapus, tabel tutup bukunya diperbaiki --}}
                                 </td>
                             </tr>
                         @endfor

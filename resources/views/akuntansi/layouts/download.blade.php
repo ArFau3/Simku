@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Download Data | Simku</title>
+    <title>Download {{ $title }} | Simku</title>
     {{-- <link href="/css/style.css" rel="stylesheet"> --}}
     {{-- @vite('resources/css/app.css') --}}
     <style>
@@ -212,6 +212,10 @@
             min-width: 100%
         }
 
+        .max-w-full {
+            max-width: 100%;
+        }
+
         .overflow-hidden {
             overflow: hidden
         }
@@ -222,6 +226,11 @@
 
         .pl-4 {
             padding-left: 1rem
+        }
+
+        .w-5 {
+            width: 1.25rem;
+            /* 20px */
         }
 
         .pr-2 {
@@ -372,6 +381,15 @@
             visibility: hidden
         }
 
+        .text-wrap {
+            text-wrap: wrap;
+        }
+
+        .bg-zinc-200 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(228 228 231)
+        }
+
         .mt-4 {
             margin-top: 1rem
         }
@@ -404,6 +422,10 @@
 
         .mr-2 {
             margin-right: .5rem
+        }
+
+        .w-20 {
+            width: 5rem
         }
 
         .justify-between {

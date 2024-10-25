@@ -313,7 +313,7 @@
             // Gabung nomor induk dan anak
             var nomor_rekening = nomor_induk + "." + nomor_anak
             console.log("nomor induk: " + nomor_rekening);
-            // kirim ke form di kolom nomor rekening
+            // kirim nilai ke form 
             $("input[data-type='nomor_rekening']").val(nomor_rekening);
         }
     @endif

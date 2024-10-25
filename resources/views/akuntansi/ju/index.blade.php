@@ -80,7 +80,7 @@
                             </tr>
                         @endforeach
                         {{-- Baris Total --}}
-                        <?php $total = $transaksis->sum('nominal'); ?>
+                        {{-- $total = $transaksis->sum('nominal'); --}}
                         <tr class="border-2 border-gray-400">
                             {{-- Kolom Label Total --}}
                             <x-tabel.total-col :value="__('Total')" :cols="__('3')" />

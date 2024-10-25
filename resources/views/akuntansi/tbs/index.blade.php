@@ -33,14 +33,13 @@ $total_modal = collect([]); ?>
         {{-- END Form Tanggal --}}
         {{-- FIXME: tabel keluar layout --}}
         {{-- FIXME: total debit kredit masih blm seimbang padahal sudah tutup buku --}}
-        @if (request('awal'))
-            <form action="neraca/download" class="my-1">
-                <input type="hidden" name="awal" value="{{ request('awal') }}">
-                <input type="hidden" name="akhir" value="{{ request('akhir') }}">
+        @if (request('tahun') && (int) request('tahun') != $tahun)
+            <form action="/penjualan-tbs/download" class="my-1">
+                <input type="hidden" name="tahun" value="{{ request('tahun') }}">
                 <x-button.download />
             </form>
         @else
-            <a href="neraca/download">
+            <a href="/penjualan-tbs/download">
                 <x-button.download />
             </a>
         @endif
